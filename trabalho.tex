@@ -453,26 +453,9 @@ Sendo assim, grande parte das pesquisas relacionadas a sistemas de recomendaçã
 
 Considerando que os sistemas de recomendação usualmente abordam apenas algumas, das muitas métricas que definem a utilidade de um item ao usuário, \citeonline{mcnee2006being} ressaltam que cada vez mais a utilização de sistemas de recomendação leva a construção de um conjunto de itens muito similar. Isso ocorre pois quando um usuário avalia um item, as próximas recomendações levarão o mesmo em consideração, recomendando itens cada vez mais parecidos com o item avaliado. Este processo acaba gerando o que \citeonline{mcnee2006being} definem como “\textbf{buraco de similaridade}”, onde o sistema tende a fazer apenas recomendações excepcionalmente similares.
 
+\section{API: \textit{Application Programming Interface}}
 
-\section{COMPUTAÇÃO DE ALTO DESEMPENHO EM GPU}
-
-Com a rápida evolução e ubiquidade das GPUs, apresentada por \citeonline{nickolls2010gpu}, as unidades de processamento gráfico (\textbf{GPU}) antes utilizadas apenas como processadores gráficos, hoje são utilizadas como processadores paralelos e tornaram-se a plataforma com o maior custo benefício, executando milhares de threads ao mesmo tempo. Além disso, a GPU permite aplicações antes inviáveis, devido a programas com longo tempo de execução. 
-
-Além disso, \citeonline{fan2004gpu} apresentam a GPU como uma plataforma projetada para ser extremamente rápida no processamento de grandes conjuntos de dados. Porém, para fazer proveito do design e rapidez da GP, tornando seu uso viável, é necessário que as aplicações que manuseiam estes dados compartilhem de algumas características \cite{owens2008gpu}:
-
-\begin{itemize}
-
-	\item \textbf{Requerimento computacional grande:} aplicações que necessitam de resposta em tempo real (ou perto disso) se beneficiam muito da arquitetura de uma GPU, conseguindo entregar milhares de operações paralelas por segundo.
-
- 	\item \textbf{Paralelismo substancial:} devido a arquitetura da GPU possuir muito mais núcleos e unidades de paralelismo que um processador comum, executar tarefas originalmente independentes, tais como operações em vértices e matrizes, torna-se muito mais rápido.
-
-	\item \textbf{Vazão mais importante que latência:} aplicações em que a vazão de dados é mais importante que a latência, ou seja, onde o tempo de processamento é o gargalo computacional, não o tempo de acesso.
-
-\end{itemize}
-
-Analisando as características apresentadas por \citeonline{owens2008gpu}, é possível perceber a semelhança entre as aplicações que usufruem da GPU e os sistemas de recomendação. Levando em consideração que a matriz $n \times m$ de avaliações dos usuários pode chegar a milhares ou até milhões de avaliações a serem processadas \cite{gomez2016netflix}, a utilização da GPU para o processamento destes dados torna-se viável.
-
-Assim como a aplicação apresentada por \citeonline{do2013filtragem}, este trabalho pretende aproveitar os ganhos da utilização de GPUs no processamento da matriz de similaridades. Estes ganhos podem chegar em uma redução de tempo de até cem vezes, através da utilização da tecnologia \textbf{CUDA} \cite{luebke2008cuda}, podendo fazer a diferença na utilização de um sistema de recomendação como serviço.
+ASDOIHASIDOH Aasoidhaosdh asdoi has
 
 %
 %--------- FIM REFERENCIAL TEORICO------------
@@ -488,13 +471,13 @@ Como forma de recomendação será utilizado o método híbrido, composto dos m�
 
 De posse das estruturas de metadados fornecidas na inicialização, o cliente poderá alimentar o sistema através das interfaces desenvolvidas na API, constituída pelas funções: \textbf{novos usuários}, \textbf{novos itens} e \textbf{novas avaliações}. Estas três ações de alimentação serão responsáveis por preencher os respectivos conjuntos anteriormente descritos e, a partir deles, construir os modelos de cada usuário para o método colaborativo, bem como a matriz de avaliações para o método baseado em conteúdo. Durante a requisição de uma recomendação, a API definirá o método a ser utilizado e o mesmo fará as recomendações com base nos dados conhecidos, respeitando as propriedades descritas nos metadados.
 
-Em um primeiro momento, a API utilizará o método baseado em conteúdo para fornecer as recomendações e predições, uma vez que poucos itens estarão avaliados e o método colaborativo não terá modelos de usuários suficientes. Assim que as métricas de relações entre usuários e quantidade de modelos processados sejam supridas, a API passará a utilizar o método de filtragem colaborativa, caso este esteja gerando recomendações mais precisas. 
+Em um primeiro momento, a API utilizará o método baseado em conteúdo para fornecer as recomendações e predições, uma vez que poucos itens estarão avaliados e o método colaborativo não terá modelos de usuários suficientes. Assim que as métricas de relações entre usuários e quantidade de modelos processados sejam supridas, a API passará a utilizar o método de filtragem colaborativa, caso este esteja gerando recomendações mais precisas.
 
 Além disso, a API também possuirá a opção do processamento na GPU, agilizando ainda mais o retorno das requisições dos clientes. Este processamento fará uso da tecnologia \textbf{CUDA}, utilizando a GPU nos casos em que seja necessário percorrer a matriz de avaliações, além dos casos de processamento dos modelos de usuários.
 
 \section{TRABALHOS RELACIONADOS}
 
-Tendo como base as técnicas descritas acima, existem trabalhos como os apresentados por \citeonline{guo2015librec}, que abordam as técnicas em forma de biblioteca Java a ser incluída nos projetos. Esta abordagem torna a utilização mais simples devido ao fato do usuário poder utilizar apenas as funcionalidades da biblioteca, preocupando-se com o formato de entrada e saída dos dados, não com o processo de recomendação em si. Outra abordagem interessante é a proposta por \citeonline{brozovsky2007recommender} ao construir uma biblioteca C\# multi-propósito, focando na recomendação de itens com base na avaliação em um esquema de \textit{rating} (de uma a cinco estrelas), ou com base apenas em itens com avaliação positiva. 
+Tendo como base as técnicas descritas acima, existem trabalhos como os apresentados por \citeonline{guo2015librec}, que abordam as técnicas em forma de biblioteca Java a ser incluída nos projetos. Esta abordagem torna a utilização mais simples devido ao fato do usuário poder utilizar apenas as funcionalidades da biblioteca, preocupando-se com o formato de entrada e saída dos dados, não com o processo de recomendação em si. Outra abordagem interessante é a proposta por \citeonline{brozovsky2007recommender} ao construir uma biblioteca C\# multi-propósito, focando na recomendação de itens com base na avaliação em um esquema de \textit{rating} (de uma a cinco estrelas), ou com base apenas em itens com avaliação positiva.
 
 Do mesmo modo que a biblioteca desenvolvida por \citeonline{brozovsky2007recommender}, a API proposta neste trabalho também visa ser multi-propósito e distribuída como código aberto pela licença pública GNU (\textbf{GPL}), porém, fornecendo tais funcionalidades como um serviço web independente de linguagem de programação, o que não acontece nos exemplos apresentados.
 
