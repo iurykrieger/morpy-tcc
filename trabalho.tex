@@ -21,7 +21,7 @@
 % Pacotes de citações
 % ---
 
-% --- 
+% ---
 % CONFIGURAÇÕES DE PACOTES
 
 % Quadro
@@ -54,11 +54,11 @@
 
 \makeatletter
 \hypersetup{
-		pdftitle={\@title}, 
+		pdftitle={\@title},
 		pdfauthor={\@author},
     	pdfsubject={\imprimirpreambulo},
 	    pdfcreator={LaTeX with abnTeX2},
-		pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico}, 
+		pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico},
 		colorlinks=true,       		% false: boxed links; true: colored links
     	linkcolor=blue,          	% color of internal links
     	citecolor=blue,        		% color of links to bibliography
@@ -68,7 +68,7 @@
 }
 \makeatother
 \setlength{\parindent}{1.3cm}
-\setlength{\parskip}{0.2cm} 
+\setlength{\parskip}{0.2cm}
 \makeindex
 
 \begin{document}
@@ -78,7 +78,7 @@
 
 \begin{comment}
 \begin{folhadeaprovacao}
-	\begin{figure}[htb]  		
+	\begin{figure}[htb]
 		\begin{center}
 			\includegraphics{images/logo.png}
 		\end{center}
@@ -86,27 +86,27 @@
 	{\ABNTEXchapterfont\large{\textbf{BACHARELADO EM CIÊNCIA DA COMPUTAÇÃO}}}
 	\begin{center}
 		{\ABNTEXchapterfont\large\imprimirautor}
-		
+
 		\vspace*{\fill}\vspace*{\fill}
 		\begin{center}
 			\ABNTEXchapterfont\bfseries\Large\imprimirtitulo
 		\end{center}
 		\vspace*{\fill}
 	\end{center}
-	
+
 	Este Trabalho de Conclusão de Curso foi julgado adequado para a obtenção do título de Nome do Título em Nome do Curso, Área de Concentração e aprovada em sua forma final pelo Curso de Nome do Curso
-	
-	\assinatura{\textbf{\imprimirorientador} \\ Orientador} 
+
+	\assinatura{\textbf{\imprimirorientador} \\ Orientador}
 	\assinatura{\textbf{Msc. Marcelo Cendron} \\ Professor Convidado I}
 	\assinatura{\textbf{Maurício Ferreira} \\ Professor Convidado II}
-	
+
 	\begin{center}
 		\vspace*{0.5cm}
 		{\large\imprimirlocal}
 		\par
 		{\large\imprimirdata}
 		\vspace*{1cm}
-	\end{center}	
+	\end{center}
 \end{folhadeaprovacao}
 \end{comment}
 
@@ -119,45 +119,43 @@
     \vspace*{\fill}\vspace*{\fill}\vspace*{\fill}
     {\large\imprimirtitulo}
     \vspace*{\fill}\vspace*{\fill}
-    
+
     \hspace{.45\textwidth}
     \begin{minipage}{.5\textwidth}
         \imprimirpreambulo
     \end{minipage}%
     \vspace*{\fill}
    \end{center}
-    
+
   \begin{center}
-  	 Videira (SC), 16 de Maio de 2017 
+  	 Videira (SC), 16 de Maio de 2017
   \end{center}
-  
 
     \vspace{-1cm}
 
-  
-   \assinatura{\begin{center}\vspace{-0.6cm}\imprimirorientador \\ 
+   \assinatura{\begin{center}\vspace{-0.6cm}\imprimirorientador \\
    					   Instituto Federal Catarinense
-   					   \end{center}				   			    
+   					   \end{center}
    	}
-   	\assinatura{\begin{center}\vspace{-0.6cm} Msc. Wanderson Rigo \\ 
+   	\assinatura{\begin{center}\vspace{-0.6cm} Msc. Wanderson Rigo \\
    					   Instituto Federal Catarinense
-   					   \end{center}				   			    
-   	}  
+   					   \end{center}
+   	}
     \begin{center}
   	\textbf{BANCA EXAMINADORA}
    \end{center}
    \vspace{-1cm}
-   \assinatura{\begin{center}\vspace{-0.6cm} Msc. Marcelo Cendron \\ 
+   \assinatura{\begin{center}\vspace{-0.6cm} Msc. Marcelo Cendron \\
       					   Instituto Federal Catarinense
    					     \end{center}
    }
-   \assinatura{\begin{center}\vspace{-0.6cm}Maurício Ferreira \\ 
+   \assinatura{\begin{center}\vspace{-0.6cm}Maurício Ferreira \\
        					   Instituto Federal Catarinense
    					    \end{center}
     }
-    
+
     \vspace*{1cm}
-  
+
 \end{folhadeaprovacao}
 
 \setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
@@ -165,11 +163,11 @@
 
 Devido a expansão massiva de dados produzidos e disponíveis na Internet, os usuários estão cada vez mais sobrecarregados de informação, não sabendo distinguir informações realmente úteis. Para sanar este problema, os sistemas de recomendação visam recomendar os itens mais úteis a cada usuário, através de técnicas de machine learning. Tais técnicas visam prever a avaliação de um usuário a um item, baseando-se nas avaliações já conhecidas. Este trabalho propõe o desenvolvimento de uma API Web de código aberto que recomenda itens a usuários, fazendo uso de um sistema de recomendação híbrido que analisa as estruturas pré definidas e proporciona recomendações, baseando-se nos metadados fornecidos, através do conteúdo do item e da filtragem colaborativa de usuários. Tal sistema poderá processar suas recomendações utilizando a GPU, minimizando o tempo da requisição de recomendação e consequentemente aumentando a eficiência da aplicação. Dessa forma é possível fornecer um serviço multi-propósito desprendido de qualquer ambiente e linguagem de programação, trazendo uma visão mais transparente dos sistemas de recomendação aos desenvolvedores.
 
-\textbf{Palavras-chaves}: Sistemas de Recomendação. Aprendizado de Máquina. Metadados. Computação em GPU. 
+\textbf{Palavras-chaves}: Sistemas de Recomendação. Aprendizado de Máquina. Metadados. Computação em GPU.
 \end{resumo}
 
 \begin{resumo}[Abstract]
- \begin{otherlanguage*}{english}   
+ \begin{otherlanguage*}{english}
 
 Due to the massive expansion of data produced and available on the Internet, users are increasingly overloaded with information, not knowing how to distinguish which is really useful. To remedy this problem, recommendation systems aim to recommend the most useful items to each user through machine learning techniques. These techniques are intended to predict a user's rating of an item, based on previously known rating. This work proposes the development of an open-source Web API that recommends items to users, making use of a hybrid recommendation system that analyzes the pre-defined structures and provides recommendations, based on the metadata provided, through item content and collaborative filtering. Such a system can process its recommendations using the GPU, minimizing the time of the recommendation request and consequently increasing the application efficiency. Therefore is possible to provide a multi-purpose service detached from any environment and programming language, bringing a more transparent view of recommendation systems to developers.
 
@@ -183,7 +181,7 @@ Due to the massive expansion of data produced and available on the Internet, use
 \counterwithout{quadro}{chapter}
 \newpage % Forçar a lista de quadros em uma nova página
 \phantomsection % Comando necessário caso o pacote hyperref seja utilizado, visando a corrigir o link
-\pdfbookmark[0]{\listofquadros}{lof} 
+\pdfbookmark[0]{\listofquadros}{lof}
 \listofquadros* % Adiciona lista de quadros
 \cleardoublepage
 
@@ -200,7 +198,7 @@ Due to the massive expansion of data produced and available on the Internet, use
 %\begin{siglas}
 %
 %	\item[ABNT]{Associação Brasileira de Normas Técnicas}
-%   \item[IBGE]{Instituto Brasileiro de Geografia e Estatística} 
+%   \item[IBGE]{Instituto Brasileiro de Geografia e Estatística}
 %
 %\end{siglas}
 
@@ -213,13 +211,13 @@ Due to the massive expansion of data produced and available on the Internet, use
 
 \chapter{INTRODUÇÃO}
 
-Com o avanço crescente do campo tecnológico, os computadores vêm desempenhando tarefas antes incumbidas à seres humanos. O poder de computação provou-se muito eficaz ao desempenhar tarefas que possuíssem um padrão possível de se expressar através de um algoritmo, mais ainda, se este padrão fosse repetitivo. 
+Com o avanço crescente do campo tecnológico, os computadores vêm desempenhando tarefas antes incumbidas à seres humanos. O poder de computação provou-se muito eficaz ao desempenhar tarefas que possuíssem um padrão possível de se expressar através de um algoritmo, mais ainda, se este padrão fosse repetitivo.
 
-Logo os computadores começaram a desempenhar funções nas mais diversas áreas, desde cálculos matemáticos à manipulação de imagens. Atualmente, das funções desempenhadas pelos computadores, a mais difícil de se reproduzir com precisão é o padrão de raciocínio humano. 
+Logo os computadores começaram a desempenhar funções nas mais diversas áreas, desde cálculos matemáticos à manipulação de imagens. Atualmente, das funções desempenhadas pelos computadores, a mais difícil de se reproduzir com precisão é o padrão de raciocínio humano.
 
 Alguns autores defendem que para que um computador atinja tal nível, seria necessário que o mesmo possuísse consciência, assim como os seres humanos. Outros defendem que o raciocínio humano não consegue ser reproduzido, apenas emulado, devido à impossibilidade de se programar uma consciência computacional. Tal área de estudo, que tem como o foco o desenvolvimento de sistemas computacionais rumo a proximidade do método humano, chama-se inteligência artificial \cite{russell2004inteligencia, coppin2015inteligencia}.
 
-Possível ou não, é inegável o avanço da inteligência artificial desde seu início nos primórdios da computação. Algumas tarefas, tais como a atribuição de uma consciência a um sistema computacional, deixaram de ser o foco da área, uma vez que não possuímos a tecnologia para construir sistemas muito mais complexos que os atuais  \cite{russell2004inteligencia}. 
+Possível ou não, é inegável o avanço da inteligência artificial desde seu início nos primórdios da computação. Algumas tarefas, tais como a atribuição de uma consciência a um sistema computacional, deixaram de ser o foco da área, uma vez que não possuímos a tecnologia para construir sistemas muito mais complexos que os atuais  \cite{russell2004inteligencia}.
 
 Entretanto, a inteligência artificial encontrou-se muito eficaz em outras áreas do método humano, tais como o aprendizado, um dos segmentos mais importantes da área, dentro da inteligência artificial chamado de aprendizado de máquina (\textit{machine learning}) \cite{coppin2015inteligencia}.
 
@@ -227,9 +225,9 @@ Desde os anos 90 a preocupação com o armazenamento e a expansão massiva de da
 
 Sistemas de recomendação (RSs) são ferramentas de  software e técnicas que provém sugestões de artefatos à usuários. Estes artefatos são definidos como os objetos de valor à serem recomendados \cite{ricci2011introduction}. Atualmente, o interesse em tais sistemas se mantém alto, devido a abundância de aplicações práticas \cite{adomavicius2005toward}, exemplificadas nos casos de \textit{E-commerce} por \citeonline{schafer2001commerce}, além de \citeonline{linden2003amazon}, onde são amplamente utilizados.
 
-Desta forma, sistemas de recomendação vem sendo desenvolvidos para a resolução do problema descrito nas mais diversas áreas \cite{bennett2007netflix, gavalas2014mobile}, desde aplicações hoteleiras como o TripAdvisor até aplicações de entretenimento como a Netflix, além da sua origem nos \textit{E-commerces} citados anteriormente. Muitos destes sistemas são casos de RSs aplicados a itens e finalidades específicas \cite{huang2002graph, brozovsky2007recommender}, onde todo o motor de recomendação segue uma abordagem baseada no padrão que lhe foi dado. 
+Desta forma, sistemas de recomendação vem sendo desenvolvidos para a resolução do problema descrito nas mais diversas áreas \cite{bennett2007netflix, gavalas2014mobile}, desde aplicações hoteleiras como o TripAdvisor até aplicações de entretenimento como a Netflix, além da sua origem nos \textit{E-commerces} citados anteriormente. Muitos destes sistemas são casos de RSs aplicados a itens e finalidades específicas \cite{huang2002graph, brozovsky2007recommender}, onde todo o motor de recomendação segue uma abordagem baseada no padrão que lhe foi dado.
 
-Por outro lado, ao observar aplicações web de sistemas de recomendação, verifica-se a existência de soluções em forma de APIs, tais como o Google Cloud Platform e o Microsoft Cognitive Services, fornecidas como serviços transparentes. Entretanto, estas soluções proprietárias não são incorporadas a aplicação, mas sim utilizadas como serviços externos, dificultando a personalização. 
+Por outro lado, ao observar aplicações web de sistemas de recomendação, verifica-se a existência de soluções em forma de APIs, tais como o Google Cloud Platform e o Microsoft Cognitive Services, fornecidas como serviços transparentes. Entretanto, estas soluções proprietárias não são incorporadas a aplicação, mas sim utilizadas como serviços externos, dificultando a personalização.
 
 Para sanar estes problemas, este trabalho propõe o desenvolvimento de uma API que proporcione uma visão mais transparente dos sistemas de recomendação, permitindo ao usuário desfrutar das funcionalidades, sem a necessidade de um profundo conhecimento dos detalhes que compõem as diferentes técnicas de recomendação, além dos problemas decorrentes do uso de cada uma das técnicas. Além disso, tal tecnologia será fornecida como um serviço de código aberto, podendo ser utilizada em qualquer ambiente.
 
@@ -238,10 +236,10 @@ Este trabalho está dividido em seis seções. A segunda seção apresenta o ref
 \section{Objetivos}
 
 \subsection{Objetivo Geral}
-	
+
 Desenvolver uma API web de código aberto para recomendação híbrida de itens a usuários.
 
-\subsection{Objetivos Específicos} 
+\subsection{Objetivos Específicos}
 
 \begin{itemize}
 
@@ -262,17 +260,18 @@ Desenvolver uma API web de código aberto para recomendação híbrida de itens 
 
 Um dos segmentos da inteligência artificial com grande importância na atualidade é o aprendizado de máquina. Responsável pela construção de agentes capazes de, a partir de uma coleção de pares de entrada e saída, aprender uma função que prevê a saída para novas entradas. Tais agentes são definidos como tudo que pode perceber seu ambiente através de sensores, além de atuar sobre o mesmo através de atuadores. Em outras palavras, o aprendizado de máquina resume-se em técnicas que proporcionam a um algoritmo a capacidade de melhorar seu desempenho de forma automática, através do conhecimento obtido pelas entradas existentes \cite{coppin2015inteligencia}.
 
-Dessa forma, considera-se que um agente está aprendendo se melhorar o seu desempenho nas tarefas para que foi designado, a partir de suas observações sobre o mundo. Este aprendizado proporciona às técnicas de \textit{machine learning} a capacidade evolutiva, uma vez que é possível não só responder as entradas do mundo exterior como também tirar conclusões sobre as mesmas, melhorando cada vez mais a natureza da solução \cite{russell2004inteligencia}. 
+Dessa forma, considera-se que um agente está aprendendo se melhorar o seu desempenho nas tarefas para que foi designado, a partir de suas observações sobre o mundo. Este aprendizado proporciona às técnicas de \textit{machine learning} a capacidade evolutiva, uma vez que é possível não só responder as entradas do mundo exterior como também tirar conclusões sobre as mesmas, melhorando cada vez mais a natureza da solução \cite{russell2004inteligencia}.
 
 Conforme apresentado por \citeonline{carbonell1983overview}, devido a capacidade de, além de solucionar problemas, melhorar automaticamente o desempenho da solução, os sistemas de aprendizagem tem suas aplicações nas mais diversas áreas, tais como agricultura, educação, sistemas especialistas de alta performance, reconhecimento de imagem, programação, etc. Através de um apanhado das aplicações nas áreas de utilização, \citeonline{carbonell1983overview} dividem o campo de aprendizado do \textit{machine learning} em três partes:
 
 \begin{itemize}
-	
+
 	\item \textbf{Estudos orientados à tarefa (\textit{Task-oriented studies}):} composto pelo desenvolvimento e análise de sistemas de aprendizagem visando melhorar a performance na solução de determinadas tarefas.
-	
+
 	\item \textbf{Simulação cognitiva (\textit{Cognitive simulation}):} formado pela investigação e simulação do processo de aprendizagem humano.
-	
-	\item \textbf{Análise teórica (\textit{Theoretical analysis}):} exploração teórica do espaço de possíveis processos de aprendizado.	
+
+	\item \textbf{Análise teórica (\textit{Theoretical analysis}):} exploração teórica do espaço de possíveis processos de aprendizado.
+
 \end{itemize}
 
 Analisando a taxonomia proposta por \citeonline{carbonell1983overview}, pode-se idenficar que o escopo deste trabalho encontra-se nos estudos orientados à tarefa, onde o propósito é a melhoria da performance, neste caso através de recomendações orientadas à metadados.
@@ -286,12 +285,15 @@ Como ramificação do aprendizado de máquina, os sistemas de recomendação (RS
 Mais formalmente, os sistemas de recomendação podem ser descritos matematicamente da seguinte forma: sendo \emph{C} o conjunto de todos os usuários e \emph{S} o conjunto de todos os itens que podem ser recomendados, tanto o espaço \emph{S} como o espaço \emph{C} podem ser extremamente grandes, batendo os milhões de usuários e itens \cite{adomavicius2005toward, gomez2016netflix}. Dessa forma, tem-se \textit{u} como a função de utilidade de um item \emph{s} para um usuário c. A função u utiliza-se do conjunto ordenado R, descrito como $C \times S \rightarrow R$, para encontrar o item $\emph{s} \in \emph{S}$ com a maior utilidade para o usuário \emph{c}. Um exemplo de como as preferências são armazenadas no espaço de avaliações C x S pode ser visto no quadro 1.
 
 \begin{quadro}[h!tp]
+
 	\caption{\label{movie_matrix}Exemplo de matriz de recomendações a filmes}
 
 	\begin{center}
 		\includegraphics[scale=0.8]{images/movie_matrix.png}
 	\end{center}
+
 	\hspace{5.5cm}{Fonte: \citeonline{adomavicius2005toward}}
+
 \end{quadro}
 
 De acordo com o quadro 1, o símbolo "$\emptyset$" representa os filmes ainda não avaliados pelos usuários. Estes itens, por sua vez, são os alvos das técnicas de recomendação que tentam predizer a avaliação de um usuário. Uma vez que o motor de recomendação pode predizer as avaliações de um usuário, pode-se recomendar ao mesmo apenas os \emph{N} itens com a maior avaliação estimada \cite{adomavicius2005toward}.
@@ -347,6 +349,7 @@ De posse da matriz $n \times m$, o algoritmo \textbf{CF} faz a predição/recome
 Diferentemente do método baseado em conteúdo, a filtragem colaborativa não possui apenas uma abordagem.     Tanto \apudonline{sarwar2001item}{breese1998empirical} quanto \citeonline{adomavicius2005toward} dividem a filtragem colaborativa em duas ramificações:
 
 \begin{itemize}
+
 	\item \textbf{Baseada em memória (\textit{memory-based})}: implica na utilização de toda a matriz $n \times m$ para obter um conjunto de usuários vizinhos (\textit{neighbor-users}), ou seja, usuários que tendem a avaliar diferentes itens similarmente ou itens similares diferentemente ao usuário $u_{a}$. Ao obter o conjunto, os métodos baseados em memória combinam as preferências dos usuários, fornecendo uma recomendação Top-N ao usuário $u_{a}$.
 
 	\item \textbf{Baseada em modelo (\textit{model-based})}: ao invés de utilizar toda a matriz $n \times m$, esta técnica constrói um modelo das avaliações de cada usuário através de diferentes técnicas de \textit{machine learning}, tais como modelos de \textit{cluster} e redes Bayesianas. Devido a complexidade destas técnicas e das mesmas não pertencerem ao escopo da solução apresentada neste trabalho , não abordaremos mais a fundo seu funcionamento.
@@ -373,6 +376,7 @@ Sistemas de recomendação híbridos seriam quaisquer sistemas que combinam múl
 Como pode ser visto no quadro 2, \citeonline{burke2002hybrid} apresenta uma série de métodos de recomendação além dos mais comuns abordados neste trabalho. Estes métodos, combinados entre si, podem gerar sistemas híbridos categorizados da seguinte forma:
 
 \begin{itemize}
+
 	\item \textbf{Atribuição de peso (\textit{Weighted}):} Consiste na atribuição de peso para cada um dos métodos empregados no sistema híbrido. Baseado no histórico de acertos entre um método e outro, é possível ajustar o peso de cada um, dando um peso maior ao método atualmente mais eficiente.
 
 	\item \textbf{Escalonamento (\textit{Switching}):} Consiste na utilização de um critério pré-definido para escolher qual método será utilizado no momento. Por exemplo, se o método colaborativo não fornecer uma recomendação com confiança suficiente, o sistema pode trocar para o método baseado em conteúdo.
@@ -394,16 +398,20 @@ Tendo em vista a taxonomia apresentada por \citeonline{burke2002hybrid}, nota-se
 Por exemplo, \citeonline{tran2000hybrid} apresentam uma arquitetura híbrida, utilizando os métodos baseado em colaboração (collaborative-based) e baseado em conhecimento (knowledge-based), ambos exemplificados através da arquitetura ilustrada na figura 3.
 
 \begin{figure}[h!tp]
+
 	\caption{\label{hybrid_scheme}Exemplo de arquitetura híbrida.}
+
 	\begin{center}
 		\includegraphics[scale=0.8]{images/hybrid_scheme.png}
 	\end{center}
+
 	\hspace{5.5cm}{Fonte: \citeonline{tran2000hybrid}}
+
 \end{figure}
 
 Como ilustrado na figura 3, a arquitetura descrita exemplifica um sistema híbrido de escalonamento (\textit{switching}). Sendo assim, dependendo da situação atual, o sistema pode trocar entre a recomendação colaborativa e a baseada em conhecimento, visando prover melhores recomendações. Considerando que inicialmente a abordagem colaborativa não seria muito eficiente, enquanto a base de dados não possui muitos usuários com modelos conhecidos e não existem itens avaliados o suficiente, \citeonline{tran2000hybrid} optaram por escalonar para o método baseado em conhecimento.
 
-Através dessas limiares, toda vez que o usuário requisita uma recomendação, o agente de interface interativa (\textit{interactive interface agent}) verifica se as mesmas já foram atendidas. Se sim, o agente utiliza a recomendação do método de filtragem colaborativa, se não, o método baseado em conhecimento é utilizado. 
+Através dessas limiares, toda vez que o usuário requisita uma recomendação, o agente de interface interativa (\textit{interactive interface agent}) verifica se as mesmas já foram atendidas. Se sim, o agente utiliza a recomendação do método de filtragem colaborativa, se não, o método baseado em conhecimento é utilizado.
 
 Tanto \citeonline{balabanovic1997fab} quanto \citeonline{claypool1999combining} utilizam sistemas híbridos compostos de duas técnicas combinadas: \textbf{baseado em conteúdo} e \textbf{baseado em colaboração}. Dessa forma, é possível utilizar o método colaborativo para gerar o conjunto de $\textbf{N}$ usuários vizinhos (\textit{neighbor-users}) já descrita neste trabalho. A partir do conjunto gerado é aplicado o método baseado no conteúdo destes usuários próximos, aumentando a precisão da recomendação gerada.
 
@@ -412,7 +420,7 @@ Ao invés de se utilizar apenas um método, a utilização de sistemas híbridos
 Como forma de verificar a eficácia do método híbrido em relação aos métodos utilizados de forma individual, \citeonline{claypool1999combining} utilizam como métrica a inexatidão, sendo o termo referente a discrepância entre a recomendação obtida e o resultado esperado. A inexatidão dos métodos em relação a seu tempo de utilização pode ser visto através do resultado ilustrado na figura 4.
 
 \begin{figure}[h!tp]
-	\caption{\label{innacurace}Inexatidão entre os métodos de recomendação.}		
+	\caption{\label{innacurace}Inexatidão entre os métodos de recomendação.}
 	\begin{center}
 		\includegraphics[scale=0.8]{images/innacurace.png}
 	\end{center}
@@ -458,7 +466,7 @@ Além disso, \citeonline{fan2004gpu} apresentam a GPU como uma plataforma projet
 
  	\item \textbf{Paralelismo substancial:} devido a arquitetura da GPU possuir muito mais núcleos e unidades de paralelismo que um processador comum, executar tarefas originalmente independentes, tais como operações em vértices e matrizes, torna-se muito mais rápido.
 
-	\item \textbf{Vazão mais importante que latência:} aplicações em que a vazão de dados é mais importante que a latência, ou seja, onde o tempo de processamento é o gargalo computacional, não o tempo de acesso. 
+	\item \textbf{Vazão mais importante que latência:} aplicações em que a vazão de dados é mais importante que a latência, ou seja, onde o tempo de processamento é o gargalo computacional, não o tempo de acesso.
 
 \end{itemize}
 
@@ -490,7 +498,7 @@ Tendo como base as técnicas descritas acima, existem trabalhos como os apresent
 
 Do mesmo modo que a biblioteca desenvolvida por \citeonline{brozovsky2007recommender}, a API proposta neste trabalho também visa ser multi-propósito e distribuída como código aberto pela licença pública GNU (\textbf{GPL}), porém, fornecendo tais funcionalidades como um serviço web independente de linguagem de programação, o que não acontece nos exemplos apresentados.
 
-Além dos trabalhos apresentados, \citeonline{do2013filtragem} aborda os sistemas de recomendação com uma perspectiva semelhante a este trabalho, focando mais no ganho de desempenho ao processar o método de filtragem colaborativa na GPU. Este trabalho não tem seu foco em desempenho, mas sim em uma proposta de \textbf{recomendação genérica}, que forneça recomendações a quaisquer modelos de usuários e itens através do método híbrido. 
+Além dos trabalhos apresentados, \citeonline{do2013filtragem} aborda os sistemas de recomendação com uma perspectiva semelhante a este trabalho, focando mais no ganho de desempenho ao processar o método de filtragem colaborativa na GPU. Este trabalho não tem seu foco em desempenho, mas sim em uma proposta de \textbf{recomendação genérica}, que forneça recomendações a quaisquer modelos de usuários e itens através do método híbrido.
 
 %
 %--------- FIM API------------
@@ -502,7 +510,7 @@ A metodologia deste trabalho está dividida em três seções. Primeiramente ser
 
 \section{IMPLEMENTAÇÃO}
 
-Inicialmente serão implementados os algoritmos de recomendação híbrida, incluindo o processamento dos metadados fornecidos. Os algoritmos de recomendação resumem a eficácia da API e devem consumir a maior parte do tempo de desenvolvimento. 
+Inicialmente serão implementados os algoritmos de recomendação híbrida, incluindo o processamento dos metadados fornecidos. Os algoritmos de recomendação resumem a eficácia da API e devem consumir a maior parte do tempo de desenvolvimento.
 
 Ao completar a implementação das técnicas híbridas de sistemas de recomendação, serão implementadas as demais funcionalidades da API. Serão consideradas a identificação e entrada dos metadados, além do formato dos dados de saída.
 
@@ -510,7 +518,7 @@ Ao fim do desenvolvimento, o código será adaptado para processamento na GPU at
 
 \section{VALIDAÇÃO}
 
-Assim que a API esteja em um grau considerado funcional, será feita a validação da eficácia ao recomendar as estruturas fornecidas através de grupos de testes definidos, uma técnica amplamente utilizada na validação de técnicas de machine learning. 
+Assim que a API esteja em um grau considerado funcional, será feita a validação da eficácia ao recomendar as estruturas fornecidas através de grupos de testes definidos, uma técnica amplamente utilizada na validação de técnicas de machine learning.
 
 A validação será feita utilizando um grupo separado dos  dados utilizados para testes, confrontando as recomendações feitas com o resultado esperado. Através desses resultados é medida a acurácia de um sistema de recomendação, métrica utilizada como medida de eficiência entre os diferentes métodos utilizados.
 
@@ -536,7 +544,7 @@ O quadro 3 apresenta a cronologia das atividades a serem executadas para o desen
 
 \chapter{CONSIDERAÇÕES FINAIS}
 
-Devido ao grande número de implementações dos sistemas de recomendação nas mais diversas áreas que aqui foram apresentadas, torna-se notável a vasta gama de aplicações das técnicas e, mais do que isso, a necessidade de um serviço multi-propósito desprendido do uso de linguagens de programação específicas. Sendo assim, ao final do cronograma, espera-se a obtenção de uma API que satisfaça estes requisitos. 
+Devido ao grande número de implementações dos sistemas de recomendação nas mais diversas áreas que aqui foram apresentadas, torna-se notável a vasta gama de aplicações das técnicas e, mais do que isso, a necessidade de um serviço multi-propósito desprendido do uso de linguagens de programação específicas. Sendo assim, ao final do cronograma, espera-se a obtenção de uma API que satisfaça estes requisitos.
 
 Além disso, é importante ressaltar preocupação na construção de uma documentação direta e coesa ao longo de todo o processo, visando uma futura colaboração externa da comunidade, sendo a API de código aberto. Desta forma, o trabalho pode servir não só como uma alternativa \textit{open-source} aos sistemas de recomendação, mas também como uma tecnologia de utilização simples para futuros estudos na área.
 

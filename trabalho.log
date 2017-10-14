@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.28)  14 OCT 2017 18:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.28)  14 OCT 2017 18:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1230,7 +1230,7 @@ l.77 \imprimirfolhaderosto
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.161 \end{folhadeaprovacao}
+l.159 \end{folhadeaprovacao}
                              [1
 
 
@@ -1241,14 +1241,14 @@ l.161 \end{folhadeaprovacao}
 
 Package babel Warning: You haven't loaded the language english yet
 (babel)                I'll proceed, but expect unexpected results.
-(babel)                Reported on input line 172.
+(babel)                Reported on input line 170.
 
 [3
 
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\new@ifnextchar' on input line 186.
+(hyperref)                removing `\new@ifnextchar' on input line 184.
 
 (./trabalho.loa) [4
 
@@ -1256,7 +1256,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.193 \pdfbookmark[0]{\listfigurename}{lof}
+l.191 \pdfbookmark[0]{\listfigurename}{lof}
                                             (./trabalho.lof) [5
 
 ]
@@ -1265,13 +1265,13 @@ l.193 \pdfbookmark[0]{\listfigurename}{lof}
 ] [7
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 248.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 246.
 
  (/usr/share/texmf/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 248.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 246.
  [8] [9]
 [10
 
@@ -1287,32 +1287,32 @@ Package pdftex.def Info: images/movie_matrix.png used on input line 292.
 File: images/content_based.png Graphic file (type png)
 
 <use images/content_based.png>
-Package pdftex.def Info: images/content_based.png used on input line 315.
+Package pdftex.def Info: images/content_based.png used on input line 317.
 (pdftex.def)             Requested size: 473.97139pt x 266.88835pt.
 
-Overfull \hbox (18.97139pt too wide) in paragraph at lines 315--316
+Overfull \hbox (18.97139pt too wide) in paragraph at lines 317--318
  [] 
  []
 
 [13 <./images/content_based.png (PNG copy)>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 326.
+(Font)              <10> on input line 328.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 326.
+(Font)              <7> on input line 328.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 326.
+(Font)              <5> on input line 328.
  [14]
 
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 334.
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 336.
 
 
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 334.
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 336.
 
 <images/collaborative_based.png, id=282, 740.0147pt x 248.93pt>
 File: images/collaborative_based.png Graphic file (type png)
 
 <use images/collaborative_based.png>
-Package pdftex.def Info: images/collaborative_based.png used on input line 340.
+Package pdftex.def Info: images/collaborative_based.png used on input line 342.
 
 (pdftex.def)             Requested size: 444.01225pt x 149.35915pt.
  [15 <./images/collaborative_based.png (PNG copy)>] <images/recommender_systems
@@ -1320,11 +1320,11 @@ Package pdftex.def Info: images/collaborative_based.png used on input line 340.
 File: images/recommender_systems.png Graphic file (type png)
 
 <use images/recommender_systems.png>
-Package pdftex.def Info: images/recommender_systems.png used on input line 368.
+Package pdftex.def Info: images/recommender_systems.png used on input line 371.
 
 (pdftex.def)             Requested size: 459.36972pt x 215.49765pt.
 
-Overfull \hbox (4.36972pt too wide) in paragraph at lines 368--369
+Overfull \hbox (4.36972pt too wide) in paragraph at lines 371--372
  [] 
  []
 
@@ -1333,14 +1333,14 @@ Overfull \hbox (4.36972pt too wide) in paragraph at lines 368--369
 File: images/hybrid_scheme.png Graphic file (type png)
 
 <use images/hybrid_scheme.png>
-Package pdftex.def Info: images/hybrid_scheme.png used on input line 399.
+Package pdftex.def Info: images/hybrid_scheme.png used on input line 405.
 (pdftex.def)             Requested size: 328.22668pt x 361.49648pt.
  [18 <./images/hybrid_scheme.png (PNG copy)>]
 <images/innacurace.png, id=360, 553.31718pt x 363.54pt>
 File: images/innacurace.png Graphic file (type png)
 
 <use images/innacurace.png>
-Package pdftex.def Info: images/innacurace.png used on input line 417.
+Package pdftex.def Info: images/innacurace.png used on input line 425.
 (pdftex.def)             Requested size: 442.65434pt x 290.83238pt.
  [19] [20 <./images/innacurace.png (PNG copy)>]
 [21] [22] [23
@@ -1352,7 +1352,7 @@ Package pdftex.def Info: images/innacurace.png used on input line 417.
 File: images/chronology.png Graphic file (type png)
 
 <use images/chronology.png>
-Package pdftex.def Info: images/chronology.png used on input line 532.
+Package pdftex.def Info: images/chronology.png used on input line 540.
 (pdftex.def)             Requested size: 443.40404pt x 271.85045pt.
  [26
 
@@ -1383,18 +1383,18 @@ AED: lastpage setting LastPage
 \tf@toc=\write8
 \openout8 = `trabalho.toc'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 546.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 546.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 554.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 554.
  (./trabalho.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 546.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 546.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 554.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 554.
 Package rerunfilecheck Info: File `trabalho.brf' has not changed.
 (rerunfilecheck)             Checksum: BA6016E06E66461DFF6AD4B8B20BD328;5492.
 
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 546.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 554.
  ) 
 Here is how much of TeX's memory you used:
  15180 strings out of 493029

@@ -1,21 +1,21 @@
 # Fdb version 3
-["bibtex trabalho"] 1508014781 "trabalho.aux" "trabalho.bbl" "trabalho" 1508014837
+["bibtex trabalho"] 1508015391 "trabalho.aux" "trabalho.bbl" "trabalho" 1508015420
   "./abntex2-alf.bst" 1508014461 62191 18071fa384827d294377c5d675b7d8ce ""
   "abntex2-options.bib" 1508014461 5610 b02a750a6b18757cf9cc43eb7584f773 ""
   "referencias.bib" 1508014462 9857 76d9d75a3e898201fee51e91b446462f ""
-  "trabalho.aux" 1508014837 27405 e4feb2558ce573c4f3839fbde8fcd5f3 ""
+  "trabalho.aux" 1508015420 27405 9884b44e9da77b18f269dcae26f764fd ""
   "trabalho.bcf" 0 -1 0 ""
   (generated)
   "trabalho.bbl"
   "trabalho.blg"
-["makeindex trabalho.idx"] 1508014780 "trabalho.idx" "trabalho.ind" "trabalho" 1508014837
-  "trabalho.idx" 1508014836 0 d41d8cd98f00b204e9800998ecf8427e ""
+["makeindex trabalho.idx"] 1508014780 "trabalho.idx" "trabalho.ind" "trabalho" 1508015420
+  "trabalho.idx" 1508015420 0 d41d8cd98f00b204e9800998ecf8427e ""
   (generated)
-  "trabalho.ilg"
   "trabalho.ind"
-["pdflatex"] 1508014836 "/home/iury/workspace/morpy-tcc/trabalho.tex" "trabalho.pdf" "trabalho" 1508014837
+  "trabalho.ilg"
+["pdflatex"] 1508015420 "/home/iury/workspace/morpy-tcc/trabalho.tex" "trabalho.pdf" "trabalho" 1508015420
   "/etc/texmf/web2c/texmf.cnf" 1493387786 1101 af7716885e081ab43982cab7b4672c1a ""
-  "/home/iury/workspace/morpy-tcc/trabalho.tex" 1508014835 53155 2bb81d2366824330154270b8f84c9d8d ""
+  "/home/iury/workspace/morpy-tcc/trabalho.tex" 1508015420 53069 7b68640f3e4b4a7289cd845bf6fde99d ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1200.tfm" 1136768653 3584 f80ddd985bd00e29e9a6047ebd9d4781 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr10.tfm" 1136768653 1296 45809c5a464d5f32c8f98ba97c1bb47f ""
@@ -161,21 +161,21 @@
   "images/logo.png" 1508014463 30716 eaac760c5e10b2ad3093cb7a89501b2f ""
   "images/movie_matrix.png" 1508014463 13432 c3e9afcc01a7c676852f4f06994639d0 ""
   "images/recommender_systems.png" 1508014463 89493 86943a4bf3388bac2c6416fee60f43ad ""
-  "trabalho.aux" 1508014837 27405 e4feb2558ce573c4f3839fbde8fcd5f3 ""
-  "trabalho.bbl" 1508014781 10751 4eabafa6b542ba2c1dab8a236336b1d6 "bibtex trabalho"
-  "trabalho.brf" 1508014837 5492 ba6016e06e66461dff6ad4b8b20bd328 ""
+  "trabalho.aux" 1508015420 27405 9884b44e9da77b18f269dcae26f764fd ""
+  "trabalho.bbl" 1508015391 10751 4eabafa6b542ba2c1dab8a236336b1d6 "bibtex trabalho"
+  "trabalho.brf" 1508015420 5492 ba6016e06e66461dff6ad4b8b20bd328 ""
   "trabalho.ind" 1508014780 0 d41d8cd98f00b204e9800998ecf8427e "makeindex trabalho.idx"
-  "trabalho.loa" 1508014837 510 85da4b1ca708eb4737dc55a0c5011df7 ""
-  "trabalho.lof" 1508014837 602 fafb6d00bf8ae59ee5a5b3455a154fd3 ""
+  "trabalho.loa" 1508015420 510 85da4b1ca708eb4737dc55a0c5011df7 ""
+  "trabalho.lof" 1508015420 602 fafb6d00bf8ae59ee5a5b3455a154fd3 ""
   "trabalho.sty" 1508014462 1669 9e1765c74494a73c231b18999bcc3f5b ""
-  "trabalho.tex" 1508014835 53155 2bb81d2366824330154270b8f84c9d8d ""
-  "trabalho.toc" 1508014837 3074 57fa7a103ef8f8d7fc1f4a3c18fc29d1 ""
+  "trabalho.tex" 1508015420 53069 7b68640f3e4b4a7289cd845bf6fde99d ""
+  "trabalho.toc" 1508015420 3074 57fa7a103ef8f8d7fc1f4a3c18fc29d1 ""
   (generated)
-  "trabalho.aux"
+  "trabalho.pdf"
   "trabalho.log"
   "trabalho.loa"
-  "trabalho.toc"
-  "trabalho.brf"
   "trabalho.lof"
-  "trabalho.pdf"
+  "trabalho.brf"
   "trabalho.idx"
+  "trabalho.toc"
+  "trabalho.aux"
