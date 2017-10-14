@@ -248,7 +248,6 @@ Desenvolver uma API web de código aberto para recomendação híbrida de itens 
 
 	\item Fornecer uma documentação das funcionalidades visando futura colaboração da comunidade e utilização por outros desenvolvedores.
 	\item Proporcionar a recomendação das propriedades relevantes através das estruturas de metadados fornecidas.
-	\item Possibilitar o processamento paralelo das recomendações em GPU.
 
 \end{itemize}
 
@@ -516,9 +515,18 @@ De posse das estruturas de metadados fornecidas na inicialização, o cliente po
 
 Em um primeiro momento, a API utilizará o método baseado em conteúdo para fornecer as recomendações e predições, uma vez que poucos itens estarão avaliados e o método colaborativo não terá modelos de usuários suficientes. Assim que as métricas de relações entre usuários e quantidade de modelos processados sejam supridas, a API passará a utilizar o método de filtragem colaborativa, caso este esteja gerando recomendações mais precisas.
 
-Além disso, a API também possuirá a opção do processamento na GPU, agilizando ainda mais o retorno das requisições dos clientes. Este processamento fará uso da tecnologia \textbf{CUDA}, utilizando a GPU nos casos em que seja necessário percorrer a matriz de avaliações, além dos casos de processamento dos modelos de usuários.
-
 \section{Visão Geral}
+
+\begin{figure}[h!tp]
+	\caption{\label{content_based}Visão geral da API.}
+
+	\begin{center}
+		\includegraphics[scale=0.7]{images/MORPY_overview.png}
+	\end{center}
+
+	\hspace{5.5cm}{Fonte: O Autor.}
+
+\end{figure}
 
 \section{O Analisador de Dados}
 
