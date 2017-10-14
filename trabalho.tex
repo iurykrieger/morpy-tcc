@@ -195,12 +195,15 @@ Due to the massive expansion of data produced and available on the Internet, use
 % ---
 % Siglas
 % ---
-%\begin{siglas}
-%
-%	\item[ABNT]{Associação Brasileira de Normas Técnicas}
-%   \item[IBGE]{Instituto Brasileiro de Geografia e Estatística}
-%
-%\end{siglas}
+\begin{siglas}
+
+	\item[IA]{\textit{Inteligência Artificial}}
+	\item[HTTP]{\textit{Hypertext Transfer Protocol}}
+	\item[API]{\textit{Application Program Interface}}
+	\item[REST]{\textit{Representational State Transfer}}
+	\item[JSON]{\textit{Javasript Object Notation}}
+
+\end{siglas}
 
 % ---
 % Sumário
@@ -249,9 +252,40 @@ Desenvolver uma API web de código aberto para recomendação híbrida de itens 
 
 \end{itemize}
 
+\section{Metodologia}
+
+A metodologia deste trabalho está dividida em três seções. Primeiramente serão implementadas todas as funcionalidades descritas anteriormente. Mais à frente, será feita a validação das funcionalidades implementadas e da eficácia das recomendações. Por fim, serão feitos os ajustes e correções necessárias de acordo com o resultado da validação das funcionalidades implementadas.
+
+\subsection{Implementação}
+
+Inicialmente serão implementados os algoritmos de recomendação híbrida, incluindo o processamento dos metadados fornecidos. Os algoritmos de recomendação resumem a eficácia da API e devem consumir a maior parte do tempo de desenvolvimento.
+
+Ao completar a implementação das técnicas híbridas de sistemas de recomendação, serão implementadas as demais funcionalidades da API. Serão consideradas a identificação e entrada dos metadados, além do formato dos dados de saída.
+
+Ao fim do desenvolvimento, o código será adaptado para processamento na GPU através de diretivas de compilação e bibliotecas especializadas.
+
+\subsection{Validação}
+
+Assim que a API esteja em um grau considerado funcional, será feita a validação da eficácia ao recomendar as estruturas fornecidas através de grupos de testes definidos, uma técnica amplamente utilizada na validação de técnicas de machine learning.
+
+A validação será feita utilizando um grupo separado dos  dados utilizados para testes, confrontando as recomendações feitas com o resultado esperado. Através desses resultados é medida a acurácia de um sistema de recomendação, métrica utilizada como medida de eficiência entre os diferentes métodos utilizados.
+
+\subsection{Ajustes e Correções}
+
+Por fim, serão feitos os ajustes e correções de erros recolhidos ao longo do processo, além de testar as funcionalidades e a utilização da API como um todo. A documentação será feita durante boa parte de todo o processo e, neste caso em específico, possui um foco especial, uma vez que o princípio da API é que a mesma seja utilizável por outros desenvolvedores, além de possibilitar a contribuição da comunidade.
+
+\section{Trabalhos Relacionados}
+
+Tendo como base as técnicas descritas acima, existem trabalhos como os apresentados por \citeonline{guo2015librec}, que abordam as técnicas em forma de biblioteca Java a ser incluída nos projetos. Esta abordagem torna a utilização mais simples devido ao fato do usuário poder utilizar apenas as funcionalidades da biblioteca, preocupando-se com o formato de entrada e saída dos dados, não com o processo de recomendação em si. Outra abordagem interessante é a proposta por \citeonline{brozovsky2007recommender} ao construir uma biblioteca C\# multi-propósito, focando na recomendação de itens com base na avaliação em um esquema de \textit{rating} (de uma a cinco estrelas), ou com base apenas em itens com avaliação positiva.
+
+Do mesmo modo que a biblioteca desenvolvida por \citeonline{brozovsky2007recommender}, a API proposta neste trabalho também visa ser multi-propósito e distribuída como código aberto pela licença pública GNU (\textbf{GPL}), porém, fornecendo tais funcionalidades como um serviço web independente de linguagem de programação, o que não acontece nos exemplos apresentados.
+
+Além dos trabalhos apresentados, \citeonline{do2013filtragem} aborda os sistemas de recomendação com uma perspectiva semelhante a este trabalho, focando mais no ganho de desempenho ao processar o método de filtragem colaborativa na GPU. Este trabalho não tem seu foco em desempenho, mas sim em uma proposta de \textbf{recomendação genérica}, que forneça recomendações a quaisquer modelos de usuários e itens através do método híbrido.
+
 %
 %--------- FIM INTRODUÇÃO------------
 %
+
 \cleardoublepage
 
 \chapter{REFERENCIAL TEÓRICO}
@@ -455,7 +489,16 @@ Considerando que os sistemas de recomendação usualmente abordam apenas algumas
 
 \section{API: \textit{Application Programming Interface}}
 
-ASDOIHASIDOH Aasoidhaosdh asdoi has
+Seção sobre API
+
+\subsection{O Padrão RESTful}
+
+Descrever o padrão RESTful
+
+\subsection{Metadados?}
+
+Encaixar os metadados aqui
+
 
 %
 %--------- FIM REFERENCIAL TEORICO------------
@@ -475,55 +518,25 @@ Em um primeiro momento, a API utilizará o método baseado em conteúdo para for
 
 Além disso, a API também possuirá a opção do processamento na GPU, agilizando ainda mais o retorno das requisições dos clientes. Este processamento fará uso da tecnologia \textbf{CUDA}, utilizando a GPU nos casos em que seja necessário percorrer a matriz de avaliações, além dos casos de processamento dos modelos de usuários.
 
-\section{TRABALHOS RELACIONADOS}
+\section{Visão Geral}
 
-Tendo como base as técnicas descritas acima, existem trabalhos como os apresentados por \citeonline{guo2015librec}, que abordam as técnicas em forma de biblioteca Java a ser incluída nos projetos. Esta abordagem torna a utilização mais simples devido ao fato do usuário poder utilizar apenas as funcionalidades da biblioteca, preocupando-se com o formato de entrada e saída dos dados, não com o processo de recomendação em si. Outra abordagem interessante é a proposta por \citeonline{brozovsky2007recommender} ao construir uma biblioteca C\# multi-propósito, focando na recomendação de itens com base na avaliação em um esquema de \textit{rating} (de uma a cinco estrelas), ou com base apenas em itens com avaliação positiva.
+\section{O Analisador de Dados}
 
-Do mesmo modo que a biblioteca desenvolvida por \citeonline{brozovsky2007recommender}, a API proposta neste trabalho também visa ser multi-propósito e distribuída como código aberto pela licença pública GNU (\textbf{GPL}), porém, fornecendo tais funcionalidades como um serviço web independente de linguagem de programação, o que não acontece nos exemplos apresentados.
+\section{O Motor de Recomendações}
 
-Além dos trabalhos apresentados, \citeonline{do2013filtragem} aborda os sistemas de recomendação com uma perspectiva semelhante a este trabalho, focando mais no ganho de desempenho ao processar o método de filtragem colaborativa na GPU. Este trabalho não tem seu foco em desempenho, mas sim em uma proposta de \textbf{recomendação genérica}, que forneça recomendações a quaisquer modelos de usuários e itens através do método híbrido.
+\subsection{Motor de Conteúdo}
+
+\subsection{Motor Colaborativo}
+
+\section{Persistência}
+
+\section{Interface de Usuário}
 
 %
 %--------- FIM API------------
 %
 
-\chapter{METODOLOGIA}
-
-A metodologia deste trabalho está dividida em três seções. Primeiramente serão implementadas todas as funcionalidades descritas anteriormente. Mais à frente, será feita a validação das funcionalidades implementadas e da eficácia das recomendações. Por fim, serão feitos os ajustes e correções necessárias de acordo com o resultado da validação das funcionalidades implementadas.
-
-\section{IMPLEMENTAÇÃO}
-
-Inicialmente serão implementados os algoritmos de recomendação híbrida, incluindo o processamento dos metadados fornecidos. Os algoritmos de recomendação resumem a eficácia da API e devem consumir a maior parte do tempo de desenvolvimento.
-
-Ao completar a implementação das técnicas híbridas de sistemas de recomendação, serão implementadas as demais funcionalidades da API. Serão consideradas a identificação e entrada dos metadados, além do formato dos dados de saída.
-
-Ao fim do desenvolvimento, o código será adaptado para processamento na GPU através de diretivas de compilação e bibliotecas especializadas.
-
-\section{VALIDAÇÃO}
-
-Assim que a API esteja em um grau considerado funcional, será feita a validação da eficácia ao recomendar as estruturas fornecidas através de grupos de testes definidos, uma técnica amplamente utilizada na validação de técnicas de machine learning.
-
-A validação será feita utilizando um grupo separado dos  dados utilizados para testes, confrontando as recomendações feitas com o resultado esperado. Através desses resultados é medida a acurácia de um sistema de recomendação, métrica utilizada como medida de eficiência entre os diferentes métodos utilizados.
-
-\section{AJUSTES E CORREÇÕES}
-
-Por fim, serão feitos os ajustes e correções de erros recolhidos ao longo do processo, além de testar as funcionalidades e a utilização da API como um todo. A documentação será feita durante boa parte de todo o processo e, neste caso em específico, possui um foco especial, uma vez que o princípio da API é que a mesma seja utilizável por outros desenvolvedores, além de possibilitar a contribuição da comunidade.
-
-%
-%--------- FIM METODOLOGIA------------
-%
-
-\chapter{CRONOGRAMA}
-
-O quadro 3 apresenta a cronologia das atividades a serem executadas para o desenvolvimento do trabalho proposto.
-
-\begin{quadro}[h!tp]
-	\caption{\label{chronology}Cronograma de desenvolvimento.}
-	\begin{center}
-		\includegraphics[scale=0.95]{images/chronology.png}
-	\end{center}
-	\hspace{5.5cm}{Fonte: o autor.}
-\end{quadro}
+\chapter{RESULTADOS E DISCUSSÃO}
 
 \chapter{CONSIDERAÇÕES FINAIS}
 
