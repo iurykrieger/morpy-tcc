@@ -341,7 +341,7 @@ A seguir serão apresentados as diferentes técnicas dos sistemas de recomendaç
 
 Sistemas de recomendação que implementam o método baseado em conteúdo (\textit{content-based}) analisam um conjunto de documentos/descrições de itens previamente avaliados pelo usuário, construindo um modelo dos interesses baseando-se nas características dos itens avaliados \cite{mladenic1999text, adomavicius2005toward, lops2011content}. Este modelo serve para ser cruzado com o conteúdo de outros itens ainda não avaliados pelo usuário. Quanto maior o grau de semelhança entre o modelo do usuário e as características do item, maior a probabilidade do mesmo ter interesse.
 
-Para que o modelo de interesses do usuário seja criado e confrontado com outros conteúdos ainda não avaliados, são necessários três atores principais que dividem a recomendação baseada em conteúdo: \textbf{analisador de conteúdo}, \textbf{aprendiz de perfis} e \textbf{componente de filtragem} \cite{lops2011content}. A estrutura completa destes agentes pode ser vista na figura 1.
+Para que o modelo de interesses do usuário seja criado e confrontado com outros conteúdos ainda não avaliados, são necessários três atores principais que dividem a recomendação baseada em conteúdo: \textbf{analisador de conteúdo}, \textbf{aprendiz de perfis} e \textbf{componente de filtragem} \cite{lops2011content}. A estrutura completa destes agentes pode ser vista na \autoref{content_based}.
 
 \begin{figure}[h!tp]
 	\caption{\label{content_based}Arquitetura de um sistema baseado em conteúdo}
@@ -349,12 +349,13 @@ Para que o modelo de interesses do usuário seja criado e confrontado com outros
 	\begin{center}
 		\includegraphics[scale=0.8]{images/content_based.png}
 	\end{center}
+
 	\hspace{5.5cm}{Fonte: \citeonline{lops2011content}}
 \end{figure}
 
-Note que na figura 1, a primeira parte do processo começa com o \textbf{analisador de conteúdo} (\textit{content analyzer}), transformando dados não estruturados em estruturas de atributos e características \cite{lops2011content, mladenic1999text}, armazenando-as no repositório de itens representados (\textit{represented items}). Para a construção e atualização do perfil de interesses do usuário ativo (representado na figura 1 por $u_{a}$), as avaliações do usuário para novos itens são armazenadas no repositório de feedback. O tipo de avaliação depende de cada aplicação, podendo ser expressado de forma \textbf{explícita}, como as avaliações binárias (\textit{like/dislike}) e avaliações em forma de rating (0 a 5; 1 a 5 estrelas) utilizadas em muitos sites, ou mesmo por avaliações \textbf{implícitas}, onde uma ação sobre um item (seleção, por exemplo) possui um peso atribuído \cite{pazzani2007content}.
+Note que na \autoref{content_based}, a primeira parte do processo começa com o \textbf{analisador de conteúdo} (\textit{content analyzer}), transformando dados não estruturados em estruturas de atributos e características \cite{lops2011content, mladenic1999text}, armazenando-as no repositório de itens representados (\textit{represented items}). Para a construção e atualização do perfil de interesses do usuário ativo (representado na \autoref{content_based} por $u_{a}$), as avaliações do usuário para novos itens são armazenadas no repositório de feedback. O tipo de avaliação depende de cada aplicação, podendo ser expressado de forma \textbf{explícita}, como as avaliações binárias (\textit{like/dislike}) e avaliações em forma de rating (0 a 5; 1 a 5 estrelas) utilizadas em muitos sites, ou mesmo por avaliações \textbf{implícitas}, onde uma ação sobre um item (seleção, por exemplo) possui um peso atribuído \cite{pazzani2007content}.
 
-De posse do repositório de itens representados, o \textbf{aprendiz de perfis} varre os itens $I_{k}$ do usuário ua em prol de construir o conjunto treinamento $TR_{a}$. O conjunto de treinamento é um conjunto de pares $\lbrace I_{k}$, $r_{k} \rbrace$, onde $r_{k}$ é a avaliação dada pelo usuário ua a representação do item $I_{k}$. Após a construção do conjunto de treinamento $TR_{a}$, o \textbf{aprendiz de perfis} aplica algoritmos de aprendizagem supervisionada para gerar o modelo de interesses do usuário $u_{a}$. Os modelos de interesses são armazenados no repositório de perfis (representado na figura 1 por \textit{profiles}) para uso futuro pelo \textbf{componente de filtragem}.
+De posse do repositório de itens representados, o \textbf{aprendiz de perfis} varre os itens $I_{k}$ do usuário ua em prol de construir o conjunto treinamento $TR_{a}$. O conjunto de treinamento é um conjunto de pares $\lbrace I_{k}$, $r_{k} \rbrace$, onde $r_{k}$ é a avaliação dada pelo usuário ua a representação do item $I_{k}$. Após a construção do conjunto de treinamento $TR_{a}$, o \textbf{aprendiz de perfis} aplica algoritmos de aprendizagem supervisionada para gerar o modelo de interesses do usuário $u_{a}$. Os modelos de interesses são armazenados no repositório de perfis (representado na \autoref{content_based} por \textit{profiles}) para uso futuro pelo \textbf{componente de filtragem}.
 
 Quando a representação de um novo item é adicionada ao conjunto de itens representados, o componente de filtragem prediz se o mesmo será de interesse do usuário $u_{a}$, atraveś da comparação entre os atributos e características do novo item e o modelo de interesses do usuário. Em consequência, o componente de filtragem ranqueia os itens com os maiores potenciais de interesse, agrupando-os em uma lista de recomendações $L_{a}$ e apresentando-a ao usuário $u_{a}$. Dessa forma o usuário ua pode prover novas avaliações (\textbf{feedbacks}) dos itens da lista $L_{a}$, fazendo com que o aprendiz de perfis atualize seu modelo de interesses através da reconstrução do conjunto de treinamento $TR_{a}$ \cite{lops2011content}.
 
@@ -366,7 +367,7 @@ O método de filtragem colaborativa (\textit{collaborative-based} - CF) baseia-s
 
 Assim como os sistemas baseados em conteúdo, sistemas de filtragem colaborativa também levam em consideração as avaliações de itens (mesmo que de outros usuários similares), através dos métodos de avaliação já descritos. Segundo \citeonline{adomavicius2005toward}, a diferença entre estes dois processos existe pelo fato de que a utilidade $u(c,s)$ de um item $s$ a um usuário $c$ é medida não pela utilidade $u(c,s_{i})$ dos itens $s_{i}$ similares ao item $s$, mas sim pela utilidade $u(c_{j}, s)$ do item $s$ baseado nos usuários $c_{j}$ \textbf{similares} ao usuário $c$. Em outras palavras, na filtragem colaborativa, os itens considerados úteis a um usuário são os itens úteis a usuários similares a ele.
 
-Partindo desta premissa, \citeonline{sarwar2001item} abordam os sistemas de filtragem colaborativa a partir do seguinte cenário: uma lista de $\textbf{m}$ usuarios $U \lbrace u_{1}, u_{2}, …, u_{m} \rbrace$ e uma lista de $\textbf{n}$ itens $I \lbrace i_{1}, i_{2}, …, i_{n} \rbrace$. Cada usuário $u_{i}$ possuindo uma lista $Iu_{i}$ de itens, avaliados ou não. Conforme na figura 2, o algoritmo de filtragem colaborativa (\textbf{CF}) opera sobre a matriz de avaliações $n \times m$.
+Partindo desta premissa, \citeonline{sarwar2001item} abordam os sistemas de filtragem colaborativa a partir do seguinte cenário: uma lista de $\textbf{m}$ usuarios $U \lbrace u_{1}, u_{2}, …, u_{m} \rbrace$ e uma lista de $\textbf{n}$ itens $I \lbrace i_{1}, i_{2}, …, i_{n} \rbrace$. Cada usuário $u_{i}$ possuindo uma lista $Iu_{i}$ de itens, avaliados ou não. Conforme na \autoref{collaborative_based}, o algoritmo de filtragem colaborativa (\textbf{CF}) opera sobre a matriz de avaliações $n \times m$.
 
 \begin{figure}[htb]
 	\caption{\label{collaborative_based}Processo de recomendação colaborativa.}
@@ -377,7 +378,7 @@ Partindo desta premissa, \citeonline{sarwar2001item} abordam os sistemas de filt
 	\hspace{5.5cm}{Fonte: \citeonline{sarwar2001item}}
 \end{figure}
 
-De posse da matriz $n \times m$, o algoritmo \textbf{CF} faz a predição/recomendação ao usuário corrente, demonstrado na figura 2 por $u_{a}$. O usuário $u_{a}$ é visto pelo algoritmo como o alvo atual para o qual serão feitas as predições/recomendações. \citeonline{sarwar2001item} também especificam a predição como um valor numérico que expressa a probabilidade prevista do item ser de interesse do usuário $u_{a}$, sendo este um item ainda não pertencente ao conjunto de $Iu_{a}$. Por outro lado, a recomendação é descrita como uma lista de $\textbf{N}$ itens, cada item $I_{r}$ dentre os itens com a maior probabilidade de utilidade ao usuário ua e ainda não avaliados pelo mesmo. Esta forma de recomendação também é conhecida como recomendação \textbf{Top-N} \cite{adomavicius2005toward}.
+De posse da matriz $n \times m$, o algoritmo \textbf{CF} faz a predição/recomendação ao usuário corrente, demonstrado na \autoref{collaborative_based} por $u_{a}$. O usuário $u_{a}$ é visto pelo algoritmo como o alvo atual para o qual serão feitas as predições/recomendações. \citeonline{sarwar2001item} também especificam a predição como um valor numérico que expressa a probabilidade prevista do item ser de interesse do usuário $u_{a}$, sendo este um item ainda não pertencente ao conjunto de $Iu_{a}$. Por outro lado, a recomendação é descrita como uma lista de $\textbf{N}$ itens, cada item $I_{r}$ dentre os itens com a maior probabilidade de utilidade ao usuário ua e ainda não avaliados pelo mesmo. Esta forma de recomendação também é conhecida como recomendação \textbf{Top-N} \cite{adomavicius2005toward}.
 
 Diferentemente do método baseado em conteúdo, a filtragem colaborativa não possui apenas uma abordagem.     Tanto \apudonline{sarwar2001item}{breese1998empirical} quanto \citeonline{adomavicius2005toward} dividem a filtragem colaborativa em duas ramificações:
 
@@ -428,7 +429,7 @@ Como pode ser visto no quadro 2, \citeonline{burke2002hybrid} apresenta uma sér
 
 Tendo em vista a taxonomia apresentada por \citeonline{burke2002hybrid}, nota-se que a recomendação híbrida não refere-se ao funcionamento das recomendações, mas sim sobre como os diferentes métodos \textbf{interagem entre si}. Esta interação pode ser insensível à ordem, nos casos de métodos como a atribuição de peso, misto, escalonamento e combinação de características. Já nas outros métodos apresentados, a ordem de execução dos métodos de recomendação alteram o resultado final, uma vez que a saída de um, direta ou indiretamente é a entrada de outro.
 
-Por exemplo, \citeonline{tran2000hybrid} apresentam uma arquitetura híbrida, utilizando os métodos baseado em colaboração (collaborative-based) e baseado em conhecimento (knowledge-based), ambos exemplificados através da arquitetura ilustrada na figura 3.
+Por exemplo, \citeonline{tran2000hybrid} apresentam uma arquitetura híbrida, utilizando os métodos baseado em colaboração (collaborative-based) e baseado em conhecimento (knowledge-based), ambos exemplificados através da arquitetura ilustrada na \autoref{hybrid_scheme}.
 
 \begin{figure}[h!tp]
 
@@ -442,7 +443,7 @@ Por exemplo, \citeonline{tran2000hybrid} apresentam uma arquitetura híbrida, ut
 
 \end{figure}
 
-Como ilustrado na figura 3, a arquitetura descrita exemplifica um sistema híbrido de escalonamento (\textit{switching}). Sendo assim, dependendo da situação atual, o sistema pode trocar entre a recomendação colaborativa e a baseada em conhecimento, visando prover melhores recomendações. Considerando que inicialmente a abordagem colaborativa não seria muito eficiente, enquanto a base de dados não possui muitos usuários com modelos conhecidos e não existem itens avaliados o suficiente, \citeonline{tran2000hybrid} optaram por escalonar para o método baseado em conhecimento.
+Como ilustrado na \autoref{hybrid_scheme}, a arquitetura descrita exemplifica um sistema híbrido de escalonamento (\textit{switching}). Sendo assim, dependendo da situação atual, o sistema pode trocar entre a recomendação colaborativa e a baseada em conhecimento, visando prover melhores recomendações. Considerando que inicialmente a abordagem colaborativa não seria muito eficiente, enquanto a base de dados não possui muitos usuários com modelos conhecidos e não existem itens avaliados o suficiente, \citeonline{tran2000hybrid} optaram por escalonar para o método baseado em conhecimento.
 
 Através dessas limiares, toda vez que o usuário requisita uma recomendação, o agente de interface interativa (\textit{interactive interface agent}) verifica se as mesmas já foram atendidas. Se sim, o agente utiliza a recomendação do método de filtragem colaborativa, se não, o método baseado em conhecimento é utilizado.
 
@@ -450,7 +451,7 @@ Tanto \citeonline{balabanovic1997fab} quanto \citeonline{claypool1999combining} 
 
 Ao invés de se utilizar apenas um método, a utilização de sistemas híbridos pode trazer uma série de benefícios: ao executar recomendações baseadas em conteúdo, o sistema colaborativo pode lidar com novos usuários que ainda não tem seu modelo definido; torna-se possível fazer recomendações precisas a um usuário, mesmo que não existam usuários similares ao mesmo; pode-se recomendar itens não avaliados por nenhum dos usuários, cruzando o modelo dos mesmos com o conteúdo do item \cite{balabanovic1997fab}.
 
-Como forma de verificar a eficácia do método híbrido em relação aos métodos utilizados de forma individual, \citeonline{claypool1999combining} utilizam como métrica a inexatidão, sendo o termo referente a discrepância entre a recomendação obtida e o resultado esperado. A inexatidão dos métodos em relação a seu tempo de utilização pode ser visto através do resultado ilustrado na figura 4.
+Como forma de verificar a eficácia do método híbrido em relação aos métodos utilizados de forma individual, \citeonline{claypool1999combining} utilizam como métrica a inexatidão, sendo o termo referente a discrepância entre a recomendação obtida e o resultado esperado. A inexatidão dos métodos em relação a seu tempo de utilização pode ser visto através do resultado ilustrado na \autoref{innacurace}.
 
 \begin{figure}[h!tp]
 	\caption{\label{innacurace}Inexatidão entre os métodos de recomendação.}
@@ -460,7 +461,7 @@ Como forma de verificar a eficácia do método híbrido em relação aos método
 	\hspace{5.5cm}{Fonte: \citeonline{claypool1999combining}}
 \end{figure}
 
-Analisando a figura 4 pode-se verificar que nos primeiros dias, a inexatidão do método colaborativo era maior devido a falta de completude no modelo dos usuários, construído por meio de usuários que ainda não avaliaram itens, ou de usuários que não se beneficiam da opinião de outros \cite{claypool1999combining}. Conforme o método colaborativo foi estabelecendo relações entre os usuários, este ficou mais preciso e o método baseado em conteúdo começou a ser menos viável. Porém, independente dos picos de inexatidão dos métodos separados mostrados na figura 4, quando combinados (\textbf{recomendação híbrida}), é possível notar uma constância muito maior, possuindo o mais baixo nível de inexatidão em todos os momentos.
+Analisando a \autoref{innacurace} pode-se verificar que nos primeiros dias, a inexatidão do método colaborativo era maior devido a falta de completude no modelo dos usuários, construído por meio de usuários que ainda não avaliaram itens, ou de usuários que não se beneficiam da opinião de outros \cite{claypool1999combining}. Conforme o método colaborativo foi estabelecendo relações entre os usuários, este ficou mais preciso e o método baseado em conteúdo começou a ser menos viável. Porém, independente dos picos de inexatidão dos métodos separados mostrados na \autoref{innacurace}, quando combinados (\textbf{recomendação híbrida}), é possível notar uma constância muito maior, possuindo o mais baixo nível de inexatidão em todos os momentos.
 
 Em resumo os sistemas híbridos foram criados para unir técnicas de recomendação com objetivo de \textbf{compensar as limitações} apresentadas pela utilização dessas mesmas técnicas individualmente \cite{balabanovic1997fab}. Tais limitações e seus efeitos no resultado das recomendações serão abordadas na seção a seguir.
 
@@ -494,10 +495,9 @@ Seção sobre API
 
 Descrever o padrão RESTful
 
-\subsection{Metadados?}
+\subsection{Orientação à Metadados}
 
 Encaixar os metadados aqui
-
 
 %
 %--------- FIM REFERENCIAL TEORICO------------
@@ -505,40 +505,63 @@ Encaixar os metadados aqui
 
 \chapter{API DE RECOMENDAÇÃO ORIENTADA À METADADOS}
 
-Através dos benefícios da utilização de mais de um método de recomendação em um sistema em forma de serviço, este trabalho propõe o desenvolvimento de uma API Web\footnote{"\textit{Application Programming Interface}" - Conjunto de rotinas e padrões de programação para acesso a um aplicativo de software ou plataforma baseado na Web.} que utiliza metadados\footnote{Dado sobre o dado ou informação sobre a informação.} para fazer a alimentação do conjunto de usuários, itens e avaliações. A combinação destes conjuntos será utilizada para fornecer recomendações às requisições dos clientes.
+Amparado pelos benefícios da utilização de mais de um método de recomendação, apresentando-os em forma de serviço, este capítulo detalha o funcionamento de uma \textbf{API como interface de recomendação}, fazendo uso de metadados provenientes do próprio usuário para criação, validação e interconexão entre as recomendações.
 
-Partindo da premissa que a API deve atender qualquer modelo de usuário e item, serão fornecidos, em sua inicialização, \textbf{metadados} correspondentes a estrutura de ambos, além da estrutura de avaliação. Assim que os metadados sejam fornecidos à API e os dados sejam fornecidos dentro das estruturas definidas, a requisição de recomendações torna-se simples, uma vez que a API já tem conhecimento do usuário e dos itens avaliados por ele. Este método faz com que o processo de recomendação torne-se \textbf{transparente} ao cliente.
+Como parte introdutória ao funcionamento, a seção \nameref{visao_geral} traça de forma abstrata as funcionalidades da API, apresentando os principais componentes e sua correlação. Posteriormente, nas seções \nameref{analisador}, \nameref{motor} e \nameref{interface}, tais funcionalidades são dissecadas de forma diminuir o nível de abstração. Por fim, os testes efetuados e as facilidades implementadas para a utilização da solução são abordados na seção \nameref{testes}.
+
+\section{Visão Geral} \label{visao_geral}
+
+A solução construída tem como função recomendar quaisquer itens a quaisquer usuários, sendo estes provenientes de uma fonte externa, fornecidos pelo usuário da API, nos padrões definidos pelos respectivos \textbf{metadados} existentes, também fornecidos inicialmente pelo usuário da API.
+
+Partindo da premissa que a solução deve atender modelos genéricos, serão fornecidos na inicialização da API os \textbf{metadados} de usuários, itens e avaliações, correspondendo a estrutura necessária pelo usuário da aplicação. Uma vez que os metadados sejam fornecidos, os dados relacionados devem respeitar as estruturas definidas. Tanto os usuários, itens e avaliações, quanto as futuras recomendações, serão persistidas em um banco de dados, a fim de centralizar as informações e diminuir o tempo de resposta das recomendações requisitadas.
+
+De posse das estruturas de metadados fornecidas na inicialização, o usuário da solução poderá alimentar o sistema através das seguintes interfaces gerais:
+
+\begin{itemize}
+
+	\item \textbf{Metadados}: O usuário da API fornece a estrutura que irá compor cada um dos grupos abaixo. Essas estruturas definem os atributos de cada grupo, o tipo de cada atributo, a importância ou não do atributo nas recomendações, entre outras informações.
+
+	\item \textbf{Usuários}: O usuário da API fornece os usuários aos quais deseja gerar algum tipo de recomendação. Esses dados serão utilizados posteriormente como referência aos itens e para definição da similaridade entre usuários.
+
+	\item \textbf{Itens}: O usuário da API fornece os itens que serão recomendados aos usuários existentes. Os mesmos e seus atributos serão utilizados nas recomendações, atrelados a um usuário em questão.
+
+	\item \textbf{Avaliações}: O usuário da API fornece as avaliações que ligam usuários a itens. Essas informações servem como união, apontando quais usuários estão relacionados a quais itens, sempre atrelando esta relação a uma avaliação numérica.
+
+\end{itemize}
+
+Tais ações de alimentação serão responsáveis por preencher os respectivos conjuntos anteriormente descritos e, a partir deles, construir os modelos de cada usuário e a matriz de avaliações, fundamentais para a geração das recomendações. Durante a requisição de uma recomendação, a solução definirá o método a ser utilizado e o mesmo fará as recomendações com base nos dados conhecidos, respeitando as propriedades descritas nos metadados.
 
 Como forma de recomendação será utilizado o método híbrido, composto dos métodos \textbf{baseado em conteúdo} e \textbf{filtragem colaborativa}, escalonando através do método com melhor precisão momentânea. Dessa forma é possível atender qualquer tipo de metadado, fornecendo recomendações independente do número de usuários, itens e avaliações na base de dados.
 
-De posse das estruturas de metadados fornecidas na inicialização, o cliente poderá alimentar o sistema através das interfaces desenvolvidas na API, constituída pelas funções: \textbf{novos usuários}, \textbf{novos itens} e \textbf{novas avaliações}. Estas três ações de alimentação serão responsáveis por preencher os respectivos conjuntos anteriormente descritos e, a partir deles, construir os modelos de cada usuário para o método colaborativo, bem como a matriz de avaliações para o método baseado em conteúdo. Durante a requisição de uma recomendação, a API definirá o método a ser utilizado e o mesmo fará as recomendações com base nos dados conhecidos, respeitando as propriedades descritas nos metadados.
-
 Em um primeiro momento, a API utilizará o método baseado em conteúdo para fornecer as recomendações e predições, uma vez que poucos itens estarão avaliados e o método colaborativo não terá modelos de usuários suficientes. Assim que as métricas de relações entre usuários e quantidade de modelos processados sejam supridas, a API passará a utilizar o método de filtragem colaborativa, caso este esteja gerando recomendações mais precisas.
 
-\section{Visão Geral}
-
 \begin{figure}[h!tp]
-	\caption{\label{content_based}Visão geral da API.}
+	\caption{\label{overview}Visão geral da API.}
 
 	\begin{center}
-		\includegraphics[scale=0.7]{images/MORPY_overview.png}
+		\includegraphics[scale=0.6]{images/MORPY_overview.png}
 	\end{center}
 
 	\hspace{5.5cm}{Fonte: O Autor.}
 
 \end{figure}
 
-\section{O Analisador de Dados}
+\section{O Analisador de Dados} \label{analisador}
+ asdiohasdo ihaso dh
 
-\section{O Motor de Recomendações}
+\section{O Motor de Recomendações} \label{motor}
 
-\subsection{Motor de Conteúdo}
+\subsection{Motor de Conteúdo} \label{motor:conteudo}
 
-\subsection{Motor Colaborativo}
+\subsection{Motor Colaborativo} \label{motor:colaborativo}
 
-\section{Persistência}
+\section{Persistência} \label{persistencia}
 
-\section{Interface de Usuário}
+\section{Interface de Usuário} \label{interface}
+
+\section{Testes e Implementação} \label{testes}
+
+\subsection{Tecnologias Utilizadas} \label{tecnologias}
 
 %
 %--------- FIM API------------
@@ -546,21 +569,14 @@ Em um primeiro momento, a API utilizará o método baseado em conteúdo para for
 
 \chapter{RESULTADOS E DISCUSSÃO}
 
+\section{Trabalhos Futuros} \label{trabalhos_futuros}
+
 \chapter{CONSIDERAÇÕES FINAIS}
 
 Devido ao grande número de implementações dos sistemas de recomendação nas mais diversas áreas que aqui foram apresentadas, torna-se notável a vasta gama de aplicações das técnicas e, mais do que isso, a necessidade de um serviço multi-propósito desprendido do uso de linguagens de programação específicas. Sendo assim, ao final do cronograma, espera-se a obtenção de uma API que satisfaça estes requisitos.
 
 Além disso, é importante ressaltar preocupação na construção de uma documentação direta e coesa ao longo de todo o processo, visando uma futura colaboração externa da comunidade, sendo a API de código aberto. Desta forma, o trabalho pode servir não só como uma alternativa \textit{open-source} aos sistemas de recomendação, mas também como uma tecnologia de utilização simples para futuros estudos na área.
 
-
 \postextual
 \bibliography{referencias}
 \end{document}
-
-
-
-
-
-
-
-
