@@ -13,8 +13,8 @@
 \usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
 \usepackage[alf, abnt-emphasize=bf, abnt-url-package=none, abnt-repeated-title-omit=yes, abnt-full-initials=yes, abnt-etal-list=3, abnt-etal-text=emph]{abntex2cite} % Citações padrão ABNT
 \usepackage{trabalho}	% Citações padrão ABNT
-\usepackage{lipsum}				% para geração de dummy text
-\usepackage{trivfloat} 	%Quadros
+\usepackage{lipsum}	% para geração de dummy text
+\usepackage{trivfloat}	%Quadros
 % ---
 
 % ---
@@ -48,23 +48,24 @@
   Instituto Federal Catarinense - Câmpus Videira
   \par
   Bacharelado em Ciência da Computação
-  }
+}
 \tipotrabalho{Trabalho de conclusão de curso}
-\preambulo{Trabalho de conclusão de curso submetido ao Instituto Federal Catarinense - Câmpus Videira como parte dos requisitos para a obtenção do grau de Bacharel em Ciência da Computação}
-
+\preambulo{
+	Trabalho de conclusão de curso submetido ao Instituto Federal Catarinense - Câmpus Videira como parte dos requisitos para a obtenção do grau de Bacharel em Ciência da Computação
+}
 \makeatletter
 \hypersetup{
-		pdftitle={\@title},
-		pdfauthor={\@author},
-    	pdfsubject={\imprimirpreambulo},
-	    pdfcreator={LaTeX with abnTeX2},
-		pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico},
-		colorlinks=true,       		% false: boxed links; true: colored links
-    	linkcolor=blue,          	% color of internal links
-    	citecolor=blue,        		% color of links to bibliography
-    	filecolor=magenta,      		% color of file links
-		urlcolor=blue,
-		bookmarksdepth=4
+	pdftitle={\@title},
+	pdfauthor={\@author},
+	pdfsubject={\imprimirpreambulo},
+	pdfcreator={LaTeX with abnTeX2},
+	pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico},
+	colorlinks=true,       		% false: boxed links; true: colored links
+	linkcolor=blue,          	% color of internal links
+	citecolor=blue,        		% color of links to bibliography
+	filecolor=magenta,      		% color of file links
+	urlcolor=blue,
+	bookmarksdepth=4
 }
 \makeatother
 \setlength{\parindent}{1.3cm}
@@ -513,6 +514,19 @@ Como parte introdutória ao funcionamento, a seção \nameref{visao_geral} traç
 
 A solução construída tem como função recomendar quaisquer itens a quaisquer usuários, sendo estes provenientes de uma fonte externa, fornecidos pelo usuário da API, nos padrões definidos pelos respectivos \textbf{metadados} existentes, também fornecidos inicialmente pelo usuário da API.
 
+\begin{figure}[htp]
+	
+	\caption{\label{interconnection}Comunicação da API com o cliente.}
+
+	\begin{center}
+		\includegraphics[scale=0.6]{images/MORPY_overview.png}
+	\end{center}
+
+	\hspace{5.5cm}{Fonte: O Autor.}
+
+\end{figure}
+
+
 Partindo da premissa que a solução deve atender modelos genéricos, serão fornecidos na inicialização da API os \textbf{metadados} de usuários, itens e avaliações, correspondendo a estrutura necessária pelo usuário da aplicação. Uma vez que os metadados sejam fornecidos, os dados relacionados devem respeitar as estruturas definidas. Tanto os usuários, itens e avaliações, quanto as futuras recomendações, serão persistidas em um banco de dados, a fim de centralizar as informações e diminuir o tempo de resposta das recomendações requisitadas.
 
 De posse das estruturas de metadados fornecidas na inicialização, o usuário da solução poderá alimentar o sistema através das seguintes interfaces gerais:
@@ -529,13 +543,10 @@ De posse das estruturas de metadados fornecidas na inicialização, o usuário d
 
 \end{itemize}
 
-Tais ações de alimentação serão responsáveis por preencher os respectivos conjuntos anteriormente descritos e, a partir deles, construir os modelos de cada usuário e a matriz de avaliações, fundamentais para a geração das recomendações. Durante a requisição de uma recomendação, a solução definirá o método a ser utilizado e o mesmo fará as recomendações com base nos dados conhecidos, respeitando as propriedades descritas nos metadados.
+Tais ações de alimentação serão responsáveis por preencher os respectivos conjuntos anteriormente descritos e, a partir deles, construir os modelos de cada usuário e a matriz de avaliações, fundamentais para a geração das recomendações. Durante a requisição de uma recomendação, a solução definirá o método a ser utilizado e o mesmo fará as recomendações com base nos dados conhecidos, respeitando as propriedades descritas nos metadados. Um esquema do funcionamento geral da aplicação pode ser visto na \autoref{overview}.
 
-Como forma de recomendação será utilizado o método híbrido, composto dos métodos \textbf{baseado em conteúdo} e \textbf{filtragem colaborativa}, escalonando através do método com melhor precisão momentânea. Dessa forma é possível atender qualquer tipo de metadado, fornecendo recomendações independente do número de usuários, itens e avaliações na base de dados.
+\begin{figure}[htp]
 
-Em um primeiro momento, a API utilizará o método baseado em conteúdo para fornecer as recomendações e predições, uma vez que poucos itens estarão avaliados e o método colaborativo não terá modelos de usuários suficientes. Assim que as métricas de relações entre usuários e quantidade de modelos processados sejam supridas, a API passará a utilizar o método de filtragem colaborativa, caso este esteja gerando recomendações mais precisas.
-
-\begin{figure}[h!tp]
 	\caption{\label{overview}Visão geral da API.}
 
 	\begin{center}
@@ -546,10 +557,28 @@ Em um primeiro momento, a API utilizará o método baseado em conteúdo para for
 
 \end{figure}
 
+Analisando a \autoref{overview}, pode-se perceber uma distinção básica entre dois tipos de eventos: os eventos de \textbf{inserção ou atualização de dados} e os eventos de \textbf{geração e requisição de recomendações}, ambos contidos no domínio de atuação da interface de comunicação com o usuário, a qual interpreta as requisições e processa as devidas respostas.
+
+As funcionalidades da API e suas interações podem ser subdivididas nos seguintes componentes centrais:
+
+\begin{itemize}
+
+	\item \textbf{Interface de Comunicação}: É o ponto de contato entre o cliente que utiliza a API e o domínio da aplicação, recebendo todas as requisições nos devidos \textit{endpoints}, processando-as e retornando os resultados.
+	
+	\item \textbf{Analisador de Dados}: É o módulo responsável por contrastar as entradas da interface de comunicação com os metadados ativos. O trabalho do analisador de dados é validar o padrão de dados fornecido pelo cliente da API e persistir os dados corretos na base dados, notificando o motor de recomendação sobre quaisquer mudanças.
+
+	\item \textbf{Motor de Recomendação}: É o módulo que definitivamente faz as recomendações. Ele se alimenta dos dados persistidos pelo analisador, gerando matrizes de relação, utilizadas para calcular o nível de similaridade entre usuário e itens, permitindo a persistência das recomendações na base de dados.
+	
+\end{itemize}
+
 \section{O Analisador de Dados} \label{analisador}
  asdiohasdo ihaso dh
 
 \section{O Motor de Recomendações} \label{motor}
+
+Como forma de recomendação será utilizado o método híbrido, composto dos métodos \textbf{baseado em conteúdo} e \textbf{filtragem colaborativa}, escalonando através do método com melhor precisão momentânea. Dessa forma é possível atender qualquer tipo de metadado, fornecendo recomendações independente do número de usuários, itens e avaliações na base de dados.
+
+Em um primeiro momento, a API utilizará o método baseado em conteúdo para fornecer as recomendações e predições, uma vez que poucos itens estarão avaliados e o método colaborativo não terá modelos de usuários suficientes. Assim que as métricas de relações entre usuários e quantidade de modelos processados sejam supridas, a API passará a utilizar o método de filtragem colaborativa, caso este esteja gerando recomendações mais precisas.
 
 \subsection{Motor de Conteúdo} \label{motor:conteudo}
 
