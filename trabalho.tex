@@ -514,6 +514,10 @@ Como parte introdutória ao funcionamento, a seção \nameref{visao_geral} traç
 
 A solução construída tem como função recomendar quaisquer itens a quaisquer usuários, sendo estes provenientes de uma fonte externa, fornecidos pelo usuário da API, nos padrões definidos pelos respectivos \textbf{metadados} existentes, também fornecidos inicialmente pelo usuário da API.
 
+Explicar a interação HTTP com o cliente através de GET, PUT, POST E DELETE.
+
+Explicar o padrão de endpoints e a apresentar a figura.
+
 \begin{figure}[htp]
 	
 	\caption{\label{interconnection}Comunicação da API com o cliente.}
@@ -526,6 +530,7 @@ A solução construída tem como função recomendar quaisquer itens a quaisquer
 
 \end{figure}
 
+Explicar a figura e padao de retorno JSON. Fazer um gancho pro problema dos modelos e do porque devem ser genéricos.
 
 Partindo da premissa que a solução deve atender modelos genéricos, serão fornecidos na inicialização da API os \textbf{metadados} de usuários, itens e avaliações, correspondendo a estrutura necessária pelo usuário da aplicação. Uma vez que os metadados sejam fornecidos, os dados relacionados devem respeitar as estruturas definidas. Tanto os usuários, itens e avaliações, quanto as futuras recomendações, serão persistidas em um banco de dados, a fim de centralizar as informações e diminuir o tempo de resposta das recomendações requisitadas.
 
@@ -557,22 +562,33 @@ Tais ações de alimentação serão responsáveis por preencher os respectivos 
 
 \end{figure}
 
-Analisando a \autoref{overview}, pode-se perceber uma distinção básica entre dois tipos de eventos: os eventos de \textbf{inserção ou atualização de dados} e os eventos de \textbf{geração e requisição de recomendações}, ambos contidos no domínio de atuação da interface de comunicação com o usuário, a qual interpreta as requisições e processa as devidas respostas.
-
-As funcionalidades da API e suas interações podem ser subdivididas nos seguintes componentes centrais:
+Analisando a \autoref{overview}, pode-se perceber uma distinção básica entre dois tipos de eventos: os eventos de \textbf{inserção ou atualização de dados} e os eventos de \textbf{geração e requisição de recomendações}, ambos contidos no domínio de atuação da interface de comunicação com o usuário, a qual interpreta as requisições e processa as devidas respostas. Os módulos centrais correspondentes a estes domínios e suas interações podem ser subdivididas nos seguintes:
 
 \begin{itemize}
 
-	\item \textbf{Interface de Comunicação}: É o ponto de contato entre o cliente que utiliza a API e o domínio da aplicação, recebendo todas as requisições nos devidos \textit{endpoints}, processando-as e retornando os resultados.
+	\item \textbf{Interface de Comunicação}: É o ponto de contato entre o cliente que utiliza a API e o domínio da aplicação, recebendo todas as requisições nos devidos \textit{endpoints}, processando-as e retornando os resultados. Este módulo é descrito detalhadamente na seção \nameref{interface}.
 	
-	\item \textbf{Analisador de Dados}: É o módulo responsável por contrastar as entradas da interface de comunicação com os metadados ativos. O trabalho do analisador de dados é validar o padrão de dados fornecido pelo cliente da API e persistir os dados corretos na base dados, notificando o motor de recomendação sobre quaisquer mudanças.
+	\item \textbf{Analisador de Dados}: É o módulo responsável por contrastar as entradas da interface de comunicação com os metadados ativos. O trabalho do analisador de dados é validar o padrão de dados fornecido pelo cliente da API e persistir os dados corretos na base dados, notificando o motor de recomendação sobre quaisquer mudanças. Este módulo é descrito detalhadamente na seção \nameref{analisador}.
 
-	\item \textbf{Motor de Recomendação}: É o módulo que definitivamente faz as recomendações. Ele se alimenta dos dados persistidos pelo analisador, gerando matrizes de relação, utilizadas para calcular o nível de similaridade entre usuário e itens, permitindo a persistência das recomendações na base de dados.
+	\item \textbf{Motor de Recomendação}: É o módulo que definitivamente faz as recomendações. Ele se alimenta dos dados persistidos pelo analisador, gerando matrizes de relação, utilizadas para calcular o nível de similaridade entre usuário e itens, permitindo a persistência das recomendações na base de dados. Este módulo é descrito detalhadamente na seção \nameref{motor}.
 	
 \end{itemize}
 
+Explicar o fluxo de funcionamento da requisição até a recomendação.
+
+Criar outra figura pra explicar as 3 partes: requisição do usuário via HTTP com os dados pra atualizar, persistencia e retorno | em paralelo: geração e persistência das recomendações e retorno das recomendações em outra requisição futura.
+
+Explicar a figura descrita acima.
+
+Fazer um parágrafo de introdução ao detalhamento e um resumo do overview.
+
+\section{A Interface de Comunicação} \label{interface}
+
 \section{O Analisador de Dados} \label{analisador}
- asdiohasdo ihaso dh
+
+\subsection{Padrão de Metadados} \label{analisador:padrao_metadados}
+
+\subsection{Persistência} \label{analisador:persistencia}
 
 \section{O Motor de Recomendações} \label{motor}
 
@@ -584,11 +600,9 @@ Em um primeiro momento, a API utilizará o método baseado em conteúdo para for
 
 \subsection{Motor Colaborativo} \label{motor:colaborativo}
 
-\section{Persistência} \label{persistencia}
-
-\section{Interface de Usuário} \label{interface}
-
 \section{Testes e Implementação} \label{testes}
+
+\subsection{\textit{Seed} de Dados}
 
 \subsection{Tecnologias Utilizadas} \label{tecnologias}
 
