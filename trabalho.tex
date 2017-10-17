@@ -514,23 +514,79 @@ Como parte introdutória ao funcionamento, a seção \nameref{visao_geral} traç
 
 A solução construída tem como função recomendar quaisquer itens a quaisquer usuários, sendo estes provenientes de uma fonte externa, fornecidos pelo usuário da API, nos padrões definidos pelos respectivos \textbf{metadados} existentes, também fornecidos inicialmente pelo usuário da API.
 
-Explicar a interação HTTP com o cliente através de GET, PUT, POST E DELETE.
+O usuário da API é definido como qualquer agente que tenha interações com a aplicação, humano ou programa, através requisições aos \textit{endpoints} fornecidos na documentação. Essas interações são acordadas pelo protocolo HTTP, usado como base em uma arquitetura RESTful \cite{rodriguez2008restful}. Dessa forma, o usuário da API pode utilizar qualquer interface que suporte o protocolo HTTP para desfrutar das funcionalidades da API, tornando-a multiplataforma e independente de bibliotecas de linguagens de programação específicas. As interações com os recursos da aplicação são efetuadas através dos seguintes métodos do protocolo HTTP:
 
-Explicar o padrão de endpoints e a apresentar a figura.
+\begin{itemize}
+
+	\item \textbf{GET}: Interações que demandam a consulta de recursos.
+
+	\item \textbf{POST}: Interações que demandam a criação de novos recursos.
+
+	\item \textbf{PUT}: Interações que demandam a alteração de recursos existentes.
+
+	\item \textbf{DELETE}: Interações que demandam a remoção ou desativação de recursos existentes.
+
+\end{itemize}
+
+Após o envio, a requisição é processada pela interface de usuário da API e, posteriormente, um retorno de sucesso ou erro finaliza a requisição. Para verificar o tipo do retorno da requisição, o usuário da API deve se ater aos \textit{status code} retornados pela API. Em caso de sucesso, por exemplo, a API retornaria um conteúdo JSON relacionado a requisição original e um \textit{status code} da faixa \textbf{2XX}. Já em caso de erro, a API retornaria um conteúdo de erro, anexo a um \textit{status code} da faixa \textbf{4XX} \cite{fielding1999hypertext}. Exemplos de requisição à API e o fluxo das mesmas após o envio podem ser visualizados nas figuras \ref{fetch_api}, \ref{postman} e \ref{interconnection}.
 
 \begin{figure}[htp]
-	
-	\caption{\label{interconnection}Comunicação da API com o cliente.}
+
+	\caption{\label{fetch_api}Exemplo de adição de item via \textit{fetch} API.}
 
 	\begin{center}
-		\includegraphics[scale=0.6]{images/MORPY_overview.png}
+		\includegraphics[scale=0.8]{images/fetch_api.png}
 	\end{center}
 
 	\hspace{5.5cm}{Fonte: O Autor.}
 
 \end{figure}
 
+\begin{figure}[htp]
+
+	\caption{\label{postman}Exemplo de adição de item via Postman.}
+
+	\begin{center}
+		\includegraphics[scale=0.85]{images/postman.png}
+	\end{center}
+
+	\hspace{5.5cm}{Fonte: O Autor.}
+
+\end{figure}
+
+\begin{figure}[htp]
+
+	\caption{\label{interconnection}Exemplo de fluxo de uma requisição à API.}
+
+	\begin{center}
+		\includegraphics[scale=0.62]{images/interconnection.png}
+	\end{center}
+
+	\hspace{5.5cm}{Fonte: O Autor.}
+
+\end{figure}
+
+Para facilitar mais ainda a comunicação com o usuário da API foi criado o padrão de endpoints e retorno json... pra deixar explicita a parada...
+
 Explicar a figura e padao de retorno JSON. Fazer um gancho pro problema dos modelos e do porque devem ser genéricos.
+
+\begin{quadro}[h!tp]
+
+	\caption{\label{movie_matrix}Exemplo de recurso de \textit{endpoints} para o módulo item.}
+	\centering
+	\begin{tabular}{|l|l|l|}
+	\hline
+	\textbf{Método HTTP} & \textit{\textbf{Endpoint}} & \textbf{Descrição}         \\ \hline
+	POST                 & /item                      & Cria um novo item          \\ \hline
+	GET                  & /item/:item\_id 			  & Retorna um item específico \\ \hline
+	PUT                  & /item/:item\_id            & Altera um item específico  \\ \hline
+	DELETE               & /item/:item\_id            & Deleta um item específico  \\ \hline
+	GET                  & /item                      & Retorna todos os itens     \\ \hline
+	\end{tabular}
+
+	Fonte: \citeonline{adomavicius2005toward}
+
+\end{quadro}
 
 Partindo da premissa que a solução deve atender modelos genéricos, serão fornecidos na inicialização da API os \textbf{metadados} de usuários, itens e avaliações, correspondendo a estrutura necessária pelo usuário da aplicação. Uma vez que os metadados sejam fornecidos, os dados relacionados devem respeitar as estruturas definidas. Tanto os usuários, itens e avaliações, quanto as futuras recomendações, serão persistidas em um banco de dados, a fim de centralizar as informações e diminuir o tempo de resposta das recomendações requisitadas.
 
@@ -550,7 +606,7 @@ De posse das estruturas de metadados fornecidas na inicialização, o usuário d
 
 Tais ações de alimentação serão responsáveis por preencher os respectivos conjuntos anteriormente descritos e, a partir deles, construir os modelos de cada usuário e a matriz de avaliações, fundamentais para a geração das recomendações. Durante a requisição de uma recomendação, a solução definirá o método a ser utilizado e o mesmo fará as recomendações com base nos dados conhecidos, respeitando as propriedades descritas nos metadados. Um esquema do funcionamento geral da aplicação pode ser visto na \autoref{overview}.
 
-\begin{figure}[htp]
+\begin{figure}[h!tp]
 
 	\caption{\label{overview}Visão geral da API.}
 
@@ -567,11 +623,11 @@ Analisando a \autoref{overview}, pode-se perceber uma distinção básica entre 
 \begin{itemize}
 
 	\item \textbf{Interface de Comunicação}: É o ponto de contato entre o cliente que utiliza a API e o domínio da aplicação, recebendo todas as requisições nos devidos \textit{endpoints}, processando-as e retornando os resultados. Este módulo é descrito detalhadamente na seção \nameref{interface}.
-	
+
 	\item \textbf{Analisador de Dados}: É o módulo responsável por contrastar as entradas da interface de comunicação com os metadados ativos. O trabalho do analisador de dados é validar o padrão de dados fornecido pelo cliente da API e persistir os dados corretos na base dados, notificando o motor de recomendação sobre quaisquer mudanças. Este módulo é descrito detalhadamente na seção \nameref{analisador}.
 
 	\item \textbf{Motor de Recomendação}: É o módulo que definitivamente faz as recomendações. Ele se alimenta dos dados persistidos pelo analisador, gerando matrizes de relação, utilizadas para calcular o nível de similaridade entre usuário e itens, permitindo a persistência das recomendações na base de dados. Este módulo é descrito detalhadamente na seção \nameref{motor}.
-	
+
 \end{itemize}
 
 Explicar o fluxo de funcionamento da requisição até a recomendação.
