@@ -312,7 +312,7 @@ Analisando a taxonomia proposta por \citeonline{carbonell1983overview}, pode-se 
 
 Como exemplo do uso das técnicas de \textit{machine learning}, \citeonline{sebastiani2002machine}  apresenta um algoritmo de categorização de texto que, a partir de um conjunto de documentos pré-classificados (entradas), constrói um classificador para novos documentos (novas entradas). Outro exemplo, apresentado por \citeonline{pang2002thumbs}, reforça a ideia de melhora de desempenho para novas entradas através de um padrão aprendido a partir de entradas já existentes. Através de dados sobre avaliações de filmes, pode-se perceber que, mesmo as técnicas padrão de \textit{machine learning}, acabam superando os patamares humanos na classificação de sentimentos.
 
-\section{Sistemas de Recomendação}
+\section{Sistemas de Recomendação} \label{recommender_systems}
 
 Como ramificação do aprendizado de máquina, os sistemas de recomendação (RSs) são técnicas de software que provém sugestões a usuários de itens que os mesmos possam querer utilizar   \cite{resnick1997recommender, schafer1999recommender}. Desta forma, recomendações seriam, em sua forma mais simples, rankings de itens, tais como os utilizados na maioria das soluções de produtos (livros mais lidos, filmes mais assistidos, etc.) \cite{ricci2011introduction}. O que os RSs trazem de novo é a tentativa de predizer, através da filtragem colaborativa ou da similaridade de conteúdo, qual o ranking mais adequado de produtos ou serviços a um usuário. A filtragem colaborativa, termo cunhado por \citeonline{resnick1997recommender}, recomenda itens baseando-se nos relacionamentos do usuário. Por outro lado, a similaridade de conteúdo baseia-se no conteúdo de itens já avaliados pelo usuário. Tais dados podem ser coletadas de forma explícita, na forma de perguntas diretas e avaliações do usuário sobre os itens, ou de forma interpretativa, inferindo sobre ações tomadas pelo usuário e atribuindo peso a elas.
 
@@ -692,6 +692,10 @@ Do mesmo modo que o agente das requisições precisa incluir o \textit{token} te
 explicar como construir os metadados e o que cada atributo faz
 
 \subsection{Persistência} \label{analisador:persistencia}
+
+A base de um sistema de recomendação é o conhecimento prévio, uma vez que, independente da métrica ou método utilizados, todos utilizam do cruzamento de informações conhecidas para gerar predições (vide seção \ref{recommender_systems}). Dessa forma, é necessário que alguma estratégia eficiente de armazenamento e consulta seja utilizada, tendo em vista que o cruzamento dessas informações pode gerar matrizes excedendo milhões linhas e colunas \cite{gomez2016netflix}.
+
+Visando utilizar uma estratégia de persistência que se destacasse no processamento de grandes conjuntos de dados, ponto essencial para boas recomendações, a API implementa uma persistência utilizando um banco de dados não relacional (NoSQL) orientado a documentos \cite{leavitt2010will}, que além de sua proeficientia no manejo dos dados, também persiste os mesmos em estruturas baseadas em JSON, como apresentado por \citeonline{padhy2011rdbms}.
 
 Criar outra figura pra explicar as 3 partes: requisição do usuário via HTTP com os dados pra atualizar, persistencia e retorno | em paralelo: geração e persistência das recomendações e retorno das recomendações em outra requisição futura.
 
