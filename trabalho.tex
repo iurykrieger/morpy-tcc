@@ -566,27 +566,19 @@ Após o envio, a requisição é processada pela interface de usuário da API e,
 
 \end{figure}
 
-Para facilitar mais ainda a comunicação com o usuário da API foi criado o padrão de endpoints e retorno json... pra deixar explicita a parada...
+A figura \ref{interconnection} mostra um exemplo de requisição à API de recomendação. Nela, são requisitados os \textbf{dez} itens de maior similaridade a serem recomendados para o usuário denominado pelo parâmetro variável \textbf{\textit{user\_id}}. Este processo de requisição e resposta pode ser dividido em quatro partes principais:
 
-Explicar a figura e padao de retorno JSON. Fazer um gancho pro problema dos modelos e do porque devem ser genéricos.
+\begin{enumerate}
 
-\begin{quadro}[h!tp]
+	\item \textbf{Envio}: O usuário da API, devidamente autenticado, escolhe o \textit{endpoint} que corresponde as suas necessidades, enviando uma requisição através dos métodos HTTP previamente citados.
+	
+	\item \textbf{Interpretação}: A API receberá a requisição no devido \textit{endpoint}, interpretando-a e repassando-a através de chamadas internas das devidas funcionalidades.
+	
+	\item \textbf{Processamento}: Uma vez identificada a ação a ser executada, a API processa os dados (nesse caso as recomendações para o usuário \textbf{\textit{user\_id}}), posteriormente formatando-os em uma estrutura JSON.
 
-	\caption{\label{movie_matrix}Exemplo de recurso de \textit{endpoints} para o módulo item.}
-	\centering
-	\begin{tabular}{|l|l|l|}
-	\hline
-	\textbf{Método HTTP} & \textit{\textbf{Endpoint}} & \textbf{Descrição}         \\ \hline
-	POST                 & /item                      & Cria um novo item          \\ \hline
-	GET                  & /item/:item\_id 			  & Retorna um item específico \\ \hline
-	PUT                  & /item/:item\_id            & Altera um item específico  \\ \hline
-	DELETE               & /item/:item\_id            & Deleta um item específico  \\ \hline
-	GET                  & /item                      & Retorna todos os itens     \\ \hline
-	\end{tabular}
+	\item \textbf{Retorno personalizado}: Com a estrutura JSON processada em mãos, a API verifica os metadados atuais e retorna, com base nos atributos especificados como visíveis, uma estrutura JSON personalizada pelos desejo do usuário da API.
 
-	Fonte: \citeonline{adomavicius2005toward}
-
-\end{quadro}
+\end{enumerate}
 
 Partindo da premissa que a solução deve atender modelos genéricos, serão fornecidos na inicialização da API os \textbf{metadados} de usuários, itens e avaliações, correspondendo a estrutura necessária pelo usuário da aplicação. Uma vez que os metadados sejam fornecidos, os dados relacionados devem respeitar as estruturas definidas. Tanto os usuários, itens e avaliações, quanto as futuras recomendações, serão persistidas em um banco de dados, a fim de centralizar as informações e diminuir o tempo de resposta das recomendações requisitadas.
 
@@ -618,7 +610,7 @@ Tais ações de alimentação serão responsáveis por preencher os respectivos 
 
 \end{figure}
 
-Analisando a \autoref{overview}, pode-se perceber uma distinção básica entre dois tipos de eventos: os eventos de \textbf{inserção ou atualização de dados} e os eventos de \textbf{geração e requisição de recomendações}, ambos contidos no domínio de atuação da interface de comunicação com o usuário, a qual interpreta as requisições e processa as devidas respostas. Os módulos centrais correspondentes a estes domínios e suas interações podem ser subdivididas nos seguintes:
+De modo a complementar a visão da API apresentada pela figura \ref{interconnection}, a figura \ref{overview} apresenta o fluxo interno de funcionamento da API, apresentando uma distinção básica entre dois tipos de eventos: os eventos de \textbf{inserção ou atualização de dados} e os eventos de \textbf{geração e requisição de recomendações}. Ambos estão contidos no domínio de atuação da interface de comunicação com o usuário, a qual interpreta as requisições e processa as devidas respostas. Os módulos centrais correspondentes a estes domínios e suas interações podem ser subdivididas nos seguintes:
 
 \begin{itemize}
 
@@ -630,21 +622,80 @@ Analisando a \autoref{overview}, pode-se perceber uma distinção básica entre 
 
 \end{itemize}
 
-Explicar o fluxo de funcionamento da requisição até a recomendação.
-
-Criar outra figura pra explicar as 3 partes: requisição do usuário via HTTP com os dados pra atualizar, persistencia e retorno | em paralelo: geração e persistência das recomendações e retorno das recomendações em outra requisição futura.
-
-Explicar a figura descrita acima.
-
-Fazer um parágrafo de introdução ao detalhamento e um resumo do overview.
+Assim que uma requisição é recebida pela interface de comunicação, se a mesma for uma requisição de recomendação, a interface delega ao \textbf{motor de recomendações}, que busca as recomendações persistidas para o usuário em questãoo. Caso a requisição seja uma alteração de dados existentes, a interface delega ao \textbf{analizador de dados} a tarefa de validar, sempre baseando-se nos metadados atuais, os novos dados providos pelo usuário da API. Assim que esses dados são persistidos na base, o \textbf{motor de recomendações} identifica uma mudança na base e inicia um novo processo paralelo de treinamento para o dado modificado. Dessa forma, quando uma requisição for solicitada, basta o motor de recomendações consultar as recomendações já persistidas.
 
 \section{A Interface de Comunicação} \label{interface}
+
+Visando facilitar a comunicação com o usuário da API através do padrão RESTful, a interface de comunicação tem como principal função ser o ponto de contato entre o agente da requisição e as funcionalidades da API, atendendo a certos padrões de requisição e resposta que serão minuciosamente abordados nesta seção.
+
+Toda a comunicação entre o agente das requisições e a API funciona através de \textit{endpoints} que modificam seus respectivos recursos. Recursos esses que são abstrações da base de dados, fazendo com que o agente das requisições possa interferir diretamente na evolução das recomendações, mesmo sem que haja uma interface gráfica. Um exemplo de recurso pode ser visualizado no quadro \ref{resource_example}.
+
+\begin{quadro}[h!tp]
+
+	\caption{\label{resource_example}Exemplo de recurso de \textit{endpoints} para o módulo item.}
+	\centering
+	\begin{tabular}{|l|l|l|}
+	\hline
+	\textbf{Método HTTP} & \textit{\textbf{Endpoint}} & \textbf{Descrição}         \\ \hline
+	POST                 & /item                      & Cria um novo item           \\ \hline
+	GET                  & /item/:item\_id 			  & Retorna um item específico  \\ \hline
+	PUT                  & /item/:item\_id            & Altera um item específico  \\ \hline
+	DELETE               & /item/:item\_id            & Deleta um item específico  \\ \hline
+	GET                  & /item                      & Retorna todos os itens      \\ \hline
+	\end{tabular}
+
+	Fonte: O Autor.
+
+\end{quadro}
+
+Analisando o quadro \ref{resource_example}, nota-se que um mesmo endpoint pode apontar para diferentes funções, uma vez que o método HTTP que encabeça a requisição também é levado em consideração. Além disso, é importante ressaltar que cada par de \textbf{método HTTP} e \textbf{\textit{endpoint}} correspondem diretamente a um \textbf{controlador} da API, que recebe os parâmetros variáveis da requisição (no quadro \ref{resource_example} representando por \textit{item\_id}) e os repassa aos serviços. Sendo assim, os controladores poderiam ser definidos como as "portas de entrada" da API, direcionando a execução de cada funcionalidade. 
+
+Além da utilização dos \textit{endpoints} e métodos HTTP, é necessário um padrão de dados para que ambos, usuário e API, tenham uma estrutura pré definida de possibilidades de envio e retorno. Dessa forma, o padrão de dados \textbf{JSON}, proposto por \citeonline{crockford2006application} foi o escolhido para servir como representação de dados da API, desde o recebimento de novos recursos (itens, usuários, etc.) até o retorno das recomendações. Um exemplo da representação JSON para as recomendações pode ser visto na figura \ref{json_example}.
+
+\begin{figure}[h!tp]
+
+	\caption{\label{json_example}Exemplo de estrutura JSON para recomendações.}
+
+	\begin{center}
+		\includegraphics[scale=0.75]{images/json_example.png}
+	\end{center}
+
+	\hspace{5.5cm}{Fonte: O Autor.}
+
+\end{figure}
+
+\subsection{Autenticação} \label{autenticacao}
+
+Como forma de aumentar a segurança durante as requisições e, principalmente, garantir que apenas os usuários com acesso ao serviço façam requisições, a API conta com um sistema de autenticação via \textit{token}.
+
+Antes da primeira inicialização, o \textit{script} gera um \textit{token} único para o usuário da API, que será posteriormente concatenado com uma palavra secreta nos arquivos de configuração, além da data e hora atuais da requisição de autenticação. O resultado final é um \textit{token} temporário, com validade de até quinze dias, que será utilizado, obrigatoriamente, no cabeçalho de quaisquer requisições aos recursos da API.
+
+Do mesmo modo que o agente das requisições precisa incluir o \textit{token} temporário no cabeçalho das requisições, a API precisa verificar a validade deste \textit{token}. Para que isso seja possível, foi criada uma classe intermediária (\textit{middleware}) que intercepta todas as requisições, exceto a requisição de autenticação. Essa classe, por sua vez, verifica a existência do \textit{token} no cabeçalho da requisição bem como sua validade. Caso o \textit{token} não exista ou não remeta a um usuário de API válido, o \textit{middleware} bloqueia a execução da requisição, retornando uma mensagem de erro e um \textit{status code} igual a \textbf{403} - "\textit{Forbidden}". Um exemplo requisição de autenticação pode ser visto na figura \ref{auth_example}.
+
+\begin{figure}[h!tp]
+
+	\caption{\label{auth_example}Exemplo de autenticação.}
+
+	\begin{center}
+		\includegraphics[scale=0.6]{images/auth_example.png}
+
+	\end{center}
+
+	\hspace{5.5cm}{Fonte: O Autor.}
+
+\end{figure}
 
 \section{O Analisador de Dados} \label{analisador}
 
 \subsection{Padrão de Metadados} \label{analisador:padrao_metadados}
 
+explicar como construir os metadados e o que cada atributo faz
+
 \subsection{Persistência} \label{analisador:persistencia}
+
+Criar outra figura pra explicar as 3 partes: requisição do usuário via HTTP com os dados pra atualizar, persistencia e retorno | em paralelo: geração e persistência das recomendações e retorno das recomendações em outra requisição futura.
+
+Explicar a escolha do paradigma não relacional devido a quantidade de dados e o padrão ser parecido com JSON. Referenciar BSON
 
 \section{O Motor de Recomendações} \label{motor}
 
