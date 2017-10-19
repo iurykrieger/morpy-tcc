@@ -636,11 +636,11 @@ Toda a comunicação entre o agente das requisições e a API funciona através 
 	\centering
 	\begin{tabular}{|l|l|l|}
 	\hline
-	\textbf{Método HTTP} & \textit{\textbf{Endpoint}} & \textbf{Descrição}         \\ \hline
+	\textbf{Método HTTP} & \textit{\textbf{Endpoint}} & \textbf{Descrição}          \\ \hline
 	POST                 & /item                      & Cria um novo item           \\ \hline
 	GET                  & /item/:item\_id 			  & Retorna um item específico  \\ \hline
-	PUT                  & /item/:item\_id            & Altera um item específico  \\ \hline
-	DELETE               & /item/:item\_id            & Deleta um item específico  \\ \hline
+	PUT                  & /item/:item\_id            & Altera um item específico   \\ \hline
+	DELETE               & /item/:item\_id            & Deleta um item específico   \\ \hline
 	GET                  & /item                      & Retorna todos os itens      \\ \hline
 	\end{tabular}
 
@@ -648,7 +648,7 @@ Toda a comunicação entre o agente das requisições e a API funciona através 
 
 \end{quadro}
 
-Analisando o quadro \ref{resource_example}, nota-se que um mesmo endpoint pode apontar para diferentes funções, uma vez que o método HTTP que encabeça a requisição também é levado em consideração. Além disso, é importante ressaltar que cada par de \textbf{método HTTP} e \textbf{\textit{endpoint}} correspondem diretamente a um \textbf{controlador} da API, que recebe os parâmetros variáveis da requisição (no quadro \ref{resource_example} representando por \textit{item\_id}) e os repassa aos serviços. Sendo assim, os controladores poderiam ser definidos como as "portas de entrada" da API, direcionando a execução de cada funcionalidade. 
+Analisando o quadro \ref{resource_example}, nota-se que um mesmo \textit{endpoint} pode apontar para diferentes funções, uma vez que o método HTTP que encabeça a requisição também é levado em consideração. Além disso, é importante ressaltar que cada par de \textbf{método HTTP} e \textbf{\textit{endpoint}} correspondem diretamente a um \textbf{controlador} da API, que recebe os parâmetros variáveis da requisição (no quadro \ref{resource_example} representando por \textit{item\_id}) e os repassa aos serviços. Sendo assim, os controladores poderiam ser definidos como as "portas de entrada" da API, direcionando a execução de cada funcionalidade.
 
 Além da utilização dos \textit{endpoints} e métodos HTTP, é necessário um padrão de dados para que ambos, usuário e API, tenham uma estrutura pré definida de possibilidades de envio e retorno. Dessa forma, o padrão de dados \textbf{JSON}, proposto por \citeonline{crockford2006application} foi o escolhido para servir como representação de dados da API, desde o recebimento de novos recursos (itens, usuários, etc.) até o retorno das recomendações. Um exemplo da representação JSON para as recomendações pode ser visto na figura \ref{json_example}.
 
@@ -663,6 +663,8 @@ Além da utilização dos \textit{endpoints} e métodos HTTP, é necessário um 
 	\hspace{5.5cm}{Fonte: O Autor.}
 
 \end{figure}
+
+Em resumo a combinação entre a modificação de recursos via \textit{endpoints} e a estrutura JSON, como visto no quadro \ref{resource_example} e na figura \ref{json_example}, tornam-se uma ótima escolha, uma vez que seja pela simplicidade com que as estruturas geradas pela API são representadas ou pela legibilidade que os \textit{endpoints} trazem ao fluxo de envio de retorno de dados.
 
 \subsection{Autenticação} \label{autenticacao}
 
