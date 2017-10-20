@@ -348,7 +348,7 @@ Para que o modelo de interesses do usuário seja criado e confrontado com outros
 	\caption{\label{content_based}Arquitetura de um sistema baseado em conteúdo}
 
 	\begin{center}
-		\includegraphics[scale=0.8]{images/content_based.png}
+		\includegraphics[scale=0.75]{images/content_based.png}
 	\end{center}
 
 	\hspace{5.5cm}{Fonte: \citeonline{lops2011content}}
@@ -628,6 +628,24 @@ Assim que uma requisição é recebida pela interface de comunicação, se a mes
 
 Visando facilitar a comunicação com o usuário da API através do padrão RESTful, a interface de comunicação tem como principal função ser o ponto de contato entre o agente da requisição e as funcionalidades da API, atendendo a certos padrões de requisição e resposta que serão minuciosamente abordados nesta seção.
 
+Ao passo que a API usa o padrão RESTful como base para a comunicação, é necessário que a mesma utilize um único padrão de dados para que ambos, usuário e API, tenham uma estrutura pré definida de possibilidades de envio e retorno. Dessa forma, o padrão de dados \textbf{JSON}, proposto por \citeonline{crockford2006application} foi o escolhido para servir como representação de dados da API, desde o recebimento de novos recursos (itens, usuários, etc.) até o retorno das recomendações. Um exemplo da representação JSON para as recomendações pode ser visto na figura \ref{json_example}.
+
+\begin{figure}[h!tp]
+
+	\caption{\label{json_example}Exemplo de estrutura JSON para recomendações.}
+
+	\begin{center}
+		\includegraphics[scale=0.75]{images/json_example.png}
+	\end{center}
+
+	\hspace{5.5cm}{Fonte: O Autor.}
+
+\end{figure}
+
+Em outras palavras, esta seção apresenta o ponto de contato com a API, onde todas as requisições para modificações de recursos são feitas, visando melhorar a precisão das recomendações. Primeiro, é abordado o padrão de nomeclatura dos \textit{endpoints} na seção \ref{endpoints}, de modo a esclarecer de forma geral, toda a gama de possibilidade que o usuário da API tem ao utilizá-la. Em seguida, é apresentado o processo de autenticação na seção \ref{autenticacao}, necessário para que o usuário da API possa executar as requisições. Por fim,... 
+
+\subsection{Padrão de \textit{Endpoints}} \label{endpoints}
+
 Toda a comunicação entre o agente das requisições e a API funciona através de \textit{endpoints} que modificam seus respectivos recursos. Recursos esses que são abstrações da base de dados, fazendo com que o agente das requisições possa interferir diretamente na evolução das recomendações, mesmo sem que haja uma interface gráfica. Um exemplo de recurso pode ser visualizado no quadro \ref{resource_example}.
 
 \begin{quadro}[h!tp]
@@ -649,20 +667,6 @@ Toda a comunicação entre o agente das requisições e a API funciona através 
 \end{quadro}
 
 Analisando o quadro \ref{resource_example}, nota-se que um mesmo endpoint pode apontar para diferentes funções, uma vez que o método HTTP que encabeça a requisição também é levado em consideração. Além disso, é importante ressaltar que cada par de \textbf{método HTTP} e \textbf{\textit{endpoint}} correspondem diretamente a um \textbf{controlador} da API, que recebe os parâmetros variáveis da requisição (no quadro \ref{resource_example} representando por \textit{item\_id}) e os repassa aos serviços. Sendo assim, os controladores poderiam ser definidos como as "portas de entrada" da API, direcionando a execução de cada funcionalidade. 
-
-Além da utilização dos \textit{endpoints} e métodos HTTP, é necessário um padrão de dados para que ambos, usuário e API, tenham uma estrutura pré definida de possibilidades de envio e retorno. Dessa forma, o padrão de dados \textbf{JSON}, proposto por \citeonline{crockford2006application} foi o escolhido para servir como representação de dados da API, desde o recebimento de novos recursos (itens, usuários, etc.) até o retorno das recomendações. Um exemplo da representação JSON para as recomendações pode ser visto na figura \ref{json_example}.
-
-\begin{figure}[h!tp]
-
-	\caption{\label{json_example}Exemplo de estrutura JSON para recomendações.}
-
-	\begin{center}
-		\includegraphics[scale=0.75]{images/json_example.png}
-	\end{center}
-
-	\hspace{5.5cm}{Fonte: O Autor.}
-
-\end{figure}
 
 \subsection{Autenticação} \label{autenticacao}
 
@@ -687,9 +691,71 @@ Do mesmo modo que o agente das requisições precisa incluir o \textit{token} te
 
 \section{O Analisador de Dados} \label{analisador}
 
+Para tornar possível a geração de recomendações de forma genérica, através dos metadados, foi necessária a construção de um módulo dedicado exclusivamente a este fator. O \textbf{analisador de dados} tem como principal objetivo cruzar as novas informações, repassadas pela interface de comunicação, com os metadados correntes.
+
+Por exemplo, para que um novo item seja adicionado ao conjunto de itens conhecidos e, posteriormente, treinado contra os outros itens, é necessário que o analisador de dados verifique se todos os atributos relevantes para as recomendações estão preenchidos, se os tipos dos campos fornecidos condizem com os tipos especificados nos metadados, etc. 
+
+Em síntese, esta seção apresentará os principais componentes do analisador de dados. Primeiro apresentando os padrões utilizados para a orientação a metadados na seção \ref{analisador:padrao_metadados}, em seguida, os modelos gerados pelos metadados e sua utilização em toda a aplicação, aprofundados na seção \ref{analisador:modelos} e, por fim, como é feita a persistência destes dados na seção \ref{analisador:persistencia}.
+
 \subsection{Padrão de Metadados} \label{analisador:padrao_metadados}
 
-explicar como construir os metadados e o que cada atributo faz
+Como parte central do diferencial de funcionamento da aplicação esta a orientação a metadados. Como abordado na seção \ref{}, os metadados são eficientes na construção de estruturas de dados construídas dinamicamente, incertas até sua execução. Sendo assim, os mesmos formam a base que sustenta os dados desta aplicação.
+
+Uma vez que não se sabe qual o padrão de JSON a se retornar ao usuário, ou quais os campos relevantes para a geração das recomendações, ou ainda quais sequer são os nomes dos atributos, os metadados são as estruturas, previamente definidas e passíveis de personalização, fornecidas pelo usuário na inicialização da aplicação. Estas estruturas são enviadas através de uma estrutura JSON para os \textit{endpoints} respectivos, divididos em três categorias:
+
+\begin{itemize}
+	
+	\item \textbf{Usuários}: Definem os nomes dos atributos, obrigatórios ou não, que compõem o modelo de usuário, os tipos de cada atributo, a quantidade máxima de caracteres, se é recomendável ou não e seu peso. Além disso os metadados de usuários apontam o identificador único do usuário.
+
+	\item \textbf{Itens}: Assim como os usuários, definem os nomes de cada atributo, obrigatórios ou não, do item e suas demais características. Além disso, é definida a exibição de cada atributo do item no retorno das recomendações e seu identificador único.
+
+	\item \textbf{Avaliações}: Definem obrigatoriamente o campo de identificador único do usuário e o campo de identificador único do item, amarrando efetivamente as duas entidades. Além disso, definem o tipo de avaliação que será empregada (binária ou não).
+
+\end{itemize}
+
+Para ilustrar o processo de definição dos metadados, a figura \ref{metadata} mostra um exemplo real dos metadados inicais para o modelo de \textbf{item}. Estes atributos podem ser modificados posteriormente através do mesmo \textit{endpoint} utilizando o método PUT do HTTP. Caso o qualquer atributo sofra posterior alteração, os metadados são salvos com o status \textbf{"\textit{active:false}"}, orientado que o mesmo não é mais válido. Em seguida, um novo conjunto de metadados é criado com o atributo \textbf{"\textit{active:true}"} e as modificações solicitadas pelo usuário.
+
+\begin{figure}[htp]
+
+	\caption{\label{metadata}Exemplo de declaração de metadados para o item.}
+
+	\begin{center}
+		\includegraphics[scale=0.8]{images/metadata.png}
+	\end{center}
+
+	\hspace{5.5cm}{Fonte: O Autor.}
+
+\end{figure}
+
+Analisando a figura \ref{metadata} nota-se um conjunto de chaves pré-definidas para a estrutura declarada. A razão dessas chaves possuirem suas definições \textbf{obrigatórias e pré-definidas} é o fato de que as mesmas moldam todas as outros atributos dinamicamente atribuidos aos modelos de itens, usuários e avaliações, consequentemente moldando o banco de dados. Sendo assim, cada chave da estrutura definida na figura é utilizada como atributo chave para alguma decisão estrutural dentro da API. As chaves definidas na figura possuem as seguintes funcionalidades:
+
+\begin{itemize}
+	\item \textbf{\textit{type}}: Fora da chave \textbf{\textit{"attributes"}}, define o tipo do grupo de metadados que correspondem os atributos declarados. Dentro de um atributo, define o tipo do dado ao qual o atributo espera um valor, podendo ser qualquer tipo natual: \textbf{\textit{string}}, \textbf{\textit{integer}}, \textbf{\textit{float}}, etc. Espera um valor do tipo \textbf{\textit{string}}.
+	
+	\item \textbf{\textit{attributes}}: Declara a lista de atributos percentes ao \textit{type}, neste caso ao item.  Espera um valor do tipo \textbf{\textit{array}}.
+	
+	\item \textbf{\textit{name}}: Define o nome de um atributo, o qual será utilizado como chave do atributo no banco de dados e na construção dinamica do modelo. Espera um valor do tipo \textbf{\textit{string}}.
+
+	\item \textbf{\textit{key}}: Define se o atributo é ou não um identificador único. Será utilizado posteriormente para ligar os usuários a itens e para fazer as consultas dos endpoints.  Espera um valor do tipo \textbf{\textit{boolean}}.
+	
+	\item \textbf{\textit{hide}}: Define se o atributo será ou não exibido no JSON de retorno. Espera um valor do tipo \textbf{\textit{boolean}}.
+
+	\item \textbf{\textit{unique}}: Define se o atributo deve ser único na base de dados ou não. Caso o seu valor seja verdadeiro (\textit{true}), o analisador de dados retornará um erro para a requisição, caso este atributo já exista. Espera um valor do tipo \textbf{\textit{boolean}}.
+
+	\item \textbf{\textit{nullable}}: Por padrão, todos os atributos declarados nos metadados serão obrigatórios na inserção de novos registros. Caso este atributo estiver com o valor verdadeiro (\textit{true}), o mesmo torna-se opcional. Espera um valor do tipo \textbf{\textit{boolean}}.
+
+	\item \textbf{\textit{max\_length}}: Declara a quantidade máxima de tamanho/caracteres que o campo suporta. Será utilizada posteriormente para barrar entradas maiores que esse valor no banco de dados. Espera um valor do tipo \textbf{\textit{integer}}.
+
+	\item \textbf{\textit{recommendable}}: Define se o atributo será utilizado como base para as recomendações ou não. Será utilizado pelo motor de recomendações para levar em consideração apenas os atributos que o usuário da API julgar relevantes. Espera um valor do tipo \textbf{\textit{boolean}}.
+
+	\item \textbf{\textit{weight}}: Se o attributo \textbf{\textit{recommendable}} for verdadeiro (\textit{true}), define o a peso do atributo nos cálculos de recomendação. O peso varia de um a dez. Espera um valor do tipo \textbf{\textit{integer}}.
+\end{itemize}
+
+Assim que a API toma conhecimento destes metadados, já é possível ao usuário da API alimentar a base de dados com seus itens iniciais.
+
+\subsection{Modelos de Itens, Usuários e Avaliações} \label{analisador:modelos}
+
+Explicar que eles são dinamicos e com base nos metadados. Explicar os métodos que a classe tem. Apontar pro cara ver nos apendices o código completo.
 
 \subsection{Persistência} \label{analisador:persistencia}
 
