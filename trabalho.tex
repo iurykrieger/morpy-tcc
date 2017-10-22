@@ -15,6 +15,13 @@
 \usepackage{trabalho}	% Citações padrão ABNT
 \usepackage{lipsum}	% para geração de dummy text
 \usepackage{trivfloat}	%Quadros
+\usepackage{listings}
+\usepackage{xcolor}
+
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{FFFFFF}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
 % ---
 
 % ---
@@ -23,6 +30,13 @@
 
 % ---
 % CONFIGURAÇÕES DE PACOTES
+
+\lstset{
+    string=[s]{"}{"},
+    stringstyle=\color{blue},
+    comment=[l]{:},
+    commentstyle=\color{black},
+}
 
 % Quadro
 \trivfloat{quadro}
@@ -668,6 +682,8 @@ Toda a comunicação entre o agente das requisições e a API funciona através 
 
 Analisando o quadro \ref{resource_example}, nota-se que um mesmo \textit{endpoint} pode apontar para diferentes funções, uma vez que o método HTTP que encabeça a requisição também é levado em consideração. Além disso, é importante ressaltar que cada par de \textbf{método HTTP} e \textbf{\textit{endpoint}} correspondem diretamente a um \textbf{controlador} da API, que recebe os parâmetros variáveis da requisição (no quadro \ref{resource_example} representando por \textit{item\_id}) e os repassa aos serviços. Sendo assim, os controladores poderiam ser definidos como as "portas de entrada" da API, direcionando a execução de cada funcionalidade.
 
+Para aumentar o nível de abstração do funcionamento da API, o padrão de \textit{endpoints} utiliza do atributo de identificador único de cada módulo, previamente definido nos metadados de itens, usuários e avaliações, para o acesso a um recurso específico. Dessa forma, o usuário da API pode utilizar os seus próprios identificadores de sua base de dados externa, para acessar os mesmos recursos na base interna da aplicação. O modo de declaração deste atributo e seu tipo de dado esperado podem ser vistos na seção \nameref{analisador:padrao_metadados}. 
+
 Fazer uma tabela com todos os endpoints.
 
 \subsection{Autenticação} \label{autenticacao}
@@ -767,7 +783,7 @@ Levando em consideração os atributos do grupo de metadados apresentados na se�
 
 \begin{figure}[h!tp]
 	
-	\caption{\label{validation}Exemplo de validação baseada nos metadados.}
+	\caption{\label{validation}Validação baseada nos metadados.}
 
 	\begin{center}
 		\includegraphics[scale=0.83]{images/python_validation.png}
@@ -783,9 +799,23 @@ Dessa forma, o trecho de código mostrado na figura \ref{validation}, em conjunt
 
 Sendo assim, a lógica da figura pode ser descrita da seguinte forma: primeiro a aplicação percorre todos os atributos dos metadados correspondente. Para cada atributo descrito nos metadados, a aplicação testa se este atributo, caso seja obrigatório (\textbf{\textit{nullable:false}}), está contido no JSON recebido pelo \textit{endpoint}. Se o atributo obrigatório não existir, a aplicação retorna um JSON de erro com o \textit{status code} igual a \textbf{400}, indicando uma \textbf{\textit{bad request}}. Caso o atributo exista, a aplicação testa se o tipo do dado recebido condiz com o tipo declarado nos metadados (\textbf{\textit{type}}). Uma vez que todos os atributos obrigatórios são satisfeitos pelo JSON recebido, a aplicação o persiste na base de dados.
 
-Além da validação dos novos dados, a construção da estrutura de retorno também é feita com base nos metadados em vigor. O atributo declarado como identificar único (\textbf{\textit{key:true}}) nos metadados é obrigatoriamente adicionado na estrutura de retorno, uma vez que é utilizado como parâmetro base em todos os \textit{endpoints} relacionados. Além disso, o atributo \textbf{\textit{hide}} define se o atributo existente será exibido ou não no JSON de retorno.
+Para ilustrar o processo, a figura \ref{validation_schema} demonstra um exemplo do fluxo interno do \textbf{analisador de dados}, desde o recebimento da informação, até a persistência e posterior retorno da mesma. O código completo dos modelos de dados pode ser visto no apêndice \ref{}.
 
-Para ilustrar o processo, a figura \ref{} demonstra um exemplo do fluxo interno do \textbf{analisador de dados}, desde o recebimento da informação, até a persistência e posterior retorno da mesma. O código completo dos modelos de dados pode ser visto no apêndice \ref{}. Exemplificar a construção do retorno contrastando a inserção, os metadados e o retorno JSON final. \ref{} FIGURA!
+\begin{figure}[h!tp]
+	
+	\caption{\label{validation_schema}Esquema do fluxo de persistência e retorno dos dados.}
+
+	\begin{center}
+		\includegraphics[scale=0.8]{images/validation.png}
+	\end{center}
+
+	\hspace{5.5cm}{Fonte: O Autor.}
+
+\end{figure}
+
+Representando o fluxo de modificação dos dados de um item específico, nota-se na figura \ref{validation_schema}, que o analisador de dados recebe as devidas requisições através da interface de comunicação, transformando-as em modelos dos recursos. Assim que os modelos são construídos, são carregados da base de dados os metadados vigentes, utilizados posteriormente no contraste e validação destes modelos. Caso o modelo de item, representação abstrata da requisição do usuário da API, seja válido, o mesmo é persistido na base de dados e, posteriormente, enviado como retorno. Caso o item não seja válido, ao invés de persisti-lo na base, uma mensagem de erro é enviada como retorno ao usuário da API. 
+
+Todavia, em caso de sucesso na persistência, antes de efetivamente retornar o \textit{feedback} ao agente da requisição, o analisador de dados constrói a estrutura de retorno a partir dos atributos dos metadados em vigor. O atributo declarado como identificador único (\textbf{\textit{key:true}}) nos metadados é obrigatoriamente adicionado na estrutura de retorno, uma vez que é utilizado como parâmetro base em todos os \textit{endpoints} relacionados. Além disso, o atributo \textbf{\textit{hide}} define se o atributo existente será exibido ou não no JSON de retorno.
 
 \subsection{Persistência} \label{analisador:persistencia}
 
@@ -793,11 +823,15 @@ A base de um sistema de recomendação é o conhecimento prévio, uma vez que, i
 
 Visando utilizar uma estratégia de persistência que se destacasse no processamento de grandes conjuntos de dados, ponto essencial para boas recomendações, a API implementa uma persistência utilizando um banco de dados não relacional (NoSQL) orientado a documentos \cite{leavitt2010will}, que além de proficiente no manejo dos dados, também persiste os mesmos em estruturas baseadas em JSON, como apresentado por \citeonline{padhy2011rdbms}.
 
+Devido ao JSON ser o padrão escolhido para a estrutura de dados da aplicação, a similaridade entre o documento armazenado no banco de dados e o JSON de retorno ao usuário da API é muito pequena, reduzindo o nível de complexidade como um todo. Além disso, é permitida a inserção de documentos dinâmicos, sem um padrão previamente definidos em tabelas e campos, sendo possível inserir novos atributos em itens, usuários e avaliações apenas declarando-os nos metadados, sem a necessidade de modificar a estrutura da base de dados.
+
+A fim de abstrair este processo para os outras partes da aplicação, foram criadas serviços de persitência para cada módulo existente, responsáveis por administrar toda a comunicação com o banco de dados. Tais serviços são utilizados tanto pelo \textbf{analisador de dados} quando pelo \textbf{motor de recomendações}, seja para a persistência de novas recomendações recém geradas ou para novos itens enviados pelo usuário da API através da interface de comunicação. A figura \ref{} demonstra o processo de construção dinâmica do item através do modelo e sua persistência no banco de dados.
+
+Análise da figura \ref{}
+
 Criar outra figura pra explicar as 3 partes: requisição do usuário via HTTP com os dados pra atualizar, persistência e retorno | em paralelo: geração e persistência das recomendações e retorno das recomendações em outra requisição futura.
 
-Explicar a escolha do paradigma não relacional devido a quantidade de dados e o padrão ser parecido com JSON. Referenciar BSON
-
-Explicar as chaves dinâmicas com base no atributo key do usuário e porque não usar a chave _id. Pra ficar mais transparente pro usuário e tals...
+Explicar as chaves dinâmicas com base no atributo key do usuário e porque não usar a chave \_id. Pra ficar mais transparente pro usuário e tals.
 
 \section{O Motor de Recomendações} \label{motor}
 
