@@ -803,7 +803,7 @@ Para ilustrar o processo, a figura \ref{validation_schema} demonstra um exemplo 
 
 \begin{figure}[h!tp]
 	
-	\caption{\label{validation_schema}Esquema do fluxo de persistência e retorno dos dados.}
+	\caption{\label{validation_schema}Esquema do fluxo do analisador de dados.}
 
 	\begin{center}
 		\includegraphics[scale=0.8]{images/validation.png}
@@ -825,13 +825,23 @@ Visando utilizar uma estratégia de persistência que se destacasse no processam
 
 Devido ao JSON ser o padrão escolhido para a estrutura de dados da aplicação, a similaridade entre o documento armazenado no banco de dados e o JSON de retorno ao usuário da API é muito pequena, reduzindo o nível de complexidade como um todo. Além disso, é permitida a inserção de documentos dinâmicos, sem um padrão previamente definidos em tabelas e campos, sendo possível inserir novos atributos em itens, usuários e avaliações apenas declarando-os nos metadados, sem a necessidade de modificar a estrutura da base de dados.
 
-A fim de abstrair este processo para os outras partes da aplicação, foram criadas serviços de persitência para cada módulo existente, responsáveis por administrar toda a comunicação com o banco de dados. Tais serviços são utilizados tanto pelo \textbf{analisador de dados} quando pelo \textbf{motor de recomendações}, seja para a persistência de novas recomendações recém geradas ou para novos itens enviados pelo usuário da API através da interface de comunicação. A figura \ref{} demonstra o processo de construção dinâmica do item através do modelo e sua persistência no banco de dados.
+A fim de abstrair este processo para os outras partes da aplicação, foram criadas serviços de persitência para cada módulo existente, responsáveis por administrar toda a comunicação com o banco de dados. Tais serviços são utilizados tanto pelo \textbf{analisador de dados} quando pelo \textbf{motor de recomendações}, seja para a persistência de novas recomendações recém geradas ou para novos itens enviados pelo usuário da API através da interface de comunicação. A figura \ref{persistence} demonstra o processo de construção dinâmica do item através do modelo e sua persistência no banco de dados.	
 
-Análise da figura \ref{}
+\begin{figure}[h!tp]
+	
+	\caption{\label{persistence}Esquema do serviço de persistência.}
 
-Criar outra figura pra explicar as 3 partes: requisição do usuário via HTTP com os dados pra atualizar, persistência e retorno | em paralelo: geração e persistência das recomendações e retorno das recomendações em outra requisição futura.
+	\begin{center}
+		\includegraphics[scale=0.83]{images/persistence.png}
+	\end{center}
 
-Explicar as chaves dinâmicas com base no atributo key do usuário e porque não usar a chave \_id. Pra ficar mais transparente pro usuário e tals.
+	\hspace{5.5cm}{Fonte: O Autor.}
+
+\end{figure}
+
+Como apresentado na figura \ref{persistence}, o serviço de persistência recebe um modelo, previamente criado e validado pelo \textbf{analisador de dados}. Este modelo será contrastado com os metadados vigentes para geração dinâmica de um documento no formato necessário para sua inserção no banco de dados. Assim como nos \textit{endpoints} da interface de comunicação, os serviços de persitência usam como parâmetros para administração de documentos específicos o identificador único (\textbf{\textit{key:true}}) declarado nos metadados, gerando documentos com base neste identificador.
+
+Além da persistência do modeo recebido, o serviço de persistência também é encarregado de notificar o motor de recomendações de quaisquer modificações ou adições aos documentos existentes. Esta notificação é necessária para que o motor de recomendações saiba quando é necessário treinar novos documentos recém adicionados, ou quando treinar novamente documentos que mudaram seu estado. O processo de recebimento das notificações e treinamento da base pode ser visto na seção \nameref{motor}.
 
 \section{O Motor de Recomendações} \label{motor}
 
@@ -846,6 +856,12 @@ Em um primeiro momento, a API utilizará o método baseado em conteúdo para for
 \section{Testes e Implementação} \label{testes}
 
 \subsection{\textit{Seed} de Dados}
+
+\subsection{Documentação}
+
+\subsection{Instalação e Inicialização}
+
+
 
 \subsection{Tecnologias Utilizadas} \label{tecnologias}
 
