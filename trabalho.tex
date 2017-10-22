@@ -17,11 +17,13 @@
 \usepackage{trivfloat}	%Quadros
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{caption}
 
-\colorlet{punct}{red!60!black}
-\definecolor{background}{HTML}{FFFFFF}
-\definecolor{delim}{RGB}{20,105,176}
-\colorlet{numb}{magenta!60!black}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
 % ---
 
 % ---
@@ -31,11 +33,23 @@
 % ---
 % CONFIGURAÇÕES DE PACOTES
 
-\lstset{
-    string=[s]{"}{"},
-    stringstyle=\color{blue},
-    comment=[l]{:},
-    commentstyle=\color{black},
+\lstdefinestyle{custompython}{
+	backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codegreen},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
 }
 
 % Quadro
@@ -684,7 +698,7 @@ Analisando o quadro \ref{resource_example}, nota-se que um mesmo \textit{endpoin
 
 Para aumentar o nível de abstração do funcionamento da API, o padrão de \textit{endpoints} utiliza do atributo de identificador único de cada módulo, previamente definido nos metadados de itens, usuários e avaliações, para o acesso a um recurso específico. Dessa forma, o usuário da API pode utilizar os seus próprios identificadores de sua base de dados externa, para acessar os mesmos recursos na base interna da aplicação. O modo de declaração deste atributo e seu tipo de dado esperado podem ser vistos na seção \nameref{analisador:padrao_metadados}. 
 
-Fazer uma tabela com todos os endpoints.
+[TODO] Fazer uma tabela com todos os endpoints.
 
 \subsection{Autenticação} \label{autenticacao}
 
@@ -716,8 +730,6 @@ Por exemplo, para que um novo item seja adicionado ao conjunto de itens conhecid
 Em síntese, esta seção apresentará os principais componentes do analisador de dados. Primeiro apresentando os padrões utilizados para a orientação a metadados na seção \ref{analisador:padrao_metadados}, em seguida, os modelos gerados pelos metadados e sua utilização em toda a aplicação, aprofundados na seção \ref{analisador:modelos} e, por fim, como é feita a persistência destes dados na seção \ref{analisador:persistencia}.
 
 \subsection{Padrão de Metadados} \label{analisador:padrao_metadados}
-
-Como parte central do diferencial de funcionamento da aplicação, os metadados são eficientes na construção de estruturas de dados construídas dinamicamente, como abordado na seção \ref{}, incertas até sua execução. Sendo assim, os mesmos formam a base que sustenta os dados desta aplicação.
 
 Uma vez que não se sabe qual o padrão de JSON a se retornar ao usuário, ou quais os campos relevantes para a geração das recomendações, ou ainda quais sequer são os nomes dos atributos, os metadados são as estruturas, previamente definidas e passíveis de personalização, fornecidas pelo usuário na inicialização da aplicação. Estas estruturas são enviadas através de uma estrutura JSON para os \textit{endpoints} respectivos, divididos em três categorias:
 
@@ -880,5 +892,53 @@ Devido ao grande número de implementações dos sistemas de recomendação nas 
 Além disso, é importante ressaltar preocupação na construção de uma documentação direta e coesa ao longo de todo o processo, visando uma futura colaboração externa da comunidade, sendo a API de código aberto. Desta forma, o trabalho pode servir não só como uma alternativa \textit{open-source} aos sistemas de recomendação, mas também como uma tecnologia de utilização simples para futuros estudos na área.
 
 \postextual
+
 \bibliography{referencias}
+
+\begin{apendicesenv}
+	
+% Imprime uma página indicando o início dos apêndices
+
+\chapter{Código Fonte da API}
+
+O módulo \textbf{app.py} é responsável por declarar todos os \textit{endpoints} (recursos) da interface de comunicação que estaŕão acessíveis pelo usuário da API.
+
+\lstinputlisting[language=Python, style=custompython,firstline=13]{appendix/app/app.py}
+
+\section{Recursos de \textit{endpoints}} \label{endpoint_resources}
+
+O módulo \textbf{user.py} recebe e administra todas as requisições feitas a \textit{endpoints} de usuário (\textbf{/user}).
+
+\lstinputlisting[language=Python, style=custompython,firstline=10]{appendix/app/api/resources/user.py}
+
+O módulo \textbf{item.py} recebe e administra todas as requisições feitas a \textit{endpoints} de item (\textbf{/item}).
+
+\lstinputlisting[language=Python, style=custompython,firstline=11]{appendix/app/api/resources/item.py}
+
+O módulo \textbf{rating.py} recebe e administra todas as requisições feitas a \textit{endpoints} de avaliações (\textbf{/rating}).
+
+\lstinputlisting[language=Python, style=custompython, firstline=10]{appendix/app/api/resources/rating.py}
+
+O módulo \textbf{recommend.py} recebe e administra todas as requisições feitas a \textit{endpoints} de recomendação (\textbf{/recommend}).
+
+\lstinputlisting[language=Python, style=custompython, firstline=7]{appendix/app/api/resources/recommend.py}
+
+O módulo \textbf{train.py} recebe e administra todas as requisições feitas a \textit{endpoints} que forçam o treinamento das recomendações (\textbf{/train}).
+
+\lstinputlisting[language=Python, style=custompython, firstline=12]{appendix/app/api/resources/train.py}
+
+O módulo \textbf{auth.py} recebe e administra todas as requisições feitas a \textit{endpoints} de autenticação (\textbf{/auth}).
+
+\lstinputlisting[language=Python, style=custompython, firstline=7]{appendix/app/api/resources/auth.py}
+
+O módulo \textbf{metadata.py} recebe e administra todas as requisições feitas a \textit{endpoints} de metadados (\textbf{/metadata}).
+
+\lstinputlisting[language=Python, style=custompython, firstline=11]{appendix/app/api/resources/metadata.py}
+
+\section{Serviços de Persistência} \label{services}
+
+
+
+\end{apendicesenv}
+
 \end{document}
