@@ -1,23 +1,27 @@
 \documentclass[12pt, openright, oneside, a4paper, brazil]{abntex2}
 \usepackage{lmodern}
-\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{nameref}
 \usepackage[justification=justified,singlelinecheck=false]{caption}
 \usepackage{lastpage}
 \usepackage{amsmath}
 \usepackage{indentfirst}
-\usepackage{color}				% Controle das c ores
-\usepackage{graphicx}			% Inclusão de gráficos
-\usepackage{microtype} 			% para melhorias de justificação
-\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
-\usepackage[alf, abnt-emphasize=bf, abnt-url-package=none, abnt-repeated-title-omit=yes, abnt-full-initials=yes, abnt-etal-list=3, abnt-etal-text=emph]{abntex2cite} % Citações padrão ABNT
-\usepackage{trabalho}	% Citações padrão ABNT
-\usepackage{lipsum}	% para geração de dummy text
-\usepackage{trivfloat}	%Quadros
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage[brazilian,hyperpageref]{backref}
+\usepackage[alf, abnt-emphasize=bf, abnt-url-package=none, abnt-repeated-title-omit=yes, abnt-full-initials=yes, abnt-etal-list=3, abnt-etal-text=emph]{abntex2cite}
+\usepackage{trabalho}
+\usepackage{lipsum}
+\usepackage{trivfloat}
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{caption}
+
+% ---
+% DEFINIÇÃO DE CORES
+% ---
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -25,13 +29,8 @@
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 % ---
-
-% ---
-% Pacotes de citações
-% ---
-
-% ---
 % CONFIGURAÇÕES DE PACOTES
+% ---
 
 \lstdefinestyle{custompython}{
 	backgroundcolor=\color{backcolour},
@@ -40,19 +39,18 @@
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
     basicstyle=\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
     showstringspaces=false,
-    showtabs=false,                  
+    showtabs=false,
     tabsize=2
 }
 
-% Quadro
 \trivfloat{quadro}
 \renewcommand{\listquadroname}{Lista de Quadros}
 \renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
@@ -188,7 +186,7 @@
 \end{folhadeaprovacao}
 
 \setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
-\begin{resumo} 
+\begin{resumo}
 
 Devido a expansão massiva de dados produzidos e disponíveis na Internet, os usuários estão cada vez mais sobrecarregados de informação, não sabendo distinguir informações realmente úteis. Para sanar este problema, os sistemas de recomendação visam recomendar os itens mais úteis a cada usuário, através de técnicas de machine learning. Tais técnicas visam prever a avaliação de um usuário a um item, baseando-se nas avaliações já conhecidas. Este trabalho propõe o desenvolvimento de uma API Web de código aberto que recomenda itens a usuários, fazendo uso de um sistema de recomendação híbrido que analisa as estruturas pré definidas e proporciona recomendações, baseando-se nos metadados fornecidos, através do conteúdo do item e da filtragem colaborativa de usuários. Tal sistema poderá processar suas recomendações utilizando a GPU, minimizando o tempo da requisição de recomendação e consequentemente aumentando a eficiência da aplicação. Dessa forma é possível fornecer um serviço multipropósito desprendido de qualquer ambiente e linguagem de programação, trazendo uma visão mais transparente dos sistemas de recomendação aos desenvolvedores.
 
@@ -274,10 +272,9 @@ Desenvolver uma API web de código aberto para recomendação híbrida de itens 
 \subsection{Objetivos Específicos}
 
 \begin{itemize}
-
 	\item Fornecer uma documentação das funcionalidades visando futura colaboração da comunidade e utilização por outros desenvolvedores.
-	\item Proporcionar a recomendação das propriedades relevantes através das estruturas de metadados fornecidas.
 
+	\item Proporcionar a recomendação das propriedades relevantes através das estruturas de metadados fornecidas.
 \end{itemize}
 
 \section{Metodologia}
@@ -327,13 +324,11 @@ Dessa forma, considera-se que um agente está aprendendo se melhorar o seu desem
 Conforme apresentado por \citeonline{carbonell1983overview}, devido a capacidade de, além de solucionar problemas, melhorar automaticamente o desempenho da solução, os sistemas de aprendizagem tem suas aplicações nas mais diversas áreas, tais como agricultura, educação, sistemas especialistas de alta performance, reconhecimento de imagem, programação, etc. Através de um apanhado das aplicações nas áreas de utilização, \citeonline{carbonell1983overview} dividem o campo de aprendizado do \textit{machine learning} em três partes:
 
 \begin{itemize}
-
 	\item \textbf{Estudos orientados à tarefa (\textit{Task-oriented studies}):} composto pelo desenvolvimento e análise de sistemas de aprendizagem visando melhorar a performance na solução de determinadas tarefas.
 
 	\item \textbf{Simulação cognitiva (\textit{Cognitive simulation}):} formado pela investigação e simulação do processo de aprendizagem humano.
 
 	\item \textbf{Análise teórica (\textit{Theoretical analysis}):} exploração teórica do espaço de possíveis processos de aprendizado.
-
 \end{itemize}
 
 Analisando a taxonomia proposta por \citeonline{carbonell1983overview}, pode-se identificar que o escopo deste trabalho encontra-se nos estudos orientados à tarefa, onde o propósito é a melhoria da performance, neste caso através de recomendações orientadas à metadados.
@@ -342,20 +337,16 @@ Como exemplo do uso das técnicas de \textit{machine learning}, \citeonline{seba
 
 \section{Sistemas de Recomendação} \label{recommender_systems}
 
-Como ramificação do aprendizado de máquina, os sistemas de recomendação (RSs) são técnicas de software que provém sugestões a usuários de itens que os mesmos possam querer utilizar   \cite{resnick1997recommender, schafer1999recommender}. Desta forma, recomendações seriam, em sua forma mais simples, rankings de itens, tais como os utilizados na maioria das soluções de produtos (livros mais lidos, filmes mais assistidos, etc.) \cite{ricci2011introduction}. O que os RSs trazem de novo é a tentativa de predizer, através da filtragem colaborativa ou da similaridade de conteúdo, qual o ranking mais adequado de produtos ou serviços a um usuário. A filtragem colaborativa, termo cunhado por \citeonline{resnick1997recommender}, recomenda itens baseando-se nos relacionamentos do usuário. Por outro lado, a similaridade de conteúdo baseia-se no conteúdo de itens já avaliados pelo usuário. Tais dados podem ser coletadas de forma explícita, na forma de perguntas diretas e avaliações do usuário sobre os itens, ou de forma interpretativa, inferindo sobre ações tomadas pelo usuário e atribuindo peso a elas.
+Como ramificação do aprendizado de máquina, os sistemas de recomendação (RSs) são técnicas de software que provém sugestões a usuários de itens que os mesmos possam querer utilizar \cite{resnick1997recommender, schafer1999recommender}. Desta forma, recomendações seriam, em sua forma mais simples, rankings de itens, tais como os utilizados na maioria das soluções de produtos (livros mais lidos, filmes mais assistidos, etc.) \cite{ricci2011introduction}. O que os RSs trazem de novo é a tentativa de predizer, através da filtragem colaborativa ou da similaridade de conteúdo, qual o ranking mais adequado de produtos ou serviços a um usuário. A filtragem colaborativa, termo cunhado por \citeonline{resnick1997recommender}, recomenda itens baseando-se nos relacionamentos do usuário. Por outro lado, a similaridade de conteúdo baseia-se no conteúdo de itens já avaliados pelo usuário. Tais dados podem ser coletadas de forma explícita, na forma de perguntas diretas e avaliações do usuário sobre os itens, ou de forma interpretativa, inferindo sobre ações tomadas pelo usuário e atribuindo peso a elas.
 
 Mais formalmente, os sistemas de recomendação podem ser descritos matematicamente da seguinte forma: sendo \emph{C} o conjunto de todos os usuários e \emph{S} o conjunto de todos os itens que podem ser recomendados, tanto o espaço \emph{S} como o espaço \emph{C} podem ser extremamente grandes, batendo os milhões de usuários e itens \cite{adomavicius2005toward, gomez2016netflix}. Dessa forma, tem-se \textit{u} como a função de utilidade de um item \emph{s} para um usuário c. A função u utiliza-se do conjunto ordenado R, descrito como $C \times S \rightarrow R$, para encontrar o item $\emph{s} \in \emph{S}$ com a maior utilidade para o usuário \emph{c}. Um exemplo de como as preferências são armazenadas no espaço de avaliações C x S pode ser visto no quadro 1.
 
 \begin{quadro}[h!tp]
-
 	\caption{\label{movie_matrix}Exemplo de matriz de recomendações a filmes}
-
 	\begin{center}
 		\includegraphics[scale=0.8]{images/movie_matrix.png}
 	\end{center}
-
 	\hspace{5.5cm}{Fonte: \citeonline{adomavicius2005toward}}
-
 \end{quadro}
 
 De acordo com o quadro 1, o símbolo "$\emptyset$" representa os filmes ainda não avaliados pelos usuários. Estes itens, por sua vez, são os alvos das técnicas de recomendação que tentam predizer a avaliação de um usuário. Uma vez que o motor de recomendação pode predizer as avaliações de um usuário, pode-se recomendar ao mesmo apenas os \emph{N} itens com a maior avaliação estimada \cite{adomavicius2005toward}.
@@ -374,11 +365,9 @@ Para que o modelo de interesses do usuário seja criado e confrontado com outros
 
 \begin{figure}[h!tp]
 	\caption{\label{content_based}Arquitetura de um sistema baseado em conteúdo}
-
 	\begin{center}
 		\includegraphics[scale=0.75]{images/content_based.png}
 	\end{center}
-
 	\hspace{5.5cm}{Fonte: \citeonline{lops2011content}}
 \end{figure}
 
@@ -400,7 +389,6 @@ Partindo desta premissa, \citeonline{sarwar2001item} abordam os sistemas de filt
 
 \begin{figure}[htb]
 	\caption{\label{collaborative_based}Processo de recomendação colaborativa.}
-
 	\begin{center}
 		\includegraphics[scale=0.6]{images/collaborative_based.png}
 	\end{center}
@@ -409,14 +397,12 @@ Partindo desta premissa, \citeonline{sarwar2001item} abordam os sistemas de filt
 
 De posse da matriz $n \times m$, o algoritmo \textbf{CF} faz a predição/recomendação ao usuário corrente, demonstrado na \autoref{collaborative_based} por $u_{a}$. O usuário $u_{a}$ é visto pelo algoritmo como o alvo atual para o qual serão feitas as predições/recomendações. \citeonline{sarwar2001item} também especificam a predição como um valor numérico que expressa a probabilidade prevista do item ser de interesse do usuário $u_{a}$, sendo este um item ainda não pertencente ao conjunto de $Iu_{a}$. Por outro lado, a recomendação é descrita como uma lista de $\textbf{N}$ itens, cada item $I_{r}$ dentre os itens com a maior probabilidade de utilidade ao usuário ua e ainda não avaliados pelo mesmo. Esta forma de recomendação também é conhecida como recomendação \textbf{Top-N} \cite{adomavicius2005toward}.
 
-Diferentemente do método baseado em conteúdo, a filtragem colaborativa não possui apenas uma abordagem.     Tanto \apudonline{sarwar2001item}{breese1998empirical} quanto \citeonline{adomavicius2005toward} dividem a filtragem colaborativa em duas ramificações:
+Diferentemente do método baseado em conteúdo, a filtragem colaborativa não possui apenas uma abordagem. Tanto \apudonline{sarwar2001item}{breese1998empirical} quanto \citeonline{adomavicius2005toward} dividem a filtragem colaborativa em duas ramificações:
 
 \begin{itemize}
-
 	\item \textbf{Baseada em memória (\textit{memory-based})}: implica na utilização de toda a matriz $n \times m$ para obter um conjunto de usuários vizinhos (\textit{neighbor-users}), ou seja, usuários que tendem a avaliar diferentes itens similarmente ou itens similares diferentemente ao usuário $u_{a}$. Ao obter o conjunto, os métodos baseados em memória combinam as preferências dos usuários, fornecendo uma recomendação Top-N ao usuário $u_{a}$.
 
 	\item \textbf{Baseada em modelo (\textit{model-based})}: ao invés de utilizar toda a matriz $n \times m$, esta técnica constrói um modelo das avaliações de cada usuário através de diferentes técnicas de \textit{machine learning}, tais como modelos de \textit{cluster} e redes Bayesianas. Devido a complexidade destas técnicas e das mesmas não pertencerem ao escopo da solução apresentada neste trabalho , não abordaremos mais a fundo seu funcionamento.
-
 \end{itemize}
 
 Dessa forma, sistemas de filtragem colaborativa podem ser usados nos casos em que se deseja recomendar itens úteis a um usuário ou fornecer uma previsão ao usuário da probabilidade do mesmo gostar de um item em particular. Além disso, é possível recomendar ao usuário não só itens, mas também usuários ou grupos de usuários que o mesmo possa gostar, o que não é possível nos sistemas baseados em conteúdo \cite{schafer2007collaborative}.
@@ -429,7 +415,6 @@ Sistemas de recomendação híbridos seriam quaisquer sistemas que combinam múl
 
 \begin{quadro}[h!tp]
 	\caption{\label{recommender_systems}Técnicas de recomendação.}
-
 	\begin{center}
 		\includegraphics[scale=0.6]{images/recommender_systems.png}
 	\end{center}
@@ -439,7 +424,6 @@ Sistemas de recomendação híbridos seriam quaisquer sistemas que combinam múl
 Como pode ser visto no quadro 2, \citeonline{burke2002hybrid} apresenta uma série de métodos de recomendação além dos mais comuns abordados neste trabalho. Estes métodos, combinados entre si, podem gerar sistemas híbridos categorizados da seguinte forma:
 
 \begin{itemize}
-
 	\item \textbf{Atribuição de peso (\textit{Weighted}):} Consiste na atribuição de peso para cada um dos métodos empregados no sistema híbrido. Baseado no histórico de acertos entre um método e outro, é possível ajustar o peso de cada um, dando um peso maior ao método atualmente mais eficiente.
 
 	\item \textbf{Escalonamento (\textit{Switching}):} Consiste na utilização de um critério pré-definido para escolher qual método será utilizado no momento. Por exemplo, se o método colaborativo não fornecer uma recomendação com confiança suficiente, o sistema pode trocar para o método baseado em conteúdo.
@@ -453,7 +437,6 @@ Como pode ser visto no quadro 2, \citeonline{burke2002hybrid} apresenta uma sér
 	\item \textbf{Aumento de Recursos (\textit{Feature Augmentation}):} Esta técnica utiliza a recomendação gerada pelo primeiro método como informação para o processamento do segundo método.
 
 	\item \textbf{Meta-nível (\textit{Meta-level}):} Consiste em utilizar o modelo de saída de um método como entrada para o outro. Diferente do aumento de recursos, nesta técnica todo o modelo gerado pelo primeiro método é utilizado.
-
 \end{itemize}
 
 Tendo em vista a taxonomia apresentada por \citeonline{burke2002hybrid}, nota-se que a recomendação híbrida não refere-se ao funcionamento das recomendações, mas sim sobre como os diferentes métodos \textbf{interagem entre si}. Esta interação pode ser insensível à ordem, nos casos de métodos como a atribuição de peso, misto, escalonamento e combinação de características. Já nas outros métodos apresentados, a ordem de execução dos métodos de recomendação alteram o resultado final, uma vez que a saída de um, direta ou indiretamente é a entrada de outro.
@@ -461,15 +444,11 @@ Tendo em vista a taxonomia apresentada por \citeonline{burke2002hybrid}, nota-se
 Por exemplo, \citeonline{tran2000hybrid} apresentam uma arquitetura híbrida, utilizando os métodos baseado em colaboração (collaborative-based) e baseado em conhecimento (knowledge-based), ambos exemplificados através da arquitetura ilustrada na \autoref{hybrid_scheme}.
 
 \begin{figure}[h!tp]
-
 	\caption{\label{hybrid_scheme}Exemplo de arquitetura híbrida.}
-
 	\begin{center}
 		\includegraphics[scale=0.8]{images/hybrid_scheme.png}
 	\end{center}
-
 	\hspace{5.5cm}{Fonte: \citeonline{tran2000hybrid}}
-
 \end{figure}
 
 Como ilustrado na \autoref{hybrid_scheme}, a arquitetura descrita exemplifica um sistema híbrido de escalonamento (\textit{switching}). Sendo assim, dependendo da situação atual, o sistema pode trocar entre a recomendação colaborativa e a baseada em conhecimento, visando prover melhores recomendações. Considerando que inicialmente a abordagem colaborativa não seria muito eficiente, enquanto a base de dados não possui muitos usuários com modelos conhecidos e não existem itens avaliados o suficiente, \citeonline{tran2000hybrid} optaram por escalonar para o método baseado em conhecimento.
@@ -499,7 +478,6 @@ Em resumo os sistemas híbridos foram criados para unir técnicas de recomendaç
 Conforme apresentado por \citeonline{adomavicius2005toward}, decorrente da utilização das técnicas acima descritas, tanto os sistemas baseados em conteúdo quanto os sistemas colaborativos possuem limitações. Estas limitações, motivo da criação dos sistemas híbridos \cite{balabanovic1997fab}, possuem características claras de acordo com o tipo de recomendação utilizado, sendo divididas da seguinte maneira:
 
 \begin{itemize}
-
 	\item \textbf{Análise de conteúdo limitada (\textit{limited content analysis}):} presente nas técnicas baseadas em conteúdo, devido as mesmas serem limitadas por uma quantidade específica de características relevantes para a recomendação. Além disso, essas características precisam ser extraídas de forma explícita, o que dificulta muito a extração de atributos através de conteúdo como vídeo, imagem, etc.
 
 	\item \textbf{Problema do novo usuário (\textit{new user problem}):} comum nas técnicas que utilizam as preferências do usuário como métrica, consiste no fato de que um usuário precisa ter um número suficiente de avaliações para que o sistema entenda suas preferências e forneça recomendações precisas.
@@ -509,7 +487,6 @@ Conforme apresentado por \citeonline{adomavicius2005toward}, decorrente da utili
 	\item \textbf{Problema do novo item (\textit{new item problem}):} sistemas colaborativos baseiam-se apenas nas preferências dos usuários para fazer as recomendações. Sendo assim, novos itens que ainda não foram avaliados por nenhum usuário não serão recomendados.
 
 	\item \textbf{Esparsidade (\textit{Sparsity}):} quando um item é raramente recomendado devido a sua esparsidade no conjunto de usuários e itens, ou seja, um item que é pouco recomendado pelos usuários tende a ser cada vez menos recomendado em sistemas colaborativos, devido ao pouco número de avaliações que o mesmo possui.
-
 \end{itemize}
 
 Sendo assim, grande parte das pesquisas relacionadas a sistemas de recomendação tem como objetivo principal melhorar a precisão das técnicas, reduzindo o impacto das limitações descritas. Porém, como apresentado por \citeonline{mcnee2006being}, nem sempre os itens mais precisos em relação às métricas de cada método são os mais úteis aos usuários.
@@ -545,7 +522,6 @@ A solução construída tem como função recomendar quaisquer itens a quaisquer
 O usuário da API é definido como qualquer agente que tenha interações com a aplicação, humano ou programa, através requisições aos \textit{endpoints} fornecidos na documentação. Essas interações são acordadas pelo protocolo HTTP, usado como base em uma arquitetura RESTful \cite{rodriguez2008restful}. Dessa forma, o usuário da API pode utilizar qualquer interface que suporte o protocolo HTTP para desfrutar das funcionalidades da API, tornando-a multiplataforma e independente de bibliotecas de linguagens de programação específicas. As interações com os recursos da aplicação são efetuadas através dos seguintes métodos do protocolo HTTP:
 
 \begin{itemize}
-
 	\item \textbf{GET}: Interações que demandam a consulta de recursos.
 
 	\item \textbf{POST}: Interações que demandam a criação de novos recursos.
@@ -553,59 +529,44 @@ O usuário da API é definido como qualquer agente que tenha interações com a 
 	\item \textbf{PUT}: Interações que demandam a alteração de recursos existentes.
 
 	\item \textbf{DELETE}: Interações que demandam a remoção ou desativação de recursos existentes.
-
 \end{itemize}
 
 Após o envio, a requisição é processada pela interface de usuário da API e, posteriormente, um retorno de sucesso ou erro finaliza a requisição. Para verificar o tipo do retorno da requisição, o usuário da API deve se ater aos \textit{status code} retornados pela API. Em caso de sucesso, por exemplo, a API retornaria um conteúdo JSON relacionado a requisição original e um \textit{status code} da faixa \textbf{2XX}. Já em caso de erro, a API retornaria um conteúdo de erro, anexo a um \textit{status code} da faixa \textbf{4XX} \cite{fielding1999hypertext}. Exemplos de requisição à API e o fluxo das mesmas após o envio podem ser visualizados nas figuras \ref{fetch_api}, \ref{postman} e \ref{interconnection}.
 
 \begin{figure}[htp]
-
 	\caption{\label{fetch_api}Exemplo de adição de item via \textit{fetch} API.}
-
 	\begin{center}
 		\includegraphics[scale=0.8]{images/fetch_api.png}
 	\end{center}
-
 	\hspace{5.5cm}{Fonte: O Autor.}
-
 \end{figure}
 
 \begin{figure}[htp]
-
 	\caption{\label{postman}Exemplo de adição de item via Postman.}
-
 	\begin{center}
 		\includegraphics[scale=0.85]{images/postman.png}
 	\end{center}
-
 	\hspace{5.5cm}{Fonte: O Autor.}
-
 \end{figure}
 
 \begin{figure}[htp]
-
 	\caption{\label{interconnection}Exemplo de fluxo de uma requisição à API.}
-
 	\begin{center}
 		\includegraphics[scale=0.62]{images/interconnection.png}
 	\end{center}
-
 	\hspace{5.5cm}{Fonte: O Autor.}
-
 \end{figure}
 
 A figura \ref{interconnection} mostra um exemplo de requisição à API de recomendação. Nela, são requisitados os \textbf{dez} itens de maior similaridade a serem recomendados para o usuário denominado pelo parâmetro variável \textbf{\textit{user\_id}}. Este processo de requisição e resposta pode ser dividido em quatro partes principais:
 
 \begin{enumerate}
-
 	\item \textbf{Envio}: O usuário da API, devidamente autenticado, escolhe o \textit{endpoint} que corresponde as suas necessidades, enviando uma requisição através dos métodos HTTP previamente citados.
-	
+
 	\item \textbf{Interpretação}: A API receberá a requisição no devido \textit{endpoint}, interpretando-a e repassando-a através de chamadas internas das devidas funcionalidades.
-	
+
 	\item \textbf{Processamento}: Uma vez identificada a ação a ser executada, a API processa os dados (nesse caso as recomendações para o usuário \textbf{\textit{user\_id}}), posteriormente formatando-os em uma estrutura JSON.
 
 	\item \textbf{Retorno personalizado}: Com a estrutura JSON processada em mãos, a API verifica os metadados atuais e retorna, com base nos atributos especificados como visíveis, uma estrutura JSON personalizada pelos desejo do usuário da API.
-
 \end{enumerate}
 
 Partindo da premissa que a solução deve atender modelos genéricos, serão fornecidos na inicialização da API os \textbf{metadados} de usuários, itens e avaliações, correspondendo a estrutura necessária pelo usuário da aplicação. Uma vez que os metadados sejam fornecidos, os dados relacionados devem respeitar as estruturas definidas. Tanto os usuários, itens e avaliações, quanto as futuras recomendações, serão persistidas em um banco de dados, a fim de centralizar as informações e diminuir o tempo de resposta das recomendações requisitadas.
@@ -613,7 +574,6 @@ Partindo da premissa que a solução deve atender modelos genéricos, serão for
 De posse das estruturas de metadados fornecidas na inicialização, o usuário da solução poderá alimentar o sistema através das seguintes interfaces gerais:
 
 \begin{itemize}
-
 	\item \textbf{Metadados}: O usuário da API fornece a estrutura que irá compor cada um dos grupos abaixo. Essas estruturas definem os atributos de cada grupo, o tipo de cada atributo, a importância ou não do atributo nas recomendações, entre outras informações.
 
 	\item \textbf{Usuários}: O usuário da API fornece os usuários aos quais deseja gerar algum tipo de recomendação. Esses dados serão utilizados posteriormente como referência aos itens e para definição da similaridade entre usuários.
@@ -621,33 +581,26 @@ De posse das estruturas de metadados fornecidas na inicialização, o usuário d
 	\item \textbf{Itens}: O usuário da API fornece os itens que serão recomendados aos usuários existentes. Os mesmos e seus atributos serão utilizados nas recomendações, atrelados a um usuário em questão.
 
 	\item \textbf{Avaliações}: O usuário da API fornece as avaliações que ligam usuários a itens. Essas informações servem como união, apontando quais usuários estão relacionados a quais itens, sempre atrelando esta relação a uma avaliação numérica.
-
 \end{itemize}
 
 Tais ações de alimentação serão responsáveis por preencher os respectivos conjuntos anteriormente descritos e, a partir deles, construir os modelos de cada usuário e a matriz de avaliações, fundamentais para a geração das recomendações. Durante a requisição de uma recomendação, a solução definirá o método a ser utilizado e o mesmo fará as recomendações com base nos dados conhecidos, respeitando as propriedades descritas nos metadados. Um esquema do funcionamento geral da aplicação pode ser visto na \autoref{overview}.
 
 \begin{figure}[h!tp]
-
 	\caption{\label{overview}Visão geral da API.}
-
 	\begin{center}
 		\includegraphics[scale=0.6]{images/MORPY_overview.png}
 	\end{center}
-
 	\hspace{5.5cm}{Fonte: O Autor.}
-
 \end{figure}
 
 De modo a complementar a visão da API apresentada pela figura \ref{interconnection}, a figura \ref{overview} apresenta o fluxo interno de funcionamento da API, apresentando uma distinção básica entre dois tipos de eventos: os eventos de \textbf{inserção ou atualização de dados} e os eventos de \textbf{geração e requisição de recomendações}. Ambos estão contidos no domínio de atuação da interface de comunicação com o usuário, a qual interpreta as requisições e processa as devidas respostas. Os módulos centrais correspondentes a estes domínios e suas interações podem ser subdivididas nos seguintes:
 
 \begin{itemize}
-
 	\item \textbf{Interface de Comunicação}: É o ponto de contato entre o cliente que utiliza a API e o domínio da aplicação, recebendo todas as requisições nos devidos \textit{endpoints}, processando-as e retornando os resultados. Este módulo é descrito detalhadamente na seção \nameref{interface}.
 
 	\item \textbf{Analisador de Dados}: É o módulo responsável por contrastar as entradas da interface de comunicação com os metadados ativos. O trabalho do analisador de dados é validar o padrão de dados fornecido pelo cliente da API e persistir os dados corretos na base dados, notificando o motor de recomendação sobre quaisquer mudanças. Este módulo é descrito detalhadamente na seção \nameref{analisador}.
 
 	\item \textbf{Motor de Recomendação}: É o módulo que definitivamente faz as recomendações. Ele se alimenta dos dados persistidos pelo analisador, gerando matrizes de relação, utilizadas para calcular o nível de similaridade entre usuário e itens, permitindo a persistência das recomendações na base de dados. Este módulo é descrito detalhadamente na seção \nameref{motor}.
-
 \end{itemize}
 
 Assim que uma requisição é recebida pela interface de comunicação, se a mesma for uma requisição de recomendação, a interface delega ao \textbf{motor de recomendações}, que busca as recomendações persistidas para o usuário em questão. Caso a requisição seja uma alteração de dados existentes, a interface delega ao \textbf{analisador de dados} a tarefa de validar, sempre baseando-se nos metadados atuais, os novos dados providos pelo usuário da API. Assim que esses dados são persistidos na base, o \textbf{motor de recomendações} identifica uma mudança na base e inicia um novo processo paralelo de treinamento para o dado modificado. Dessa forma, quando uma requisição for solicitada, basta o motor de recomendações consultar as recomendações já persistidas.
@@ -659,18 +612,14 @@ Visando facilitar a comunicação com o usuário da API através do padrão REST
 Ao passo que a API usa o padrão RESTful como base para a comunicação, é necessário que a mesma utilize um único padrão de dados para que ambos, usuário e API, tenham uma estrutura pré definida de possibilidades de envio e retorno. Dessa forma, o padrão de dados \textbf{JSON}, proposto por \citeonline{crockford2006application} foi o escolhido para servir como representação de dados da API, desde o recebimento de novos recursos (itens, usuários, etc.) até o retorno das recomendações. Um exemplo da representação JSON para as recomendações pode ser visto na figura \ref{json_example}.
 
 \begin{figure}[h!tp]
-
 	\caption{\label{json_example}Exemplo de estrutura JSON para recomendações.}
-
 	\begin{center}
 		\includegraphics[scale=0.75]{images/json_example.png}
 	\end{center}
-
 	\hspace{5.5cm}{Fonte: O Autor.}
-
 \end{figure}
 
-Em outras palavras, esta seção apresenta o ponto de contato com a API, onde todas as requisições para modificações de recursos são feitas, visando melhorar a precisão das recomendações. Primeiro, é abordado o padrão de nomenclatura dos \textit{endpoints} na seção \ref{endpoints}, de modo a esclarecer de forma geral, toda a gama de possibilidade que o usuário da API tem ao utilizá-la. Em seguida, é apresentado o processo de autenticação na seção \ref{autenticacao}, necessário para que o usuário da API possa executar as requisições. Por fim,... 
+Em outras palavras, esta seção apresenta o ponto de contato com a API, onde todas as requisições para modificações de recursos são feitas, visando melhorar a precisão das recomendações. Primeiro, é abordado o padrão de nomenclatura dos \textit{endpoints} na seção \ref{endpoints}, de modo a esclarecer de forma geral, toda a gama de possibilidade que o usuário da API tem ao utilizá-la. Em seguida, é apresentado o processo de autenticação na seção \ref{autenticacao}, necessário para que o usuário da API possa executar as requisições.
 
 \subsection{Padrão de \textit{Endpoints}} \label{endpoints}
 
@@ -709,23 +658,18 @@ Antes da primeira inicialização, o \textit{script} gera um \textit{token} úni
 Do mesmo modo que o agente das requisições precisa incluir o \textit{token} temporário no cabeçalho das requisições, a API precisa verificar a validade deste \textit{token}. Para que isso seja possível, foi criada uma classe intermediária (\textit{middleware}) que intercepta todas as requisições, exceto a requisição de autenticação. Essa classe, por sua vez, verifica a existência do \textit{token} no cabeçalho da requisição bem como sua validade. Caso o \textit{token} não exista ou não remeta a um usuário de API válido, o \textit{middleware} bloqueia a execução da requisição, retornando uma mensagem de erro e um \textit{status code} igual a \textbf{403} - "\textit{Forbidden}". Um exemplo requisição de autenticação pode ser visto na figura \ref{auth_example}.
 
 \begin{figure}[h!tp]
-
 	\caption{\label{auth_example}Exemplo de autenticação.}
-
 	\begin{center}
 		\includegraphics[scale=0.6]{images/auth_example.png}
-
 	\end{center}
-
 	\hspace{5.5cm}{Fonte: O Autor.}
-
 \end{figure}
 
 \section{O Analisador de Dados} \label{analisador}
 
 Para tornar possível a geração de recomendações de forma genérica, através dos metadados, foi necessária a construção de um módulo dedicado exclusivamente a este fator. O \textbf{analisador de dados} tem como principal objetivo cruzar as novas informações, repassadas pela interface de comunicação, com os metadados correntes.
 
-Por exemplo, para que um novo item seja adicionado ao conjunto de itens conhecidos e, posteriormente, treinado contra os outros itens, é necessário que o analisador de dados verifique se todos os atributos relevantes para as recomendações estão preenchidos, se os tipos dos campos fornecidos condizem com os tipos especificados nos metadados, etc. 
+Por exemplo, para que um novo item seja adicionado ao conjunto de itens conhecidos e, posteriormente, treinado contra os outros itens, é necessário que o analisador de dados verifique se todos os atributos relevantes para as recomendações estão preenchidos, se os tipos dos campos fornecidos condizem com os tipos especificados nos metadados, etc.
 
 Em síntese, esta seção apresentará os principais componentes do analisador de dados. Primeiro apresentando os padrões utilizados para a orientação a metadados na seção \ref{analisador:padrao_metadados}, em seguida, os modelos gerados pelos metadados e sua utilização em toda a aplicação, aprofundados na seção \ref{analisador:modelos} e, por fim, como é feita a persistência destes dados na seção \ref{analisador:persistencia}.
 
@@ -734,40 +678,34 @@ Em síntese, esta seção apresentará os principais componentes do analisador d
 Uma vez que não se sabe qual o padrão de JSON a se retornar ao usuário, ou quais os campos relevantes para a geração das recomendações, ou ainda quais sequer são os nomes dos atributos, os metadados são as estruturas, previamente definidas e passíveis de personalização, fornecidas pelo usuário na inicialização da aplicação. Estas estruturas são enviadas através de uma estrutura JSON para os \textit{endpoints} respectivos, divididos em três categorias:
 
 \begin{itemize}
-	
 	\item \textbf{Usuários}: Definem os nomes dos atributos, obrigatórios ou não, que compõem o modelo de usuário, os tipos de cada atributo, a quantidade máxima de caracteres, se é recomendável ou não e seu peso. Além disso os metadados de usuários apontam o identificador único do usuário.
 
 	\item \textbf{Itens}: Assim como os usuários, definem os nomes de cada atributo, obrigatórios ou não, do item e suas demais características. Além disso, é definida a exibição de cada atributo do item no retorno das recomendações e seu identificador único.
 
 	\item \textbf{Avaliações}: Definem obrigatoriamente o campo de identificador único do usuário e o campo de identificador único do item, amarrando efetivamente as duas entidades. Além disso, definem o tipo de avaliação que será empregada (binária ou não).
-
 \end{itemize}
 
 Para ilustrar o processo de definição dos metadados, a figura \ref{metadata} mostra um exemplo real dos metadados inciais para o modelo de \textbf{item}. Estes atributos podem ser modificados posteriormente através do mesmo \textit{endpoint} utilizando o método PUT do HTTP. Caso o qualquer atributo sofra posterior alteração, os metadados são salvos com o status \textbf{"\textit{active:false}"}, orientado que o mesmo não é mais válido. Em seguida, um novo conjunto de metadados é criado com o atributo \textbf{"\textit{active:true}"} e as modificações solicitadas pelo usuário.
 
 \begin{figure}[htp]
-
 	\caption{\label{metadata}Exemplo de declaração de metadados para o item.}
-
 	\begin{center}
 		\includegraphics[scale=0.8]{images/metadata.png}
 	\end{center}
-
 	\hspace{5.5cm}{Fonte: O Autor.}
-
 \end{figure}
 
 Analisando a figura \ref{metadata} nota-se um conjunto de chaves pré-definidas para a estrutura declarada. A razão dessas chaves possuírem suas definições \textbf{obrigatórias e pré-definidas} é o fato de que as mesmas moldam todas as outros atributos dinamicamente atribuídos aos modelos de itens, usuários e avaliações, consequentemente moldando o banco de dados. Sendo assim, cada chave da estrutura definida na figura é utilizada como atributo chave para alguma decisão estrutural dentro da API. As chaves definidas na figura possuem as seguintes funcionalidades:
 
 \begin{itemize}
 	\item \textbf{\textit{type}}: Fora da chave \textbf{\textit{"attributes"}}, define o tipo do grupo de metadados que correspondem os atributos declarados. Dentro de um atributo, define o tipo do dado ao qual o atributo espera um valor, podendo ser qualquer tipo natural: \textbf{\textit{string}}, \textbf{\textit{integer}}, \textbf{\textit{float}}, etc. Espera um valor do tipo \textbf{\textit{string}}.
-	
+
 	\item \textbf{\textit{attributes}}: Declara a lista de atributos pertencentes ao \textit{type}, neste caso ao item.  Espera um valor do tipo \textbf{\textit{array}}.
-	
+
 	\item \textbf{\textit{name}}: Define o nome de um atributo, o qual será utilizado como chave do atributo no banco de dados e na construção dinâmica do modelo. Espera um valor do tipo \textbf{\textit{string}}.
 
 	\item \textbf{\textit{key}}: Define se o atributo é ou não um identificador único. Será utilizado posteriormente para ligar os usuários a itens e para fazer as consultas dos endpoints.  Espera um valor do tipo \textbf{\textit{boolean}}.
-	
+
 	\item \textbf{\textit{hide}}: Define se o atributo será ou não exibido no JSON de retorno. Espera um valor do tipo \textbf{\textit{boolean}}.
 
 	\item \textbf{\textit{unique}}: Define se o atributo deve ser único na base de dados ou não. Caso o seu valor seja verdadeiro (\textit{true}), o analisador de dados retornará um erro para a requisição, caso este atributo já exista. Espera um valor do tipo \textbf{\textit{boolean}}.
@@ -781,7 +719,7 @@ Analisando a figura \ref{metadata} nota-se um conjunto de chaves pré-definidas 
 	\item \textbf{\textit{weight}}: Se o atributo \textbf{\textit{recommendable}} for verdadeiro (\textit{true}), define o a peso do atributo nos cálculos de recomendação. O peso varia de um a dez. Espera um valor do tipo \textbf{\textit{integer}}.
 \end{itemize}
 
-Assim que a API toma conhecimento dos metadados, já é possível ao usuário da API preencher o banco de dados com seus usuários, itens e avaliações iniciais. 
+Assim que a API toma conhecimento dos metadados, já é possível ao usuário da API preencher o banco de dados com seus usuários, itens e avaliações iniciais.
 
 Por outro lado, a API, antes de persistir os metadados na base, adiciona alguns atributos para facilitar o gerenciamento posterior, dentre eles: um atributo de \textbf{data} para representar a data de inserção, um atributo de \textbf{versão} para identificar a evolução da estrutura e, por fim, um atributo \textbf{\textit{active}} que, se possuir valor verdadeiro, determina qual é grupo de metadados que está atualmente em vigor. Uma linha do tempo dos metadados com as modificações feitas pelo usuário da API pode ser acessada através do endpoint \textbf{/metadata/:metadata\_type/history}.
 
@@ -794,18 +732,14 @@ Levando em conta que não se sabe quais serão os atributos de um item, por exem
 Levando em consideração os atributos do grupo de metadados apresentados na seção \nameref{analisador:padrao_metadados}, a figura \ref{validation} apresenta um exemplo de validação, feito na linguagem Python, utilizando tais atributos para dinamicamente verificar o padrão do item recebido através de uma requisição do usuário da API. As partes irrelevantes do código foram omitidas para melhor apresentação.
 
 \begin{figure}[h!tp]
-	
 	\caption{\label{validation}Validação baseada nos metadados.}
-
 	\begin{center}
 		\includegraphics[scale=0.83]{images/python_validation.png}
 	\end{center}
-
 	\hspace{5.5cm}{Fonte: O Autor.}
+\end{figure}
 
-\end{figure}	
-
-Ao contrário das aplicações comuns, que delegam o trabalho de manter a saúde dos dados para a base de dados, esta estratégia não é viável nesta aplicação devido ao fato da estrutura do banco de dados não só ser dinâmica, como também totalmente customizada pelo usuário da API. 
+Ao contrário das aplicações comuns, que delegam o trabalho de manter a saúde dos dados para a base de dados, esta estratégia não é viável nesta aplicação devido ao fato da estrutura do banco de dados não só ser dinâmica, como também totalmente customizada pelo usuário da API.
 
 Dessa forma, o trecho de código mostrado na figura \ref{validation}, em conjunto outras classes auxiliares, tem como objetivo garantir que, apenas os dados enviados dentro do padrão descrito no grupo de metadados correspondente, serão persistidos no banco de dados.
 
@@ -814,18 +748,14 @@ Sendo assim, a lógica da figura pode ser descrita da seguinte forma: primeiro a
 Para ilustrar o processo, a figura \ref{validation_schema} demonstra um exemplo do fluxo interno do \textbf{analisador de dados}, desde o recebimento da informação, até a persistência e posterior retorno da mesma. O código completo dos modelos de dados pode ser visto no apêndice \nameref{source_code}.
 
 \begin{figure}[h!tp]
-	
 	\caption{\label{validation_schema}Esquema do fluxo do analisador de dados.}
-
 	\begin{center}
 		\includegraphics[scale=0.8]{images/validation.png}
 	\end{center}
-
 	\hspace{5.5cm}{Fonte: O Autor.}
-
 \end{figure}
 
-Representando o fluxo de modificação dos dados de um item específico, nota-se na figura \ref{validation_schema}, que o analisador de dados recebe as devidas requisições através da interface de comunicação, transformando-as em modelos dos recursos. Assim que os modelos são construídos, são carregados da base de dados os metadados vigentes, utilizados posteriormente no contraste e validação destes modelos. Caso o modelo de item, representação abstrata da requisição do usuário da API, seja válido, o mesmo é persistido na base de dados e, posteriormente, enviado como retorno. Caso o item não seja válido, ao invés de persisti-lo na base, uma mensagem de erro é enviada como retorno ao usuário da API. 
+Representando o fluxo de modificação dos dados de um item específico, nota-se na figura \ref{validation_schema}, que o analisador de dados recebe as devidas requisições através da interface de comunicação, transformando-as em modelos dos recursos. Assim que os modelos são construídos, são carregados da base de dados os metadados vigentes, utilizados posteriormente no contraste e validação destes modelos. Caso o modelo de item, representação abstrata da requisição do usuário da API, seja válido, o mesmo é persistido na base de dados e, posteriormente, enviado como retorno. Caso o item não seja válido, ao invés de persisti-lo na base, uma mensagem de erro é enviada como retorno ao usuário da API.
 
 Todavia, em caso de sucesso na persistência, antes de efetivamente retornar o \textit{feedback} ao agente da requisição, o analisador de dados constrói a estrutura de retorno a partir dos atributos dos metadados em vigor. O atributo declarado como identificador único (\textbf{\textit{key:true}}) nos metadados é obrigatoriamente adicionado na estrutura de retorno, uma vez que é utilizado como parâmetro base em todos os \textit{endpoints} relacionados. Além disso, o atributo \textbf{\textit{hide}} define se o atributo existente será exibido ou não no JSON de retorno.
 
@@ -837,18 +767,14 @@ Visando utilizar uma estratégia de persistência que se destacasse no processam
 
 Devido ao JSON ser o padrão escolhido para a estrutura de dados da aplicação, a similaridade entre o documento armazenado no banco de dados e o JSON de retorno ao usuário da API é muito pequena, reduzindo o nível de complexidade como um todo. Além disso, é permitida a inserção de documentos dinâmicos, sem um padrão previamente definidos em tabelas e campos, sendo possível inserir novos atributos em itens, usuários e avaliações apenas declarando-os nos metadados, sem a necessidade de modificar a estrutura da base de dados.
 
-A fim de abstrair este processo para os outras partes da aplicação, foram criadas serviços de persitência para cada módulo existente, responsáveis por administrar toda a comunicação com o banco de dados. Tais serviços são utilizados tanto pelo \textbf{analisador de dados} quando pelo \textbf{motor de recomendações}, seja para a persistência de novas recomendações recém geradas ou para novos itens enviados pelo usuário da API através da interface de comunicação. A figura \ref{persistence} demonstra o processo de construção dinâmica do item através do modelo e sua persistência no banco de dados.	
+A fim de abstrair este processo para os outras partes da aplicação, foram criadas serviços de persitência para cada módulo existente, responsáveis por administrar toda a comunicação com o banco de dados. Tais serviços são utilizados tanto pelo \textbf{analisador de dados} quando pelo \textbf{motor de recomendações}, seja para a persistência de novas recomendações recém geradas ou para novos itens enviados pelo usuário da API através da interface de comunicação. A figura \ref{persistence} demonstra o processo de construção dinâmica do item através do modelo e sua persistência no banco de dados.
 
 \begin{figure}[h!tp]
-	
 	\caption{\label{persistence}Esquema do serviço de persistência.}
-
 	\begin{center}
 		\includegraphics[scale=0.83]{images/persistence.png}
 	\end{center}
-
 	\hspace{5.5cm}{Fonte: O Autor.}
-
 \end{figure}
 
 Como apresentado na figura \ref{persistence}, o serviço de persistência recebe um modelo, previamente criado e validado pelo \textbf{analisador de dados}. Este modelo será contrastado com os metadados vigentes para geração dinâmica de um documento no formato necessário para sua inserção no banco de dados. Assim como nos \textit{endpoints} da interface de comunicação, os serviços de persitência usam como parâmetros para administração de documentos específicos o identificador único (\textbf{\textit{key:true}}) declarado nos metadados, gerando documentos com base neste identificador.
@@ -875,8 +801,6 @@ Em um primeiro momento, a API utilizará o método baseado em conteúdo para for
 
 \subsection{Instalação e Inicialização}
 
-
-
 \subsection{Tecnologias Utilizadas} \label{tecnologias}
 
 %
@@ -898,60 +822,58 @@ Além disso, é importante ressaltar preocupação na construção de uma docume
 \bibliography{referencias}
 
 \begin{apendicesenv}
-	
-% Imprime uma página indicando o início dos apêndices
 
-\chapter{Código Fonte da API} \label{source_code}
+	\chapter{Código Fonte da API} \label{source_code}
 
-O módulo \textbf{app.py} é responsável por declarar todos os \textit{endpoints} (recursos) da interface de comunicação que estaŕão acessíveis pelo usuário da API.
+	O módulo \textbf{app.py} é responsável por declarar todos os \textit{endpoints} (recursos) da interface de comunicação que estaŕão acessíveis pelo usuário da API.
 
-\lstinputlisting[language=Python, style=custompython,firstline=13]{appendix/app/app.py}
+	\lstinputlisting[language=Python, style=custompython,firstline=13]{appendix/app/app.py}
 
-\section{Recursos de \textit{endpoints}} \label{endpoint_resources}
+	\section{Recursos de \textit{endpoints}} \label{endpoint_resources}
 
-O módulo \textbf{user.py} recebe e administra todas as requisições feitas a \textit{endpoints} de usuário (\textbf{/user}).
+	O módulo \textbf{user.py} recebe e administra todas as requisições feitas a \textit{endpoints} de usuário (\textbf{/user}).
 
-\lstinputlisting[language=Python, style=custompython,firstline=10]{appendix/app/api/resources/user.py}
+	\lstinputlisting[language=Python, style=custompython,firstline=10]{appendix/app/api/resources/user.py}
 
-O módulo \textbf{item.py} recebe e administra todas as requisições feitas a \textit{endpoints} de item (\textbf{/item}).
+	O módulo \textbf{item.py} recebe e administra todas as requisições feitas a \textit{endpoints} de item (\textbf{/item}).
 
-\lstinputlisting[language=Python, style=custompython,firstline=11]{appendix/app/api/resources/item.py}
+	\lstinputlisting[language=Python, style=custompython,firstline=11]{appendix/app/api/resources/item.py}
 
-O módulo \textbf{rating.py} recebe e administra todas as requisições feitas a \textit{endpoints} de avaliações (\textbf{/rating}).
+	O módulo \textbf{rating.py} recebe e administra todas as requisições feitas a \textit{endpoints} de avaliações (\textbf{/rating}).
 
-\lstinputlisting[language=Python, style=custompython, firstline=10]{appendix/app/api/resources/rating.py}
+	\lstinputlisting[language=Python, style=custompython, firstline=10]{appendix/app/api/resources/rating.py}
 
-O módulo \textbf{recommend.py} recebe e administra todas as requisições feitas a \textit{endpoints} de recomendação (\textbf{/recommend}).
+	O módulo \textbf{recommend.py} recebe e administra todas as requisições feitas a \textit{endpoints} de recomendação (\textbf{/recommend}).
 
-\lstinputlisting[language=Python, style=custompython, firstline=7]{appendix/app/api/resources/recommend.py}
+	\lstinputlisting[language=Python, style=custompython, firstline=7]{appendix/app/api/resources/recommend.py}
 
-O módulo \textbf{train.py} recebe e administra todas as requisições feitas a \textit{endpoints} que forçam o treinamento das recomendações (\textbf{/train}).
+	O módulo \textbf{train.py} recebe e administra todas as requisições feitas a \textit{endpoints} que forçam o treinamento das recomendações (\textbf{/train}).
 
-\lstinputlisting[language=Python, style=custompython, firstline=12]{appendix/app/api/resources/train.py}
+	\lstinputlisting[language=Python, style=custompython, firstline=12]{appendix/app/api/resources/train.py}
 
-O módulo \textbf{auth.py} recebe e administra todas as requisições feitas a \textit{endpoints} de autenticação (\textbf{/auth}).
+	O módulo \textbf{auth.py} recebe e administra todas as requisições feitas a \textit{endpoints} de autenticação (\textbf{/auth}).
 
-\lstinputlisting[language=Python, style=custompython, firstline=7]{appendix/app/api/resources/auth.py}
+	\lstinputlisting[language=Python, style=custompython, firstline=7]{appendix/app/api/resources/auth.py}
 
-O módulo \textbf{metadata.py} recebe e administra todas as requisições feitas a \textit{endpoints} de metadados (\textbf{/metadata}).
+	O módulo \textbf{metadata.py} recebe e administra todas as requisições feitas a \textit{endpoints} de metadados (\textbf{/metadata}).
 
-\lstinputlisting[language=Python, style=custompython, firstline=11]{appendix/app/api/resources/metadata.py}
+	\lstinputlisting[language=Python, style=custompython, firstline=11]{appendix/app/api/resources/metadata.py}
 
-\section{Serviços de Persistência} \label{services}
+	\section{Serviços de Persistência} \label{services}
 
-\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/services/ItemMetadataService.py}
+	\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/services/ItemMetadataService.py}
 
-\lstinputlisting[language=Python, style=custompython, firstline=6]{appendix/app/api/services/ItemService.py}
+	\lstinputlisting[language=Python, style=custompython, firstline=6]{appendix/app/api/services/ItemService.py}
 
-\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/services/RatingMetadataService.py}
+	\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/services/RatingMetadataService.py}
 
-\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/services/RatingService.py}
+	\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/services/RatingService.py}
 
-\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/services/UserMetadataService.py}
+	\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/services/UserMetadataService.py}
 
-\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/services/UserService.py}
+	\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/services/UserService.py}
 
-\lstinputlisting[language=Python, style=custompython, firstline=7]{appendix/app/api/services/RecommenderService.py}
+	\lstinputlisting[language=Python, style=custompython, firstline=7]{appendix/app/api/services/RecommenderService.py}
 
 \end{apendicesenv}
 
