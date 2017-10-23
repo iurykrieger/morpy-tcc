@@ -783,15 +783,39 @@ Além da persistência do modeo recebido, o serviço de persistência também é
 
 \section{O Motor de Recomendações} \label{motor}
 
-Toda a estrutura acima descrita tem como objetivo possibilitar o funcionamento do motor de recomendações, fornecendo os dados necessários para a geração das matrizes de predição. O motor de recomendações, por sua vez, tem como objetivo efetivamente gerar as recomendações para quaisquer usuários ou itens, com base nos dados fornecidos pelo usuário da API.
+Toda a estrutura acima descrita tem como objetivo possibilitar o funcionamento do motor de recomendações, fornecendo os dados necessários para a geração das matrizes de predição. O motor de recomendações, por sua vez, tem como objetivo efetivamente gerar as recomendações para quaisquer usuários ou itens, levando em consideração o padrão de gostos do usuário, o conteúdo do item e a relação entre ambos.
 
-Como forma de recomendação será utilizado o método híbrido, composto dos métodos \textbf{baseado em conteúdo} e \textbf{filtragem colaborativa}, escalonando através do método com melhor precisão momentânea. Dessa forma é possível atender qualquer tipo de metadado, fornecendo recomendações independente do número de usuários, itens e avaliações na base de dados.
+Do mesmo modo que o analisador de dados, o motor de recomendações faz uso dos modelos de usuários, itens e avaliações visando obter informações geradas dinamicamente com o uso dos metadados. Dentre as informações relevantes para o motor de recomendações estão:
 
-Em um primeiro momento, a API utilizará o método baseado em conteúdo para fornecer as recomendações e predições, uma vez que poucos itens estarão avaliados e o método colaborativo não terá modelos de usuários suficientes. Assim que as métricas de relações entre usuários e quantidade de modelos processados sejam supridas, a API passará a utilizar o método de filtragem colaborativa, caso este esteja gerando recomendações mais precisas.
+\begin{itemize}
+	\item \textbf{Atributos recomendáveis}: Os atributos marcados com a \textit{tag} \textbf{\textit{recommendable:true}} mapeam quais atributos devem ser levados em consideração pelos algoritmos.
+
+	\item \textbf{Peso dos atributos}: Os atributos marcados com a \textit{tag} \textbf{\textit{weight}} mapeam quais atributos, além de recomendáveis, recebem um peso diferenciado para os algoritmos, maximizando o nível de personalização.
+
+	\item \textbf{Identificadores únicos}: Os atributos marcados com a \textit{tag} \textbf{\textit{key:true}} identificam quais informações serão utilizadas como identificadores de itens e usuários durante a execução dos algoritmos, permitindo sua correta persistência, além de manter a integridade das recomendações. Além disso, permitem identificar quais usuários avaliaram quais itens, informação essencial para a recomendação colaborativa.
+
+	\item \textbf{Valor da avaliação}: Os atributos dos metadados de avaliação marcados com a \textit{tag} \textbf{\textit{rating}} fornecem o valor de cada avaliação do usuário aos itens, permitindo a identificação do padrão de gostos do usuário, essencial para o cálculo da similaridade entre os itens.
+\end{itemize}
+
+De posse destes dados persistidos na base, o motor de recomendações consegue cruzá-los a fim de obter duas matrizes: a matriz de nível de similaridade entre itens e, posteriormente, a matriz de itens de maior similaridades não avaliados para cada usuário. Essas matrizes são posteriormente desmembradas em rakings de itens e persistidos em cada usuário e item, com seus itens de maior similaridade, em outras palavras, suas recomendações.
+
+Como forma de recomendação o motor de dados utiliza-se do \textbf{método híbrido}, composto dos métodos \textbf{baseado em conteúdo} e \textbf{filtragem colaborativa}, escalonando através do método com melhor precisão momentânea. Dessa forma é possível atender qualquer tipo de estrutura fornecida pelo usuário da API, fornecendo recomendações independente do número de usuários, itens e avaliações na base de dados.
+
+Em um primeiro momento, a API utilizará o método baseado em conteúdo para fornecer as recomendações e predições, uma vez que poucos itens estarão avaliados e o método colaborativo não terá modelos de usuários suficientes. Ao passo que as métricas de relações entre usuários e quantidade de modelos processados sejam supridas, a API passará a utilizar o método de filtragem colaborativa, unindo os resultados com os maiores níveis de similaridades, levando em conta as duas diferentes abordagens.
+
+Visando salientar o processo de recomendações, centro deste trabalho, de forma concisa, esta seção está divida em três partes. Primeiramente é abordada a interação entre o motor de recomendações e as demais funcionalidades da API, o modo como são notificadas as mudanças e o assincronismo entre as requisições do usuário e a geração das recomendações. Em seguida, são detalhados os dois módulos que compõem o motor de recomendações: o \textbf{motor de conteúdo} e o \textbf{motor colaborativo}, abordando suas diferenças e peculiaridades.
+
+\subsection{Assincronismo [TODO] Nome temporário} \label{motor:async}
 
 \subsection{Motor de Conteúdo} \label{motor:conteudo}
 
+Explicar primeiro o processo, como o motor funciona
+Explicar depois como o recomendador recomenda.
+
 \subsection{Motor Colaborativo} \label{motor:colaborativo}
+
+Explicar primeiro o processo, como o motor funciona
+Explicar depois como o recomendador recomenda.
 
 \section{Testes e Implementação} \label{testes}
 
