@@ -785,7 +785,7 @@ Assim que a API toma conhecimento dos metadados, já é possível ao usuário da
 
 Por outro lado, a API, antes de persistir os metadados na base, adiciona alguns atributos para facilitar o gerenciamento posterior, dentre eles: um atributo de \textbf{data} para representar a data de inserção, um atributo de \textbf{versão} para identificar a evolução da estrutura e, por fim, um atributo \textbf{\textit{active}} que, se possuir valor verdadeiro, determina qual é grupo de metadados que está atualmente em vigor. Uma linha do tempo dos metadados com as modificações feitas pelo usuário da API pode ser acessada através do endpoint \textbf{/metadata/:metadata\_type/history}.
 
-\subsection{Modelos de Itens, Usuários e Avaliações} \label{analisador:modelos}
+\subsection{Modelos de Metadados, Itens, Usuários e Avaliações} \label{analisador:modelos}
 
 Para gerenciar o fluxo de dados dentro da API, se fez necessária a criação de modelos encapsuladores, que tem como função abstrair a complexidade da validação, gerenciamento e representação destes dados dinâmicos.
 
@@ -811,7 +811,7 @@ Dessa forma, o trecho de código mostrado na figura \ref{validation}, em conjunt
 
 Sendo assim, a lógica da figura pode ser descrita da seguinte forma: primeiro a aplicação percorre todos os atributos dos metadados correspondente. Para cada atributo descrito nos metadados, a aplicação testa se este atributo, caso seja obrigatório (\textbf{\textit{nullable:false}}), está contido no JSON recebido pelo \textit{endpoint}. Se o atributo obrigatório não existir, a aplicação retorna um JSON de erro com o \textit{status code} igual a \textbf{400}, indicando uma \textbf{\textit{bad request}}. Caso o atributo exista, a aplicação testa se o tipo do dado recebido condiz com o tipo declarado nos metadados (\textbf{\textit{type}}). Uma vez que todos os atributos obrigatórios são satisfeitos pelo JSON recebido, a aplicação o persiste na base de dados.
 
-Para ilustrar o processo, a figura \ref{validation_schema} demonstra um exemplo do fluxo interno do \textbf{analisador de dados}, desde o recebimento da informação, até a persistência e posterior retorno da mesma. O código completo dos modelos de dados pode ser visto no apêndice \ref{}.
+Para ilustrar o processo, a figura \ref{validation_schema} demonstra um exemplo do fluxo interno do \textbf{analisador de dados}, desde o recebimento da informação, até a persistência e posterior retorno da mesma. O código completo dos modelos de dados pode ser visto no apêndice \nameref{source_code}.
 
 \begin{figure}[h!tp]
 	
@@ -857,6 +857,8 @@ Além da persistência do modeo recebido, o serviço de persistência também é
 
 \section{O Motor de Recomendações} \label{motor}
 
+Toda a estrutura acima descrita tem como objetivo possibilitar o funcionamento do motor de recomendações, fornecendo os dados necessários para a geração das matrizes de predição. O motor de recomendações, por sua vez, tem como objetivo efetivamente gerar as recomendações para quaisquer usuários ou itens, com base nos dados fornecidos pelo usuário da API.
+
 Como forma de recomendação será utilizado o método híbrido, composto dos métodos \textbf{baseado em conteúdo} e \textbf{filtragem colaborativa}, escalonando através do método com melhor precisão momentânea. Dessa forma é possível atender qualquer tipo de metadado, fornecendo recomendações independente do número de usuários, itens e avaliações na base de dados.
 
 Em um primeiro momento, a API utilizará o método baseado em conteúdo para fornecer as recomendações e predições, uma vez que poucos itens estarão avaliados e o método colaborativo não terá modelos de usuários suficientes. Assim que as métricas de relações entre usuários e quantidade de modelos processados sejam supridas, a API passará a utilizar o método de filtragem colaborativa, caso este esteja gerando recomendações mais precisas.
@@ -899,7 +901,7 @@ Além disso, é importante ressaltar preocupação na construção de uma docume
 	
 % Imprime uma página indicando o início dos apêndices
 
-\chapter{Código Fonte da API}
+\chapter{Código Fonte da API} \label{source_code}
 
 O módulo \textbf{app.py} é responsável por declarar todos os \textit{endpoints} (recursos) da interface de comunicação que estaŕão acessíveis pelo usuário da API.
 
@@ -937,7 +939,19 @@ O módulo \textbf{metadata.py} recebe e administra todas as requisições feitas
 
 \section{Serviços de Persistência} \label{services}
 
+\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/services/ItemMetadataService.py}
 
+\lstinputlisting[language=Python, style=custompython, firstline=6]{appendix/app/api/services/ItemService.py}
+
+\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/services/RatingMetadataService.py}
+
+\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/services/RatingService.py}
+
+\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/services/UserMetadataService.py}
+
+\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/services/UserService.py}
+
+\lstinputlisting[language=Python, style=custompython, firstline=7]{appendix/app/api/services/RecommenderService.py}
 
 \end{apendicesenv}
 
