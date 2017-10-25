@@ -357,7 +357,7 @@ Como próximo passo na evolução dos sistemas de recomendação, \citeonline{ad
 
 A seguir serão apresentados as diferentes técnicas dos sistemas de recomendação, além de qual técnica será utilizada por este trabalho e seus diferentes métodos através de algoritmos. Devido a existência de inúmeras técnicas e métodos de recomendação, este trabalho abordará apenas as técnicas necessárias para entendimento do mesmo, aprofundando-se apenas nos métodos que compõem a técnica utilizada.
 
-\subsection{Método Baseado em Conteúdo}
+\subsection{Método Baseado em Conteúdo} \label{recs:content_based}
 
 Sistemas de recomendação que implementam o método baseado em conteúdo (\textit{content-based}) analisam um conjunto de documentos/descrições de itens previamente avaliados pelo usuário, construindo um modelo dos interesses baseando-se nas características dos itens avaliados \cite{mladenic1999text, adomavicius2005toward, lops2011content}. Este modelo serve para ser cruzado com o conteúdo de outros itens ainda não avaliados pelo usuário. Quanto maior o grau de semelhança entre o modelo do usuário e as características do item, maior a probabilidade do mesmo ter interesse.
 
@@ -799,15 +799,57 @@ Do mesmo modo que o analisador de dados, o motor de recomendações faz uso dos 
 
 De posse destes dados persistidos na base, o motor de recomendações consegue cruzá-los a fim de obter duas matrizes: a matriz de nível de similaridade entre itens e, posteriormente, a matriz de itens de maior similaridades não avaliados para cada usuário. Essas matrizes são posteriormente desmembradas em rakings de itens e persistidos em cada usuário e item, com seus itens de maior similaridade, em outras palavras, suas recomendações.
 
-Como forma de recomendação o motor de dados utiliza-se do \textbf{método híbrido}, composto dos métodos \textbf{baseado em conteúdo} e \textbf{filtragem colaborativa}, escalonando através do método com melhor precisão momentânea. Dessa forma é possível atender qualquer tipo de estrutura fornecida pelo usuário da API, fornecendo recomendações independente do número de usuários, itens e avaliações na base de dados.
+Como forma de recomendação será utilizado o método híbrido, composto dos métodos \textbf{baseado em conteúdo} e \textbf{filtragem colaborativa}, escalonando através do método com melhor precisão momentânea. Dessa forma é possível atender qualquer tipo de metadado, fornecendo recomendações independente do número de usuários, itens e avaliações na base de dados.
 
 Em um primeiro momento, a API utilizará o método baseado em conteúdo para fornecer as recomendações e predições, uma vez que poucos itens estarão avaliados e o método colaborativo não terá modelos de usuários suficientes. Ao passo que as métricas de relações entre usuários e quantidade de modelos processados sejam supridas, a API passará a utilizar o método de filtragem colaborativa, unindo os resultados com os maiores níveis de similaridades, levando em conta as duas diferentes abordagens.
 
-Visando salientar o processo de recomendações, centro deste trabalho, de forma concisa, esta seção está divida em três partes. Primeiramente é abordada a interação entre o motor de recomendações e as demais funcionalidades da API, o modo como são notificadas as mudanças e o assincronismo entre as requisições do usuário e a geração das recomendações. Em seguida, são detalhados os dois módulos que compõem o motor de recomendações: o \textbf{motor de conteúdo} e o \textbf{motor colaborativo}, abordando suas diferenças e peculiaridades.
+Visando salientar de forma concisa o processo de recomendações, centro deste trabalho, esta seção está divida em três partes. Primeiramente é abordada a interação entre o motor de recomendações e as demais funcionalidades da API, o modo como são notificadas as mudanças e o assincronismo entre as requisições do usuário e a geração das recomendações. Em seguida, são detalhados os dois módulos que compõem o motor de recomendações: o \textbf{motor de conteúdo} e o \textbf{motor colaborativo}, abordando suas diferenças e peculiaridades.
 
-\subsection{Assincronismo [TODO] Nome temporário} \label{motor:async}
+\subsection{Escalonador} \label{motor:async}
+
+\begin{figure}[h!tp]
+	\caption{\label{scheduler}Funcionamento do escalonador de recomendações.}
+	\begin{center}
+		\includegraphics[scale=0.8]{images/scheduler.png}
+	\end{center}
+	\hspace{5.5cm}{Fonte: O Autor.}
+\end{figure}
+
+Levando em consideração o nível de processamento necessário para a geração de recomendações precisas, a aplicação as excuta de forma paralela a requisição das recomendações, visando ocultar a complexidade do processo para o usuário da API. 
+
+sem comprometer o tempo de resposta deste tipo de requisição ao usuário da API, foi necessário paralelizar o processo de geração das recomendações,  
 
 \subsection{Motor de Conteúdo} \label{motor:conteudo}
+
+Conforme abordado na seção \nameref{recs:content_based}, os sistemas de recomendação baseados em conteúdo analisam o conteúdo de itens previamente avaliados pelo usuário. Esta seção aborda a implementação deste tipo de sistema recomendador no contexto da aplicação, dissecando os princiais tópicos relacionados a sistemas baseados em conteúdo e como foram implementados de modo a serem personalizados através dos metadados.
+
+Para que seja possível fornecer recomendações de itens baseando-se em seu conteúdo de forma dinâmica, assim que o motor de recomendações é notificado de uma mudança relevante no estado dos dados, como apresentado na seção \nameref{motor:async}, uma série de passos são executados. Este processo pós-notificação pode ser divido em cinco partes:
+
+\begin{enumerate}
+	\item \textbf{Obtenção das informações}: carrega uma lista de todos os itens com os atributos a serem processados (\textbf{\textit{recommendable}}) declarados nos metadados.
+
+	\item \textbf{Cálculo da similaridade}: para cada item $I_{m}$ obtido, gera uma matriz de $[m, n]$ itens com o grau de similaridade entre o item corrente e os demais.
+
+	\item \textbf{Cálculo da proximidade}: para cada item $I_n$ da matriz de similaridades, calcula a distância de coseno entre o item $I_n$ e cada item da lista $\lbrace S_{0}$, ..., $S_{j} \rbrace$, sendo $S$ um item similar a $I_{n}$.
+
+	\item \textbf{Persistência por proximidade}: ordena a lista de distâncias, resultante de cada item $I_{n}$, da menor distância para a maior, persistindo um ranking dos cinquenta itens mais próximos como similares do item $I_{n}$ na base de dados.
+
+	\item \textbf{Obtenção das recomendações}: consulta a base de dados para obter os $k$ itens da lista de similares para o item $I_{n}$ e os retorna ao usuário da API.
+\end{enumerate}
+
+Como resultado final do processamento feito pelo \textbf{motor de conteúdo}, as recomendações não são retornadas ao usuário da API, mas sim persistidas no banco de dados. Isso ocorre pois o tempo de retorno se tornaria muito alto, devido a quantidade de processos a serem feitos, além do principal fato de que as notificações de mudança são recebidas pelo motor em momentos diferentes das requisições de recomendação do usuário da API. O processo de geração das recomendações, abstraído da interação com o escalonador, pode ser visto na figura \ref{content_engine}. 
+
+\begin{figure}[h!tp]
+	\caption{\label{content_engine}Funcionamento do motor de conteúdo.}
+	\begin{center}
+		\includegraphics[scale=0.8]{images/content_engine.png}
+	\end{center}
+	\hspace{5.5cm}{Fonte: O Autor.}
+\end{figure}
+
+Como 
+
+Exemplificar os 5 passos com uma figura e em momentos temporais diferentes.
 
 Explicar primeiro o processo, como o motor funciona
 Explicar depois como o recomendador recomenda.
@@ -853,33 +895,35 @@ Além disso, é importante ressaltar preocupação na construção de uma docume
 
 	\lstinputlisting[language=Python, style=custompython,firstline=13]{appendix/app/app.py}
 
-	\section{Recursos de \textit{endpoints}} \label{endpoint_resources}
+	\section{Metadados}
 
-	O módulo \textbf{user.py} recebe e administra todas as requisições feitas a \textit{endpoints} de usuário (\textbf{/user}).
+	\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/metadata/UserMetadata.py}
+	
+	\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/metadata/ItemMetadata.py}
+
+	\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/metadata/RatingMetadata.py}
+	
+	\section{Modelos de Estruturas}
+
+	\lstinputlisting[language=Python, style=custompython, firstline=7]{appendix/app/api/models/UserModel.py}
+	
+	\lstinputlisting[language=Python, style=custompython, firstline=8]{appendix/app/api/models/ItemModel.py}
+
+	\lstinputlisting[language=Python, style=custompython, firstline=8]{appendix/app/api/models/RatingModel.py}
+	
+	\section{Recursos de \textit{endpoints}} \label{endpoint_resources}
 
 	\lstinputlisting[language=Python, style=custompython,firstline=10]{appendix/app/api/resources/user.py}
 
-	O módulo \textbf{item.py} recebe e administra todas as requisições feitas a \textit{endpoints} de item (\textbf{/item}).
-
 	\lstinputlisting[language=Python, style=custompython,firstline=11]{appendix/app/api/resources/item.py}
-
-	O módulo \textbf{rating.py} recebe e administra todas as requisições feitas a \textit{endpoints} de avaliações (\textbf{/rating}).
 
 	\lstinputlisting[language=Python, style=custompython, firstline=10]{appendix/app/api/resources/rating.py}
 
-	O módulo \textbf{recommend.py} recebe e administra todas as requisições feitas a \textit{endpoints} de recomendação (\textbf{/recommend}).
-
 	\lstinputlisting[language=Python, style=custompython, firstline=7]{appendix/app/api/resources/recommend.py}
-
-	O módulo \textbf{train.py} recebe e administra todas as requisições feitas a \textit{endpoints} que forçam o treinamento das recomendações (\textbf{/train}).
 
 	\lstinputlisting[language=Python, style=custompython, firstline=12]{appendix/app/api/resources/train.py}
 
-	O módulo \textbf{auth.py} recebe e administra todas as requisições feitas a \textit{endpoints} de autenticação (\textbf{/auth}).
-
 	\lstinputlisting[language=Python, style=custompython, firstline=7]{appendix/app/api/resources/auth.py}
-
-	O módulo \textbf{metadata.py} recebe e administra todas as requisições feitas a \textit{endpoints} de metadados (\textbf{/metadata}).
 
 	\lstinputlisting[language=Python, style=custompython, firstline=11]{appendix/app/api/resources/metadata.py}
 
@@ -899,6 +943,13 @@ Além disso, é importante ressaltar preocupação na construção de uma docume
 
 	\lstinputlisting[language=Python, style=custompython, firstline=7]{appendix/app/api/services/RecommenderService.py}
 
+	\section{Motores de Recomendação}
+
+	\lstinputlisting[language=Python, style=custompython, firstline=1]{appendix/app/api/engines/metrics.py}
+
+	\lstinputlisting[language=Python, style=custompython, firstline=10]{appendix/app/api/engines/ContentEngine.py}
+	
+	\lstinputlisting[language=Python, style=custompython, firstline=12]{appendix/app/api/engines/CollaborativeEngine.py}
 \end{apendicesenv}
 
 \end{document}
