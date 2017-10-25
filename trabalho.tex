@@ -847,12 +847,13 @@ Como resultado final do processamento feito pelo \textbf{motor de conteúdo}, as
 	\hspace{5.5cm}{Fonte: O Autor.}
 \end{figure}
 
-Como 
+Sendo assim, o processo do motor de conteúdo pode ser definido da seguinte maneira: primeiramente o motor de conteúdo recebe uma requisição do escalonador para gerar novas recomendações ao item, devido a um novo item inserido na base ou uma alteração nas informações do mesmo. Uma vez notificada a mudança, o motor requisita ao serviço de persitência a \textbf{obtenção das informações recomendáveis}.
 
-Exemplificar os 5 passos com uma figura e em momentos temporais diferentes.
+Para satisfazer as necessidades do motor de recomendações, o serviço de persistência de itens requisita aos metadados quais são os \textbf{atributos recomendáveis vigentes} e, a partir destes, obtém os dados decorrentes do banco de dados. Uma vez em posse destes dados, entrega-os em forma de lista.
 
-Explicar primeiro o processo, como o motor funciona
-Explicar depois como o recomendador recomenda.
+Assim que o motor de conteúdo obtém a lista de itens, os mesmos são percorridos um a um, calculando o nível de similaridade do item em questão em contraste com os demais. O nível de similaridade é calculado através do algoritmo \textbf{TF-IDF}, abordado por \citeonline{pazzani2007content} e \citeonline{leskovec2014mining}. Este algoritmo calcula a \textbf{frequência do termo–inverso da frequência nos documentos}, ideal neste caso para transformar campos textuais em pesos numéricos, multiplicados posteriormente pelo peso de cada atributo recomendável nos metadados, gerando finalmente o grau de similaridade.
+
+Por fim, de posse da matriz de similaridades, o motor de conteúdo percorre a mesma, item a item, calculando o grau de distância entre o item em questão e os demais itens da lista. A distância é calculada através do algoritmo da \textbf{similaridade de coseno}, que mede o espaço produto do coseno aplicado as similaridades. Após o processamento, os $k$ itens de menor distância são persistidos no banco de dados pelo serviço de persistência de itens, que atribui a \textit{tag} \textbf{\textit{similar}} a lista de itens persistidos.
 
 \subsection{Motor Colaborativo} \label{motor:colaborativo}
 
