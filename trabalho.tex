@@ -185,6 +185,16 @@
 
 \end{folhadeaprovacao}
 
+\begin{dedicatoria}
+	\vspace*{\fill}
+	\centering
+	\noindent
+
+	\textit{Aos meus pais, professores, mentores, amigos e todas as pessoas que, de alguma maneira, possibilitaram que minha pessoa chegasse até aqui, na forma do meu mais profundo agradecimento, dedico-vos a existência deste trabalho.}
+
+	\vspace*{\fill}
+ \end{dedicatoria}
+
 \setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
 \begin{resumo}
 
@@ -229,6 +239,7 @@ Due to the massive expansion of data produced and available on the Internet, use
 	\item[API]{\textit{Application Program Interface}}
 	\item[REST]{\textit{Representational State Transfer}}
 	\item[JSON]{\textit{Javasript Object Notation}}
+	\item[IP]\textit{Internet Protocol}
 
 \end{siglas}
 
@@ -263,7 +274,7 @@ Para sanar estes problemas, este trabalho propõe o desenvolvimento de uma API q
 
 Este trabalho está dividido em seis seções. A segunda seção apresenta o referencial teórico necessário para o entendimento total do escopo do trabalho. Na terceira seção são apresentadas as principais características do trabalho proposto, além de compará-lo com outros trabalhos relacionados. Em seguida, a quarta seção apresenta a metodologia a ser utilizada para realização do trabalho proposto na seção anterior. Mais à frente, na seção cinco, será abordado o cronograma a ser empregado para a realização do trabalho e, por fim, na sexta seção são apresentadas as considerações finais.
 
-\section{Objetivos}
+\section{Objetivos} \label{objectives}
 
 \subsection{Objetivo Geral}
 
@@ -279,15 +290,13 @@ Desenvolver uma API web de código aberto para recomendação híbrida de itens 
 
 \section{Metodologia}
 
-A metodologia deste trabalho está dividida em três seções. Primeiramente serão implementadas todas as funcionalidades descritas anteriormente. Mais à frente, será feita a validação das funcionalidades implementadas e da eficácia das recomendações. Por fim, serão feitos os ajustes e correções necessárias de acordo com o resultado da validação das funcionalidades implementadas.
+A metodologia deste trabalho está dividida em três seções. Primeiramente serão implementadas todas as funcionalidades descritas na seção \nameref{objectives}. Mais à frente, será feita a validação das funcionalidades implementadas e da eficácia das recomendações. Por fim, serão feitos os ajustes e correções necessárias de acordo com o resultado da validação das funcionalidades implementadas.
 
 \subsection{Implementação}
 
 Inicialmente serão implementados os algoritmos de recomendação híbrida, incluindo o processamento dos metadados fornecidos. Os algoritmos de recomendação resumem a eficácia da API e devem consumir a maior parte do tempo de desenvolvimento.
 
 Ao completar a implementação das técnicas híbridas de sistemas de recomendação, serão implementadas as demais funcionalidades da API. Serão consideradas a identificação e entrada dos metadados, além do formato dos dados de saída.
-
-Ao fim do desenvolvimento, o código será adaptado para processamento na GPU através de diretivas de compilação e bibliotecas especializadas.
 
 \subsection{Validação}
 
@@ -303,7 +312,7 @@ Por fim, serão feitos os ajustes e correções de erros recolhidos ao longo do 
 
 Tendo como base as técnicas descritas acima, existem trabalhos como os apresentados por \citeonline{guo2015librec}, que abordam as técnicas em forma de biblioteca Java a ser incluída nos projetos. Esta abordagem torna a utilização mais simples devido ao fato do usuário poder utilizar apenas as funcionalidades da biblioteca, preocupando-se com o formato de entrada e saída dos dados, não com o processo de recomendação em si. Outra abordagem interessante é a proposta por \citeonline{brozovsky2007recommender} ao construir uma biblioteca C\# multipropósito, focando na recomendação de itens com base na avaliação em um esquema de \textit{rating} (de uma a cinco estrelas), ou com base apenas em itens com avaliação positiva.
 
-Do mesmo modo que a biblioteca desenvolvida por \citeonline{brozovsky2007recommender}, a API proposta neste trabalho também visa ser multipropósito e distribuída como código aberto pela licença pública GNU (\textbf{GPL}), porém, fornecendo tais funcionalidades como um serviço web independente de linguagem de programação, o que não acontece nos exemplos apresentados.
+Em relação ao trabalho acima citado, a API proposta neste trabalho também visa ser multipropósito e distribuída como código aberto pela licença pública GNU (\textbf{GPL}), porém, fornecendo tais funcionalidades como um serviço web independente de linguagem de programação, o que não acontece nos exemplos apresentados.
 
 Além dos trabalhos apresentados, \citeonline{do2013filtragem} aborda os sistemas de recomendação com uma perspectiva semelhante a este trabalho, focando mais no ganho de desempenho ao processar o método de filtragem colaborativa na GPU. Este trabalho não tem seu foco em desempenho, mas sim em uma proposta de \textbf{recomendação genérica}, que forneça recomendações a quaisquer modelos de usuários e itens através do método híbrido.
 
@@ -314,6 +323,8 @@ Além dos trabalhos apresentados, \citeonline{do2013filtragem} aborda os sistema
 \cleardoublepage
 
 \chapter{REFERENCIAL TEÓRICO}
+
+[TODO] parágrafo introdutório!
 
 \section{Aprendizado de Máquina}
 
@@ -349,7 +360,7 @@ Mais formalmente, os sistemas de recomendação podem ser descritos matematicame
 	\hspace{5.5cm}{Fonte: \citeonline{adomavicius2005toward}}
 \end{quadro}
 
-De acordo com o quadro 1, o símbolo "$\emptyset$" representa os filmes ainda não avaliados pelos usuários. Estes itens, por sua vez, são os alvos das técnicas de recomendação que tentam predizer a avaliação de um usuário. Uma vez que o motor de recomendação pode predizer as avaliações de um usuário, pode-se recomendar ao mesmo apenas os \emph{N} itens com a maior avaliação estimada \cite{adomavicius2005toward}.
+De acordo com o quadro 1, o símbolo $"\emptyset"$ representa os filmes ainda não avaliados pelos usuários. Estes itens, por sua vez, são os alvos das técnicas de recomendação que tentam predizer a avaliação de um usuário. Uma vez que o motor de recomendação pode predizer as avaliações de um usuário, pode-se recomendar ao mesmo apenas os \emph{N} itens com a maior avaliação estimada \cite{adomavicius2005toward}.
 
 Como consequência da importante participação dos sistemas de recomendação em sites com um grande número de público, tais como Netflix, eBay e Amazon.com, os mesmos tornaram-se ferramentas poderosas \cite{schafer1999recommender} e são considerados os propulsores de várias estatísticas, entre elas: o aumento da satisfação dos usuários, devido a precisão das recomendações; o aumento da fidelidade dos usuários, devido ao aumento de precisão quanto maior for a interação do usuário com o site; a aumento da capacidade do próprio serviço em entender melhor as intenções de seu público \cite{ricci2011introduction}. Tendo em vista o crescimento do número de aplicações que utilizam sistemas de recomendação e da variedade de soluções utilizadas em grandes sites, torna-se notável a importância dos mesmos.
 
@@ -871,10 +882,10 @@ Recomendações utilizando o método colaborativo, como apresentadas na seção 
 	\item \textbf{Construção da matriz de intersecções}: para acada usuário $U_{n}$, identifica as intersecções, ou seja, itens avaliados por ambos os usuários em questão, gerando uma matriz de intersecções.
 
 	\item \textbf{Construção da matriz de similaridades}: a partir da matriz de intersecções, para cada usuário $U_{n}$ calcula a \textbf{correlação de pearson} entre o usuário $U_{n}$ e os usuários $\lbrace S_{0}$, ..., $S_{j} \rbrace$ pertencentes a lista de intersecções, utilizando como base as avaliações de ambos sobre o item.
-	
+
 	\item \textbf{Cálculo da distância}: após a construção da matriz de similaridades, para cada usuário $U_{n}$ pertencente a matriz, calcula a \textbf{distância euclidiana} entre o usuário $U_{n}$ e os usuários $\lbrace S_{0}$, ..., $S_{j} \rbrace$ considerados similares na matriz, gerando uma matriz de usuários mais próximos.
 
-	\item \textbf{Persistência por proximidade}: para cada usuário $U_{n}$ da matriz de proximidade, persiste os itens dos $k$ usuários mais próximos no banco de dados como recomendações ao usuário em questão. 
+	\item \textbf{Persistência por proximidade}: para cada usuário $U_{n}$ da matriz de proximidade, persiste os itens dos $k$ usuários mais próximos no banco de dados como recomendações ao usuário em questão.
 
 	\item \textbf{Obtenção das recomendações}: consulta a base de dados para obter os $k$ itens da lista de similares para o usuário $U_{n}$ e os retorna ao usuário da API.
 \end{enumerate}
@@ -889,27 +900,95 @@ A medida que o número de avaliações aumenta, em corelação com o tempo de vi
 	\hspace{5.5cm}{Fonte: O Autor.}
 \end{figure}
 
-Analisando a figura \ref{collaborative_engine}, nota-se que o fluxo de funcionamento do motor colaborativo se assemelha muito ao motor de conteúdo. O ponto de diferença está no conteúdo das matrizes, onde no motor de conteúdo são preenchidas com itens e suas similaridades, já no motor colaborativo são preenchidas com as intersecções de avaliações de usuários e, posteriormente, com a similaridade entre eles. 
+Analisando a figura \ref{collaborative_engine}, nota-se que o fluxo de funcionamento do motor colaborativo se assemelha muito ao motor de conteúdo. O ponto de diferença está no conteúdo das matrizes, onde no motor de conteúdo são preenchidas com itens e suas similaridades, já no motor colaborativo são preenchidas com as intersecções de avaliações de usuários e, posteriormente, com a similaridade entre eles.
 
 \section{Testes e Implementação} \label{testes}
 
-\subsection{\textit{Seed} de Dados}
+Durante o processo de desenvolvimento do protótipo desta aplicação, foi necessária a utilização de um grupo de dados de teste não só nos padrões especificados pela API, mas também coerente com sua semântica de relações. Dessa forma, os testes do funcionamento das recomendações foram executados com a utilização de uma base real de usuários, itens e avaliações, contendo um volume de dados suficiente para que os objetivos deste trabalho fossem assegurados.
 
-seed.sh pra fazer o seed da movielens
+A base de dados em questão é a do projeto \textbf{MovieLens}, proposto por \citeonline{harper2016movielens}, comumente utilizada para aplicações com este fim devido ao fato de possuir inúmeras opções de tamanhos diferentes, preenchidas com dados retirados de ambientes de produção. Além disso, a base de testes acima descrita, foi amplamente utilizada para testar a assertividade de algoritmos durante o \textbf{NetflixPrize}, evento promovido pela empresa \textbf{Netflix} para eleger os algoritmos de recomendações mais assertivos \cite{bennett2007netflix}.
 
-Movie Lens \citeonline{harper2016movielens}
+Acerca dos testes e implementações efetuadas, esta seção disseca tal processo em quatro partes. Primeiro são apresentadas as implementações referentes ao preenchimento do conjunto teste de dados e seus resultados. Logo após, é apresentado o processo de documentação automática, implementado visando a contribuição da comunidade. Em seguida, é apresentada a composição de cada um dos \textit{scripts} que efetuam a instalação da API e sua inicalização, além da atualização de eventuais dependências do projeto. Por fim, são abordadas, de forma mais específica, as tecnologias utilizadas durante o desenvolvimento desta aplicação.
+
+\subsection{\textit{Seed} de Dados} \label{seed}
+
+Como forma de automatizar o processo de geração dos dados de teste da aplicação, foi implementado um \textit{script}, podendo ser chamado pelo usuário da API, com a função de fazer o \textit{download} do conjunto de dados do projeto \textbf{MovieLens}, configurar os metadados correspondentes e fazer a persistência das informações. Este \textit{script}, executado pela linha de comando do sistema operacional e intitulado \textbf{seed.sh}, visa facilitar o processo de primeira inicialização da aplicação, atraindo novos usuários e aumentando o número de colaboradores no projeto.
+
+Além disso, o \textit{seed} de dados proporciona um teste, quase que imediato, do funcionamento completo da API. Ao passo que o \textit{script} finaliza sua execução, o usuário da API já pode fazer requisições de recomendações, visualizando de forma simples e concisa o potencial da mesma. O processo de \textit{seed} de dados pode ser dividido em quatro passos:
+
+\begin{enumerate}
+	\item \textbf{\textit{Download} do conjunto de dados}: o \textit{script} executa o \textit{download} do conjunto de dados com aproximadamente um milhão de registros (itens, usuários e avaliações).
+
+	\item \textbf{Conversão dos dados para o padrão da API}: a classe conversora do \textit{seeder} de dados converte o padrão recebido pelo padrão utilizado na API (JSON).
+
+	\item \textbf{Persistência dos dados}: após a conversão , a classe conversora invoca o serviço de persistência para persistir toda o conjunto de dados de uma só vez.
+
+	\item \textbf{Configuração dos metadados e treinamento da base}: a classe conversora configura os primeiros metadados de acordo com o padrão recebido e os persiste na base através do serviço de persistência. Ao ser notificado da alteração no estado da base, o motor de recomendações treina o conjunto recebido.
+\end{enumerate}
+
+Caso o usuário da API queira preencher a aplicação com seus próprios dados, o mesmo deve executar o \textit{script} de inicalização, fazendo com que os dados de exemplo sejam removidos e as configurações redefinidas. O processo de inicialização da API e as configurações são abordadas na seção \nameref{init}.
+
+\subsection{Instalação e Inicialização} \label{init}
+
+Além da automatização na criação de dados de exemplo, apresentada na seção \nameref{seed}, foram implementados outros \textit{scripts} auxiliares de instalação, inicalização e atualização de dependências, nomeados \textbf{setup.sh}, \textbf{start.sh} e \textbf{update\_dependencies.sh} respectivamente. Todos estres \textit{scripts}, contidos na pasta \textit{"scripts"} da aplicação, visam aumentar a simplicidade no uso da API e, consequentemente possibilitar a utilização pela comunidade em geral.
+
+O \textit{script} de instalação (\textbf{setup.sh}) tem como função instalar todas as dependências iniciais do projeto, além de configurar completamente o ambiente virtual no qual a aplicação é executada. Este ambiente virtual serve para que o escopo das dependências e dos pacotes instalados pelo \textit{script} de instalação não poluam a máquina do usuário da API.
+
+Além disso, o \textit{script} de inicialização requisita algumas informações necessárias para a configuração inicial da aplicação, tais como o nome, usuário e senha do banco de dados e a palavra secreta utilizada na autenticação. Estas configurações guiam o funcionamento da API como um todo e podem ser modificados a qualquer momento no arquivo de variáveis de ambiente (\textbf{env.py}).
+
+O \textit{script} de inicalização (\textbf{start.sh}) tem como função inicializar o serviço \textit{web} da aplicação, ativando o ambiente virtual criado pelo \textit{script} de instalação e executando o arquivo que inicializa a API. Assim que iniciada, a aplicação é acessível através de um endereço IP e porta específicos, configuráveis através do arquivo de variáveis de ambiente (\textbf{env.py}).
+
+Em caso de adição ou modificação na versão de alguma das dependências da aplicação, o \textit{script} \textbf{update\_dependencies.sh} tem como objetivo atualizar as dependências já listadas anteriormente, além de instalar novas dependências recém adicionadas. As dependências do projeto podem ser adicionadas no arquivo de requerimentos da aplicação (\textbf{requirements.txt}).
 
 \subsection{Documentação}
 
-criação da documentação automatica através do markdown
+Durante boa parte do processo de desenvolvimento da aplicação, foi implementada a documentação dos módulos, funções e métodos escritos, visando facilitar a manutenção futura da aplicação e a contribuição da comunidade. Tais trechos de código documentados são dinamicamente carregados em uma documentação automática, gerada a partir de um \textit{template} que converte os comentários acima do código, os parâmetros de entrada e os tipos de retorno para itens da documentação. Um exemplo de página gerada pela documentação pode ser visto na figura \ref{docs}.
 
-\subsection{Instalação e Inicialização}
+\begin{figure}[h!tp]
+	\caption{\label{docs}Documentação automática da API.}
+	\begin{center}
+		\includegraphics[scale=0.55]{images/docs.png}
+	\end{center}
+	\hspace{5.5cm}{Fonte: O Autor.}
+\end{figure}
 
-criação dos scripts setup.sh e start.sh, além do update\_dependencies.sh
+A documentação conta com toda a hierarquia correspondente a estrutura da API, deixando visível ao usuário a estrutura empregada e a localização de cada classe e módulo implementados. Além disso, cada módulo documentado possui uma breve descrição das suas funcionalidades. Nas classes de cada módulo são especificados os parâmetros de entrada de cada método, além do tipo de dado esperado e uma descrição do retorno. Se preferir, o usuário pode utilizar um campo de pesquisa para encontrar o método ou módulo desejado.
 
 \subsection{Tecnologias Utilizadas} \label{tecnologias}
 
-tabela com as tecnologias.
+Para tornar possível a implementação desta aplicação em tempo hábil, foram empregadas várias tecnologias, escolhidas de modo a fomentar a utilização pela comunidade atual de desenolvedores e a iniciativa \textit{open-source}. O quadro \ref{technologies} apresenta as principais tecnologias utilizadas para a execução deste trabalho e a suas respectivas categorias.
+
+\begin{quadro}[htp]
+
+	\caption{\label{technologies}Tecnologias utilizadas durante a implementação.}
+	\centering
+	\begin{tabular}{|l|l|}
+	\hline
+	\textbf{Categoria} 			& \textbf{Tecnologia}   \\ \hline
+	Sistema operacional 		& Linux Ubuntu LTS      \\ \hline
+	Banco de dados 		   		& MongoDB  				\\ \hline
+	Linguagens de programação   & Python e Shell script \\ \hline
+	Controle de versão          & Github   				\\ \hline
+	Framework de API        	& Flask      			\\ \hline
+	Framework de persistência 	& PyMongo 				\\ \hline
+	Gerenciador de dependências & Conda 				\\ \hline
+	Ferramenta de testes		& Postman				\\ \hline
+	Documentação automática		& Sphinx				\\ \hline
+	\end{tabular}
+
+	Fonte: O Autor.
+
+\end{quadro}
+
+Visando maximizar a legibilidade e a simplicidade do código fonte, foi utilizada a linguagem \textbf{Python} como base para toda a aplicação. Além disso, a escolha da linguagem Python também se dá pelo fato de existirem módulos de \textit{machine learning} amplamente utilizados em aplicações deste gênero pela comunidade de desenvolvedores Python. Entre eles o \textbf{SciKit}, proposto por \citeonline{pedregosa2011scikit} e utilizado nesta aplicação, equilibrando de forma eficiente o desempenho e a abstração de certos processos.
+
+Como forma de complementar a escolha de legibilidade e desempenho através da linguagem Python, o banco de dados utilizado pela aplicação é o \textbf{MongoDB}. Tal banco de dados foi escolhido devido a sua escalabilidade com grandes volumes de dados e seu tempo de consulta superior aos bancos relacionais. Além disso, a orientação a documentos BSON, inspirados no padrão JSON, facilitaram e muito a comunicação entre banco de dados e aplicação \cite{chodorow2013mongodb}.
+
+Os \textit{scripts} utilizados para automatização, apresentados da seção \nameref{init}, foram escritos na linguagem \textbf{Shell Script}, tendo sua execução pelo \textit{shell} do sistema operacional \textbf{Linux Ubuntu}. Por hora, estes \textit{scripts} apenas são suportados por este sistema operacional e seus derivados.
+
+Para armazenamento e controle de versão do código foi utilizado o \textbf{Github}, ferramenta aberta e colaborativa de repositórios de versão, comumente utilizada pela comunidade. Além do controle de versão, a ferramenta permite que outros desenvolvedores ramifiquem esta aplicações a sua maneira, disseminando a utilização desta API, um dos objetivos deste trabalho \cite{dabbish2012social}.
+
+É importante ressaltar que todas as ferramentas utilizadas durante a execução deste trabalho são de código aberto/livre, escolhidas de forma fomentar a utilização da aplicação, através de ferramentas já conhecidas e amplamente utilizadas pela comunidade, tais como \textbf{Github}, \textbf{Python}, \textbf{MongoDB}, etc.
 
 %
 %--------- FIM API------------
@@ -917,7 +996,8 @@ tabela com as tecnologias.
 
 \chapter{RESULTADOS E DISCUSSÃO}
 
-\section{Trabalhos Futuros} \label{trabalhos_futuros}
+[TODO] trabalhos futuros
+[TODO] link do git
 
 \chapter{CONSIDERAÇÕES FINAIS}
 
@@ -940,19 +1020,19 @@ Além disso, é importante ressaltar preocupação na construção de uma docume
 	\section{Metadados}
 
 	\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/metadata/UserMetadata.py}
-	
+
 	\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/metadata/ItemMetadata.py}
 
 	\lstinputlisting[language=Python, style=custompython, firstline=5]{appendix/app/api/metadata/RatingMetadata.py}
-	
+
 	\section{Modelos de Estruturas}
 
 	\lstinputlisting[language=Python, style=custompython, firstline=7]{appendix/app/api/models/UserModel.py}
-	
+
 	\lstinputlisting[language=Python, style=custompython, firstline=8]{appendix/app/api/models/ItemModel.py}
 
 	\lstinputlisting[language=Python, style=custompython, firstline=8]{appendix/app/api/models/RatingModel.py}
-	
+
 	\section{Recursos de \textit{endpoints}} \label{endpoint_resources}
 
 	\lstinputlisting[language=Python, style=custompython,firstline=10]{appendix/app/api/resources/user.py}
@@ -990,7 +1070,7 @@ Além disso, é importante ressaltar preocupação na construção de uma docume
 	\lstinputlisting[language=Python, style=custompython, firstline=1]{appendix/app/api/engines/metrics.py}
 
 	\lstinputlisting[language=Python, style=custompython, firstline=10]{appendix/app/api/engines/ContentEngine.py}
-	
+
 	\lstinputlisting[language=Python, style=custompython, firstline=12]{appendix/app/api/engines/CollaborativeEngine.py}
 \end{apendicesenv}
 
