@@ -198,18 +198,18 @@
 \setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
 \begin{resumo}
 
-Devido a expansão massiva de dados produzidos e disponíveis na Internet, os usuários estão cada vez mais sobrecarregados de informação, não sabendo distinguir informações realmente úteis. Para sanar este problema, os sistemas de recomendação visam recomendar os itens mais úteis a cada usuário, através de técnicas de machine learning. Tais técnicas visam prever a avaliação de um usuário a um item, baseando-se nas avaliações já conhecidas. Este trabalho propõe o desenvolvimento de uma API Web de código aberto que recomenda itens a usuários, fazendo uso de um sistema de recomendação híbrido que analisa as estruturas pré definidas e proporciona recomendações, baseando-se nos metadados fornecidos, através do conteúdo do item e da filtragem colaborativa de usuários. Tal sistema poderá processar suas recomendações utilizando a GPU, minimizando o tempo da requisição de recomendação e consequentemente aumentando a eficiência da aplicação. Dessa forma é possível fornecer um serviço multipropósito desprendido de qualquer ambiente e linguagem de programação, trazendo uma visão mais transparente dos sistemas de recomendação aos desenvolvedores.
+Devido a expansão massiva de dados produzidos e disponíveis na Internet, os usuários estão cada vez mais sobrecarregados de informação, não sabendo distinguir informações realmente úteis. Para sanar este problema, os sistemas de recomendação visam recomendar os itens mais úteis a cada usuário, através de técnicas de \textit{machine learning}. Tais técnicas visam prever a avaliação de um usuário a um item, baseando-se nas avaliações já conhecidas. Este trabalho propõe o desenvolvimento de uma API RESTful de código aberto que recomenda itens a usuários, fazendo uso de um sistema de recomendação híbrido que analisa as estruturas de metadados pré definidas e proporciona recomendações, através do conteúdo do item e da filtragem colaborativa de usuários. Dessa forma é possível fornecer um serviço multipropósito, totalmente personalizável, trazendo uma visão mais precisa dos sistemas de recomendação aos desenvolvedores.
 
-\textbf{Palavras-chaves}: Sistemas de Recomendação. Aprendizado de Máquina. Metadados. Computação em GPU.
+\textbf{Palavras-chaves}: Sistemas de Recomendação. Aprendizado de Máquina. Metadados.
 \end{resumo}
 
 \begin{resumo}[Abstract]
- \begin{otherlanguage*}{english}
+\begin{otherlanguage*}{english}
 
-Due to the massive expansion of data produced and available on the Internet, users are increasingly overloaded with information, not knowing how to distinguish which is really useful. To remedy this problem, recommendation systems aim to recommend the most useful items to each user through machine learning techniques. These techniques are intended to predict a user's rating of an item, based on previously known rating. This work proposes the development of an open-source Web API that recommends items to users, making use of a hybrid recommendation system that analyzes the pre-defined structures and provides recommendations, based on the metadata provided, through item content and collaborative filtering. Such a system can process its recommendations using the GPU, minimizing the time of the recommendation request and consequently increasing the application efficiency. Therefore is possible to provide a multi-purpose service detached from any environment and programming language, bringing a more transparent view of recommendation systems to developers.
+Due to the massive expansion of data produced and available on the Internet, users are increasingly overloaded with information, not knowing how to distinguish really useful ones. To remedy this problem through machine learning techniques, the recommendation systems aim to recommend the most useful items to each user. Such techniques are intended to predict a user's rating of an item, based on previously known ratings. This work proposes the development of a RESTful Open Source API that recommends items to users, making use of a hybrid recommendation system that analyzes pre-defined metadata structures and provides recommendations through item content and collaborative user filtering. In this way it is possible to provide a fully customizable multipurpose service, bringing a more accurate view of the recommendation systems to developers.
 
-  \textbf{key-words}: Recommender Systems. Machine Learning. Metadata. GPU Computing.
- \end{otherlanguage*}
+\textbf{key-words}: Recommender Systems. Machine Learning. Metadata.
+\end{otherlanguage*}
 \end{resumo}
 
 % ---
@@ -324,9 +324,9 @@ Além dos trabalhos apresentados, \citeonline{do2013filtragem} aborda os sistema
 
 \chapter{REFERENCIAL TEÓRICO}
 
-[TODO] parágrafo introdutório!
+Visando dissecar todos os conceitos previamente necessários para completo entendimento deste trabalho, este capítulo levanta as principais referencias utilizadas como base para desenvolvimento das soluções propostas no capítulo \ref{intro}. Este capítulo pode ser divido em três partes. Primeiro, a seção \ref{machine_learning} aborda os principais conceitos referentes ao aprendizado de máquina. Em sequência, na seção \ref{recommender_systems} são abordados os diferentes tipos de sistemas de recomendação, suas peculiaridades e limitações. Por fim, a última seção apresenta o padrão RESTful, comumente utilizado na construção de APIs.
 
-\section{Aprendizado de Máquina}
+\section{Aprendizado de Máquina} \label{machine_learning}
 
 Um dos segmentos da inteligência artificial com grande importância na atualidade é o aprendizado de máquina. Responsável pela construção de agentes capazes de, a partir de uma coleção de pares de entrada e saída, aprender uma função que prevê a saída para novas entradas. Tais agentes são definidos como tudo que pode perceber seu ambiente através de sensores, além de atuar sobre o mesmo através de atuadores. Em outras palavras, o aprendizado de máquina resume-se em técnicas que proporcionam a um algoritmo a capacidade de melhorar seu desempenho de forma automática, através do conhecimento obtido pelas entradas existentes \cite{coppin2015inteligencia}.
 
@@ -506,7 +506,7 @@ Considerando que os sistemas de recomendação usualmente abordam apenas algumas
 
 \subsection{O Padrão RESTful}
 
-Descrever o padrão RESTful
+[TODO] Padrão RESTful.
 
 %
 %--------- FIM REFERENCIAL TEORICO------------
