@@ -64,7 +64,7 @@
 		Citado #1 vezes nas páginas #2.%
 	\fi}%
 
-\titulo{UMA API WEB ORIENTADA A METADADOS COMO SERVIÇO DE RECOMENDAÇÃO HÍBRIDA}
+\titulo{UMA API WEB REST ORIENTADA A METADADOS COMO SERVIÇO DE RECOMENDAÇÃO HÍBRIDA}
 \autor{Iury Krieger}
 \local{\vfill Videira - Santa Catarina}
 \data{2017}
@@ -198,7 +198,7 @@
 \setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
 \begin{resumo}
 
-Devido a expansão massiva de dados produzidos e disponíveis na Internet, os usuários estão cada vez mais sobrecarregados de informação, não sabendo distinguir informações realmente úteis. Para sanar este problema, os sistemas de recomendação visam recomendar os itens mais úteis a cada usuário, através de técnicas de \textit{machine learning}. Tais técnicas visam prever a avaliação de um usuário a um item, baseando-se nas avaliações já conhecidas. Este trabalho propõe o desenvolvimento de uma API RESTful de código aberto que recomenda itens a usuários, fazendo uso de um sistema de recomendação híbrido que analisa as estruturas de metadados pré definidas e proporciona recomendações, através do conteúdo do item e da filtragem colaborativa de usuários. Dessa forma é possível fornecer um serviço multipropósito, totalmente personalizável, trazendo uma visão mais precisa dos sistemas de recomendação aos desenvolvedores.
+Devido a expansão massiva de dados produzidos e disponíveis na Internet, os usuários estão cada vez mais sobrecarregados de informação, não sabendo distinguir informações realmente úteis. Para sanar este problema, os sistemas de recomendação visam recomendar os itens mais úteis a cada usuário, através de técnicas de \textit{machine learning}. Tais técnicas visam prever a avaliação de um usuário a um item, baseando-se nas avaliações já conhecidas. Este trabalho propõe o desenvolvimento de uma API REST de código aberto que recomenda itens a usuários, fazendo uso de um sistema de recomendação híbrido que analisa as estruturas de metadados pré definidas e proporciona recomendações, através do conteúdo do item e da filtragem colaborativa de usuários. Dessa forma é possível fornecer um serviço multipropósito, totalmente personalizável, trazendo uma visão mais precisa dos sistemas de recomendação aos desenvolvedores.
 
 \textbf{Palavras-chaves}: Sistemas de Recomendação. Aprendizado de Máquina. Metadados.
 \end{resumo}
@@ -206,7 +206,7 @@ Devido a expansão massiva de dados produzidos e disponíveis na Internet, os us
 \begin{resumo}[Abstract]
 \begin{otherlanguage*}{english}
 
-Due to the massive expansion of data produced and available on the Internet, users are increasingly overloaded with information, not knowing how to distinguish really useful ones. To remedy this problem through machine learning techniques, the recommendation systems aim to recommend the most useful items to each user. Such techniques are intended to predict a user's rating of an item, based on previously known ratings. This work proposes the development of a RESTful Open Source API that recommends items to users, making use of a hybrid recommendation system that analyzes pre-defined metadata structures and provides recommendations through item content and collaborative user filtering. In this way it is possible to provide a fully customizable multipurpose service, bringing a more accurate view of the recommendation systems to developers.
+Due to the massive expansion of data produced and available on the Internet, users are increasingly overloaded with information, not knowing how to distinguish really useful ones. To remedy this problem through machine learning techniques, the recommendation systems aim to recommend the most useful items to each user. Such techniques are intended to predict a user's rating of an item, based on previously known ratings. This work proposes the development of a REST Open Source API that recommends items to users, making use of a hybrid recommendation system that analyzes pre-defined metadata structures and provides recommendations through item content and collaborative user filtering. In this way it is possible to provide a fully customizable multipurpose service, bringing a more accurate view of the recommendation systems to developers.
 
 \textbf{key-words}: Recommender Systems. Machine Learning. Metadata.
 \end{otherlanguage*}
@@ -327,7 +327,7 @@ Além dos trabalhos apresentados, \citeonline{do2013filtragem} aborda os sistema
 
 \chapter{REFERENCIAL TEÓRICO}
 
-Visando dissecar todos os conceitos previamente necessários para completo entendimento deste trabalho, este capítulo levanta as principais referencias utilizadas como base para desenvolvimento das soluções propostas no capítulo \ref{intro}. Este capítulo pode ser divido em três partes. Primeiro, a seção \ref{machine_learning} aborda os principais conceitos referentes ao aprendizado de máquina. Em sequência, na seção \ref{recommender_systems} são abordados os diferentes tipos de sistemas de recomendação, suas peculiaridades e limitações. Por fim, a última seção apresenta o padrão RESTful, comumente utilizado na construção de APIs.
+Visando dissecar todos os conceitos previamente necessários para completo entendimento deste trabalho, este capítulo levanta as principais referencias utilizadas como base para desenvolvimento das soluções propostas no capítulo \ref{intro}. Este capítulo pode ser divido em três partes. Primeiro, a seção \ref{machine_learning} aborda os principais conceitos referentes ao aprendizado de máquina. Em sequência, na seção \ref{recommender_systems} são abordados os diferentes tipos de sistemas de recomendação, suas peculiaridades e limitações. Por fim, a última seção apresenta o padrão REST, comumente utilizado na construção de APIs.
 
 \section{Aprendizado de Máquina} \label{machine_learning}
 
@@ -537,15 +537,15 @@ Como descrito por \citeonline{richardson2008restful}, a \textit{web} funciona at
 
 Além disso, o serviço deve ser \textit{stateless}, o que significa que cada requisição HTTP acontece em isolação completa. Todas as informações para o completo funcionamento da requisição são preenchidos pelo cliente, permitindo o serviço REST tratar estas requisições de forma única e individual, sem nenhum tipo de armazenamento de estado. As figuras \ref{statefull} e \ref{stateless} demonstram a diferença entre serviços \textit{statefull} e \textit{stateless} respectivamente \cite{richardson2008restful}.
 
-\begin{figure}
+\begin{figure}[htp]
 	\caption{\label{statefull}Representação de um serviço \textit{statefull}.}
 	\begin{center}
-		\includegraphics[scale=0.85]{images/statefull.png}
+		\includegraphics[scale=0.8]{images/statefull.png}
 	\end{center}
 	\hspace{5.5cm}{Fonte: \citeonline{richardson2008restful}.}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[htp]
 	\caption{\label{stateless}Representação de um serviço \textit{stateless}.}
 	\begin{center}
 		\includegraphics[scale=1]{images/stateless.png}
@@ -555,13 +555,49 @@ Além disso, o serviço deve ser \textit{stateless}, o que significa que cada re
 
 Analisando ambas as figuras nota-se uma diferença primordial: enquanto na figura \ref{statefull} a cada nova requisição do cliente o serviço continua de onde parou, na figura \ref{stateless} cada requisição é totalmente desconectada das outras. Dessa forma, a ausência de estado em aplicações REST podem torná-las mais simples, uma vez que eliminar o estado de uma aplicação elimina também uma série de possíveis problemas de continuidade, levando em conta a dinamicidade e assincronismo da \textit{web}.
 
+Também é necessário que os URIs (identificadores de recurso, neste caso representados pelas URLs), sejam intuitivos, a ponto de que o cliente da aplicação consiga saber qual recurso será acessado e o que a requisição faz. A estrutura de URIs deve ser previsível do ponto de vista do cliente, concisa e de fácil entendimento \cite{rodriguez2008restful}. Um exemplo de URIs pode ser visto no quadro \ref{uri_example}.
+
+\begin{quadro}[h!tp]
+
+	\caption{\label{uri_example}Exemplo de identificadores de recurso REST.}
+	\centering
+	\begin{tabular}{|l|l|}
+	\hline
+	\textbf{URI}                              & \textbf{Descrição}                                                                                             \\ \hline
+	https://myservice.com\textbf{/api/item/\{item\}}   & \begin{tabular}[c]{@{}l@{}}Acessa um recurso de item através do\\ parâmetro \textbf{\{item\}}\end{tabular}              \\ \hline
+	https://myservice.com\textbf{/books/2000/12}       & Obtém os livros do mês 12 do ano 2000                                                                          \\ \hline
+	https://myservice.com\textbf{/user/\{user\}/token} & \begin{tabular}[c]{@{}l@{}}Obtém o token de um usuário específico\\ através do parâmetro \textbf{\{user\}}\end{tabular} \\ \hline
+	\end{tabular}
+
+	Fonte: O Autor.
+
+\end{quadro}
+
+Por fim, a arquitetura precisa de uma representação para os recursos manejados, de forma a refletir o estado atual dos mesmos no momento da requisição do cliente. Esta representação, por definição, pode ser feita utilizando \textbf{XML}, através de \textit{tags} de marcação, utilizando \textbf{JSON}, através de atributos e encadeamento de objetos, ou ambos. De acordo com a definição proposta por \citeonline{fielding2000architectural} e reforçada por \citeonline{rodriguez2008restful}, o recurso retornado ao cliente deve ser uma representação instantânea dos atributos contidos no modelo de dados da aplicação. As figuras \ref{xml_example} e \ref{json} trazem representações de estruturas XML e JSON respectivamente, utilizadas em recursos REST.
+
+\begin{figure}[htp]
+	\caption{\label{xml_example}Representação de um recurso REST via XML.}
+	\begin{center}
+		\includegraphics[scale=0.9]{images/xml_example.png}
+	\end{center}
+	\hspace{5.5cm}{Fonte: \citeonline{rodriguez2008restful}.}
+\end{figure}
+
+\begin{figure}[htp]
+	\caption{\label{json}Representação de um recurso REST via JSON.}
+	\begin{center}
+		\includegraphics[scale=1]{images/json.png}
+	\end{center}
+	\hspace{5.5cm}{Fonte: \citeonline{crockford2006application}.}
+\end{figure}
+
 %
 %--------- FIM REFERENCIAL TEORICO------------
 %
 
 \chapter{API DE RECOMENDAÇÃO ORIENTADA À METADADOS}
 
-Amparado pelos benefícios da utilização de mais de um método de recomendação, apresentando-os em forma de serviço, este capítulo detalha o funcionamento de uma \textbf{API como interface de recomendação}, fazendo uso de metadados provenientes do próprio usuário para criação, validação e interconexão entre as recomendações.
+Amparado pelos benefícios da utilização de mais de um método de recomendação, apresentando-os em forma de serviço, este capítulo detalha o funcionamento de uma \textbf{API REST como interface de recomendação}, fazendo uso de metadados provenientes do próprio usuário para criação, validação e interconexão entre as recomendações.
 
 Como parte introdutória ao funcionamento, a seção \nameref{visao_geral} traça de forma abstrata as funcionalidades da API, apresentando os principais componentes e sua correlação. Posteriormente, nas seções \nameref{analisador}, \nameref{motor} e \nameref{interface}, tais funcionalidades são dissecadas de forma diminuir o nível de abstração. Por fim, os testes efetuados e as facilidades implementadas para a utilização da solução são abordados na seção \nameref{testes}.
 
@@ -569,7 +605,7 @@ Como parte introdutória ao funcionamento, a seção \nameref{visao_geral} traç
 
 A solução construída tem como função recomendar quaisquer itens a quaisquer usuários, sendo estes provenientes de uma fonte externa, fornecidos pelo usuário da API, nos padrões definidos pelos respectivos \textbf{metadados} existentes, também fornecidos inicialmente pelo usuário da API.
 
-O usuário da API é definido como qualquer agente que tenha interações com a aplicação, humano ou programa, através requisições aos \textit{endpoints} fornecidos na documentação. Essas interações são acordadas pelo protocolo HTTP, usado como base em uma arquitetura RESTful \cite{rodriguez2008restful}. Dessa forma, o usuário da API pode utilizar qualquer interface que suporte o protocolo HTTP para desfrutar das funcionalidades da API, tornando-a multiplataforma e independente de bibliotecas de linguagens de programação específicas. As interações com os recursos da aplicação são efetuadas através dos seguintes métodos do protocolo HTTP:
+O usuário da API é definido como qualquer agente que tenha interações com a aplicação, humano ou programa, através requisições aos \textit{endpoints} fornecidos na documentação. Essas interações são acordadas pelo protocolo HTTP, usado como base em uma arquitetura REST \cite{rodriguez2008restful}. Dessa forma, o usuário da API pode utilizar qualquer interface que suporte o protocolo HTTP para desfrutar das funcionalidades da API, tornando-a multiplataforma e independente de bibliotecas de linguagens de programação específicas. As interações com os recursos da aplicação são efetuadas através dos seguintes métodos do protocolo HTTP:
 
 \begin{itemize}
 	\item \textbf{GET}: Interações que demandam a consulta de recursos.
@@ -657,9 +693,9 @@ Assim que uma requisição é recebida pela interface de comunicação, se a mes
 
 \section{A Interface de Comunicação} \label{interface}
 
-Visando facilitar a comunicação com o usuário da API através do padrão RESTful, a interface de comunicação tem como principal função ser o ponto de contato entre o agente da requisição e as funcionalidades da API, atendendo a certos padrões de requisição e resposta que serão minuciosamente abordados nesta seção.
+Visando facilitar a comunicação com o usuário da API através do padrão REST, a interface de comunicação tem como principal função ser o ponto de contato entre o agente da requisição e as funcionalidades da API, atendendo a certos padrões de requisição e resposta que serão minuciosamente abordados nesta seção.
 
-Ao passo que a API usa o padrão RESTful como base para a comunicação, é necessário que a mesma utilize um único padrão de dados para que ambos, usuário e API, tenham uma estrutura pré definida de possibilidades de envio e retorno. Dessa forma, o padrão de dados \textbf{JSON}, proposto por \citeonline{crockford2006application} foi o escolhido para servir como representação de dados da API, desde o recebimento de novos recursos (itens, usuários, etc.) até o retorno das recomendações. Um exemplo da representação JSON para as recomendações pode ser visto na figura \ref{json_example}.
+Ao passo que a API usa o padrão REST como base para a comunicação, é necessário que a mesma utilize um único padrão de dados para que ambos, usuário e API, tenham uma estrutura pré definida de possibilidades de envio e retorno. Dessa forma, o padrão de dados \textbf{JSON}, proposto por \citeonline{crockford2006application} foi o escolhido para servir como representação de dados da API, desde o recebimento de novos recursos (itens, usuários, etc.) até o retorno das recomendações. Um exemplo da representação JSON para as recomendações pode ser visto na figura \ref{json_example}.
 
 \begin{figure}[h!tp]
 	\caption{\label{json_example}Exemplo de estrutura JSON para recomendações.}
