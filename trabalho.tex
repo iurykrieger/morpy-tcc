@@ -250,7 +250,7 @@ Due to the massive expansion of data produced and available on the Internet, use
 \tableofcontents*
 \textual
 
-\chapter{INTRODUÇÃO}
+\chapter{INTRODUÇÃO} \label{intro}
 
 Com o avanço crescente do campo tecnológico, os computadores vêm desempenhando tarefas antes incumbidas à seres humanos. O poder de computação provou-se muito eficaz ao desempenhar tarefas que possuíssem um padrão possível de se expressar através de um algoritmo, mais ainda, se este padrão fosse repetitivo.
 
@@ -308,7 +308,7 @@ A validação será feita utilizando um grupo separado dos  dados utilizados par
 
 Por fim, serão feitos os ajustes e correções de erros recolhidos ao longo do processo, além de testar as funcionalidades e a utilização da API como um todo. A documentação será feita durante boa parte de todo o processo e, neste caso em específico, possui um foco especial, uma vez que o princípio da API é que a mesma seja utilizável por outros desenvolvedores, além de possibilitar a contribuição da comunidade.
 
-\section{Trabalhos Relacionados}
+\section{Trabalhos Relacionados} \label{related_work}
 
 Tendo como base as técnicas descritas acima, existem trabalhos como os apresentados por \citeonline{guo2015librec}, que abordam as técnicas em forma de biblioteca Java a ser incluída nos projetos. Esta abordagem torna a utilização mais simples devido ao fato do usuário poder utilizar apenas as funcionalidades da biblioteca, preocupando-se com o formato de entrada e saída dos dados, não com o processo de recomendação em si. Outra abordagem interessante é a proposta por \citeonline{brozovsky2007recommender} ao construir uma biblioteca C\# multipropósito, focando na recomendação de itens com base na avaliação em um esquema de \textit{rating} (de uma a cinco estrelas), ou com base apenas em itens com avaliação positiva.
 
@@ -504,17 +504,9 @@ Sendo assim, grande parte das pesquisas relacionadas a sistemas de recomendaçã
 
 Considerando que os sistemas de recomendação usualmente abordam apenas algumas, das muitas métricas que definem a utilidade de um item ao usuário, \citeonline{mcnee2006being} ressaltam que cada vez mais a utilização de sistemas de recomendação leva a construção de um conjunto de itens muito similar. Isso ocorre pois quando um usuário avalia um item, as próximas recomendações levarão o mesmo em consideração, recomendando itens cada vez mais parecidos com o item avaliado. Este processo acaba gerando o que \citeonline{mcnee2006being} definem como “\textbf{buraco de similaridade}”, onde o sistema tende a fazer apenas recomendações excepcionalmente similares.
 
-\section{API: \textit{Application Programming Interface}}
-
-Seção sobre API
-
 \subsection{O Padrão RESTful}
 
 Descrever o padrão RESTful
-
-\subsection{Orientação à Metadados}
-
-Encaixar os metadados aqui
 
 %
 %--------- FIM REFERENCIAL TEORICO------------
@@ -988,7 +980,7 @@ Os \textit{scripts} utilizados para automatização, apresentados da seção \na
 
 Para armazenamento e controle de versão do código foi utilizado o \textbf{Github}, ferramenta aberta e colaborativa de repositórios de versão, comumente utilizada pela comunidade. Além do controle de versão, a ferramenta permite que outros desenvolvedores ramifiquem esta aplicações a sua maneira, disseminando a utilização desta API, um dos objetivos deste trabalho \cite{dabbish2012social}.
 
-É importante ressaltar que todas as ferramentas utilizadas durante a execução deste trabalho são de código aberto/livre, escolhidas de forma fomentar a utilização da aplicação, através de ferramentas já conhecidas e amplamente utilizadas pela comunidade, tais como \textbf{Github}, \textbf{Python}, \textbf{MongoDB}, etc.
+É importante ressaltar que todas as ferramentas utilizadas durante a execução deste trabalho são de código aberto/livre, escolhidas para fomentar a utilização da aplicação, através de ferramentas já conhecidas e amplamente utilizadas pela comunidade, tais como \textbf{Github}, \textbf{Python}, \textbf{MongoDB}, etc.
 
 %
 %--------- FIM API------------
@@ -996,14 +988,37 @@ Para armazenamento e controle de versão do código foi utilizado o \textbf{Gith
 
 \chapter{RESULTADOS E DISCUSSÃO}
 
-[TODO] trabalhos futuros
-[TODO] link do git
+Após a implementação de todas as funcionalidades descritas ao longo deste trabalho, todos os objetivos inicialmente traçados foram atingidos. A aplicação gera, de forma híbrida, recomendações a usuários e itens, levando em consideração quaisquer atributos e pesos definidos pelo usuário, além da possibilidade de personalização completa da estrutura de envio e retorno dos dados.
+
+Também é possível acessar a documentação da aplicação, contendo todos os módulos de forma hierárquica e organizada, visando facilitar o compartilhamento futuro com a comunidade. Esta documentação, anexa a todo o código fonte da aplicação, está acessível através do repositório da aplicação no Github: \url{github.com/iurykrieger96/morpy}.
+
+O protótipo da API resultante deste trabalho foi denominada \textbf{MORPY} - \textit{\textbf{M}etadata \textbf{O}riented \textbf{R}ecommendations for \textbf{PY}ton}, visando resumir todas as principais funcionalidades e diferenciais da mesma em um acrônimo.
+
+No entanto, mesmo com os objetivos principais atingidos, trabalhos pendentes precisam ser efetuados para assegurar melhoras de performance e usabilidade da aplicação. Como trabalhos futuros a serem efetuados podem ser listados os seguintes:
+
+\begin{itemize}
+	\item O término do processo de documentação nos módulos faltantes;
+
+	\item A utilização de \textit{machine learning} nao só na recomendação de itens mas também na configuração dos metadados, encontrando o melhor conjunto de itens para serem levados em consideração pelo motor de recomendações;
+
+	\item A otimização do processo executado pelo motor de recomendações, fazendo com que processe as matrizes de similaridade e distância utilizando a \textbf{GPU}.
+
+	\item A implementação de autenticação via \textit{token} utilizando um padrão mais seguro que o atual.
+
+	\item O desenvolvimento de uma página de apresentação da aplicação, agregando uma descrição das funcionalidades da API, sua documentação e um link para o Github.
+\end{itemize}
 
 \chapter{CONSIDERAÇÕES FINAIS}
 
-Devido ao grande número de implementações dos sistemas de recomendação nas mais diversas áreas que aqui foram apresentadas, torna-se notável a vasta gama de aplicações das técnicas e, mais do que isso, a necessidade de um serviço multipropósito desprendido do uso de linguagens de programação específicas. Sendo assim, ao final do cronograma, espera-se a obtenção de uma API que satisfaça estes requisitos.
+Devido ao grande número de implementações dos sistemas de recomendação nas mais diversas áreas que aqui foram apresentadas, torna-se notável a vasta gama de aplicações das técnicas e, mais do que isso, a necessidade de um serviço multipropósito desprendido do uso de linguagens de programação específicas.
 
-Além disso, é importante ressaltar preocupação na construção de uma documentação direta e coesa ao longo de todo o processo, visando uma futura colaboração externa da comunidade, sendo a API de código aberto. Desta forma, o trabalho pode servir não só como uma alternativa \textit{open-source} aos sistemas de recomendação, mas também como uma tecnologia de utilização simples para futuros estudos na área.
+A aplicação desenvolvida supre as deficiências apontadas no capítulo \ref{intro}, alinhando as soluções desenvolvidas com os objetivos propostos na seção \nameref{objectives}. Desta forma, esta aplicação pode servir não só como uma alternativa \textit{open-source} aos sistemas de recomendação, mas também como uma tecnologia de utilização simples para futuros estudos na área.
+
+Além disso, é importante ressaltar a preocupação ao longo de todo o processo com o desempenho geral da API, a qualidade da documentação gerada e, principalmente, a qualidade das recomendações. Visando ampla utilização, esta API tem um poder de personalização superior ao visto nos outros trabalhos apresentados na seção \nameref{related_work}, sendo este um diferencial para os usuários. Este diferencial também proporciona algumas vantagens, tais como a escolha de quais atributos serão utilizados pelo sistema recomendados e, posteriormente, qual estrutura será retornada ao usuário.
+
+Não menos importante do que a qualidade das recomendações, está a orientação a metadados, ponto chave durante o desenvolvimento e utilização da aplicação. A escolha de tornar toda a parte central da aplicação personalizável é de grande valhia para listagem de inúmeras possibilidades diferentes de uso e, consequentemente, inúmeros utilizadores em potencial.
+
+Por fim, a aplicação possui seus pontos de melhora, a fim de torná-la cada vez mais precisa nas recomendações e simples ao usuário final.
 
 \postextual
 
