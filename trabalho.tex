@@ -236,6 +236,9 @@ Due to the massive expansion of data produced and available on the Internet, use
 
 	\item[IA]{\textit{Inteligência Artificial}}
 	\item[HTTP]{\textit{Hypertext Transfer Protocol}}
+	\item[URI]{\textit{Uniform Resource Identifier}}
+	\item[XML]{\textit{eXtensible Markup Language}}
+	\item[HTML]{\textit{HyperText Markup Language}}
 	\item[API]{\textit{Application Program Interface}}
 	\item[REST]{\textit{Representational State Transfer}}
 	\item[JSON]{\textit{Javasript Object Notation}}
@@ -504,9 +507,53 @@ Sendo assim, grande parte das pesquisas relacionadas a sistemas de recomendaçã
 
 Considerando que os sistemas de recomendação usualmente abordam apenas algumas, das muitas métricas que definem a utilidade de um item ao usuário, \citeonline{mcnee2006being} ressaltam que cada vez mais a utilização de sistemas de recomendação leva a construção de um conjunto de itens muito similar. Isso ocorre pois quando um usuário avalia um item, as próximas recomendações levarão o mesmo em consideração, recomendando itens cada vez mais parecidos com o item avaliado. Este processo acaba gerando o que \citeonline{mcnee2006being} definem como “\textbf{buraco de similaridade}”, onde o sistema tende a fazer apenas recomendações excepcionalmente similares.
 
-\subsection{O Padrão RESTful}
+\section{O Padrão REST}
 
-[TODO] Padrão RESTful.
+O padrão REST é definido como um conjunto de princípios de arquitetura que visam a construção de um \textit{Web Service} que foca nos recursos do sistema, endereçados e transferidos através de métodos do protocolo HTTP. Tem se tornado predominante nos últimos anos, baseado na quantidade de serviços na \textit{web} que o utilizam \cite{rodriguez2008restful}.
+
+Proposto por \citeonline{fielding2000architectural} em sua dissertação, o padrão, em sua forma mais pura, segue um conjunto de \textbf{quatro princípios} que podem ser listados a seguir \cite{rodriguez2008restful}:
+
+\begin{itemize}
+	\item Usar explicitamente apenas os métodos HTTP.
+
+	\item Ser \textit{stateless}, ou seja, o serviço não armazena nenhuma informação sobre o estado de sessão do cliente.
+
+	\item Expor as estruturas de URI (identificadores do recurso) como diretórios.
+
+	\item Transferir XML, JSON ou ambos.
+\end{itemize}
+
+Como descrito por \citeonline{richardson2008restful}, a \textit{web} funciona através do protocolo HTTP. É possível escolher se o retorno das requisições será XML, HTML, JSON, ou mesmo texto plano, mas todas estas estruturas rodam sobre o protocolo HTTP. Isto se encaixa perfeitamente na premissa proposta por \citeonline{fielding2000architectural}, uma vez que o padrão rest \textbf{apenas utiliza} de métodos HTTP para a comunicação com o cliente. A modificação de recursos pode ser listada da seguinte maneira:
+
+\begin{itemize}
+	\item Utilizar \textbf{POST} para criar um novo recurso.
+
+	\item Utilizar \textbf{GET} para obter um recurso.
+
+	\item Utilizar \textbf{PUT} para alterar um recurso existente.
+
+	\item Utilizar \textbf{DELETE} para remover um recurso.
+\end{itemize}
+
+Além disso, o serviço deve ser \textit{stateless}, o que significa que cada requisição HTTP acontece em isolação completa. Todas as informações para o completo funcionamento da requisição são preenchidos pelo cliente, permitindo o serviço REST tratar estas requisições de forma única e individual, sem nenhum tipo de armazenamento de estado. As figuras \ref{statefull} e \ref{stateless} demonstram a diferença entre serviços \textit{statefull} e \textit{stateless} respectivamente \cite{richardson2008restful}.
+
+\begin{figure}
+	\caption{\label{statefull}Representação de um serviço \textit{statefull}.}
+	\begin{center}
+		\includegraphics[scale=0.85]{images/statefull.png}
+	\end{center}
+	\hspace{5.5cm}{Fonte: \citeonline{richardson2008restful}.}
+\end{figure}
+
+\begin{figure}
+	\caption{\label{stateless}Representação de um serviço \textit{stateless}.}
+	\begin{center}
+		\includegraphics[scale=1]{images/stateless.png}
+	\end{center}
+	\hspace{5.5cm}{Fonte: \citeonline{richardson2008restful}.}
+\end{figure}
+
+Analisando ambas as figuras nota-se uma diferença primordial: enquanto na figura \ref{statefull} a cada nova requisição do cliente o serviço continua de onde parou, na figura \ref{stateless} cada requisição é totalmente desconectada das outras. Dessa forma, a ausência de estado em aplicações REST podem torná-las mais simples, uma vez que eliminar o estado de uma aplicação elimina também uma série de possíveis problemas de continuidade, levando em conta a dinamicidade e assincronismo da \textit{web}.
 
 %
 %--------- FIM REFERENCIAL TEORICO------------
