@@ -800,12 +800,12 @@ Analisando a figura \ref{metadata} nota-se um conjunto de chaves pré-definidas 
 
 	\item \textbf{\textit{recommendable}}: Define se o atributo será utilizado como base para as recomendações ou não. Será utilizado pelo motor de recomendações para levar em consideração apenas os atributos que o usuário da API julgar relevantes. Espera um valor do tipo \textbf{\textit{boolean}}.
 
-	\item \textbf{\textit{weight}}: Se o atributo \textbf{\textit{recommendable}} for verdadeiro (\textit{true}), define o a peso do atributo nos cálculos de recomendação. O peso varia de um a dez. Espera um valor do tipo \textbf{\textit{integer}}.
+	\item \textbf{\textit{weight}}: Se o atributo \textbf{\textit{recommendable}} for verdadeiro (\textit{true}), define o peso do atributo nos cálculos de recomendação. O peso varia de um a dez. Espera um valor do tipo \textbf{\textit{integer}}.
 \end{itemize}
 
 Assim que a API toma conhecimento dos metadados, já é possível ao usuário da API preencher o banco de dados com seus usuários, itens e avaliações iniciais.
 
-Por outro lado, a API, antes de persistir os metadados na base, adiciona alguns atributos para facilitar o gerenciamento posterior, dentre eles: um atributo de \textbf{data} para representar a data de inserção, um atributo de \textbf{versão} para identificar a evolução da estrutura e, por fim, um atributo \textbf{\textit{active}} que, se possuir valor verdadeiro, determina qual é grupo de metadados que está atualmente em vigor. Uma linha do tempo dos metadados com as modificações feitas pelo usuário da API pode ser acessada através do endpoint \textbf{/metadata/:metadata\_type/history}.
+Por outro lado, a API, antes de persistir os metadados na base, adiciona alguns atributos para facilitar o gerenciamento posterior, dentre eles: um atributo de \textbf{data} para representar a data de inserção, um atributo de \textbf{versão} para identificar a evolução da estrutura e, por fim, um atributo \textbf{\textit{active}} que, se possuir valor verdadeiro, determina qual o grupo de metadados que está atualmente em vigor. Uma linha do tempo dos metadados com as modificações feitas pelo usuário da API pode ser acessada através do endpoint \textbf{/metadata/:metadata\_type/history}.
 
 \subsection{Modelos de Metadados, Itens, Usuários e Avaliações} \label{analisador:modelos}
 
@@ -845,7 +845,7 @@ Todavia, em caso de sucesso na persistência, antes de efetivamente retornar o \
 
 \subsection{Persistência} \label{analisador:persistencia}
 
-A base de um sistema de recomendação é o conhecimento prévio, uma vez que, independente da métrica ou método utilizados, todos utilizam do cruzamento de informações conhecidas para gerar predições (vide seção \ref{recommender_systems}). Dessa forma, é necessário que alguma estratégia eficiente de armazenamento e consulta seja utilizada, tendo em vista que o cruzamento dessas informações pode gerar matrizes excedendo milhões linhas e colunas \cite{gomez2016netflix}.
+A base de um sistema de recomendação é o conhecimento prévio, uma vez que, independente da métrica ou método utilizados, todos utilizam do cruzamento de informações conhecidas para gerar predições (vide seção \ref{recommender_systems}). Dessa forma, é necessário que alguma estratégia eficiente de armazenamento e consulta seja utilizada, tendo em vista que o cruzamento dessas informações pode gerar matrizes excedendo milhões de linhas e colunas \cite{gomez2016netflix}.
 
 Visando utilizar uma estratégia de persistência que se destacasse no processamento de grandes conjuntos de dados, ponto essencial para boas recomendações, a API implementa uma persistência utilizando um banco de dados não relacional (NoSQL) orientado a documentos \cite{leavitt2010will}, que além de proficiente no manejo dos dados, também persiste os mesmos em estruturas baseadas em JSON, como apresentado por \citeonline{padhy2011rdbms}.
 
@@ -881,13 +881,13 @@ Do mesmo modo que o analisador de dados, o motor de recomendações faz uso dos 
 	\item \textbf{Valor da avaliação}: Os atributos dos metadados de avaliação marcados com a \textit{tag} \textbf{\textit{rating}} fornecem o valor de cada avaliação do usuário aos itens, permitindo a identificação do padrão de gostos do usuário, essencial para o cálculo da similaridade entre os itens.
 \end{itemize}
 
-De posse destes dados persistidos na base, o motor de recomendações consegue cruzá-los a fim de obter duas matrizes: a matriz de nível de similaridade entre itens e, posteriormente, a matriz de itens de maior similaridades não avaliados para cada usuário. Essas matrizes são posteriormente desmembradas em rakings de itens e persistidos em cada usuário e item, com seus itens de maior similaridade, em outras palavras, suas recomendações.
+De posse destes dados persistidos na base, o motor de recomendações consegue cruzá-los a fim de obter duas matrizes: a matriz de nível de similaridade entre itens e, posteriormente, a matriz de itens de maior similaridades não avaliados para cada usuário. Essas matrizes são posteriormente desmembradas em rankings de itens e persistidos em cada usuário e item, com seus itens de maior similaridade, em outras palavras, suas recomendações.
 
 Como forma de recomendação será utilizado o método híbrido, composto dos métodos \textbf{baseado em conteúdo} e \textbf{filtragem colaborativa}, escalonando através do método com melhor precisão momentânea. Dessa forma é possível atender qualquer tipo de metadado, fornecendo recomendações independente do número de usuários, itens e avaliações na base de dados.
 
 Em um primeiro momento, a API utilizará o método baseado em conteúdo para fornecer as recomendações e predições, uma vez que poucos itens estarão avaliados e o método colaborativo não terá modelos de usuários suficientes. Ao passo que as métricas de relações entre usuários e quantidade de modelos processados sejam supridas, a API passará a utilizar o método de filtragem colaborativa, unindo os resultados com os maiores níveis de similaridades, levando em conta as duas diferentes abordagens.
 
-Visando salientar de forma concisa o processo de recomendações, centro deste trabalho, esta seção está divida em três partes. Primeiramente é abordada a interação entre o motor de recomendações e as demais funcionalidades da API, o modo como são notificadas as mudanças e o assincronismo entre as requisições do usuário e a geração das recomendações. Em seguida, são detalhados os dois módulos que compõem o motor de recomendações: o \textbf{motor de conteúdo} e o \textbf{motor colaborativo}, abordando suas diferenças e peculiaridades.
+Visando salientar de forma concisa o processo de recomendações, centro deste trabalho, esta seção está divida em três partes. Primeiramente é abordada a interação entre o motor de recomendações e as demais funcionalidades da API, dissecando o modo como são notificadas as mudanças de estado e o assincronismo das requisições do usuário. Em seguida, são detalhados os dois módulos que compõem o motor de recomendações: o \textbf{motor de conteúdo} e o \textbf{motor colaborativo}, abordando suas diferenças e peculiaridades.
 
 \subsection{Escalonador} \label{motor:async}
 
@@ -905,7 +905,7 @@ Para tornar possível a escolha dinâmica de recomendações, o escalonador faz 
 
 Analisando a figura \ref{scheduler}, nota-se que o escalonador é a base que sustenta a comunicação entre o serviço de persistência e os motores de recomendação, além de transformar as notificações de mudança do estado dos dados em requisições paralelas para treinamento dos itens e usuários.
 
-Além disso, a estratégia para fusão das recomendações poode ser descrita da seguinte forma: o escalonador requisita aos \textbf{\textit{workers}} que iniciem o processo de treinamento para ambos os motores de recomendação. Ao término de ambos, o escalonador analisa as recomendações retornadas para cada item, caso seja um treinamento de toda a base de dados, ou as recomendações do item em questão, caso seja o treinamento da mudança de um item em específico, fundindo-as em uma lista única. Após a fusão de recomendações, o escalonador remove as repetições e, posteriormente, persiste as $k$ recomendações com maior nível de similaridade no banco de dados.
+Além disso, a estratégia para fusão das recomendações pode ser descrita da seguinte forma: o escalonador requisita aos \textbf{\textit{workers}} que iniciem o processo de treinamento para ambos os motores de recomendação. Ao término de ambos, o escalonador analisa as recomendações retornadas para cada item, caso seja um treinamento de toda a base de dados, ou as recomendações do item em questão, caso seja o treinamento da mudança de um item em específico, fundindo-as em uma lista única. Após a fusão de recomendações, o escalonador remove as repetições e, posteriormente, persiste as $k$ recomendações com maior nível de similaridade no banco de dados.
 
 Por fim basta a interface de comunicação, em um momento futuro onde o usuário da API requisita recomendações, notificar o serviço de persistência para que o mesmo requisite a lista de itens similares ao usuário/item em questão (\textbf{\textit{similar}}), sem a necessidade de um processamento em tempo real, uma vez que as recomendações já foram persistidas anteriormente.
 
@@ -947,7 +947,7 @@ Por fim, de posse da matriz de similaridades, o motor de conteúdo percorre a me
 
 \subsection{Motor Colaborativo} \label{motor:colaborativo}
 
-Assim como o motor de conteúdo, o motor colaborativo opera sobre matrizes, com exceção de que, ao invés de matrizes que contrastam itens, o motor gera matrizes que contrastam usuários e itens. Para isso, são necessários registros que relacionem usuários e itens a um pesdo dado, as avaliações. Estas avaliações podem ser binárias (\textit{like}/\textit{unlike}) ou enumeradas, como avaliações de zero a cinco estrelas, por exemplo.
+Assim como o motor de conteúdo, o motor colaborativo opera sobre matrizes, com exceção de que, ao invés de matrizes que contrastam itens, o motor gera matrizes que contrastam usuários e itens. Para isso, são necessários registros que relacionem usuários e itens a um peso dado, as avaliações. Estas avaliações podem ser binárias (\textit{like}/\textit{unlike}) ou enumeradas, como avaliações de zero a cinco estrelas, por exemplo.
 
 Recomendações utilizando o método colaborativo, como apresentadas na seção \nameref{recs:collaborative_based}, podem ser orientadas a usuário ou a item. Como forma de compensar o motor de conteúdo, que se baseia inteiramente em itens, o método empregado neste motor será orientado a usuário. Sendo assim, o método de recomendação colaborativa orientado a usuário implementado nesta aplicação pode ser dividido em seis partes:
 
