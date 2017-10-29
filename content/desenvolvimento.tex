@@ -117,7 +117,7 @@ Toda a comunicação entre o agente das requisições e a API funciona através 
 \begin{quadro}[h!tp]
 
 	\caption{\label{resource_example}Exemplo de recurso de \textit{endpoints} para o módulo item.}
-	\centering
+	\begin{center}
 	\begin{tabular}{|l|l|l|}
 	\hline
 	\textbf{Método HTTP} & \textit{\textbf{Endpoint}} & \textbf{Descrição}          \\ \hline
@@ -127,9 +127,9 @@ Toda a comunicação entre o agente das requisições e a API funciona através 
 	DELETE               & /item/:item\_id            & Deleta um item específico   \\ \hline
 	GET                  & /item                      & Retorna todos os itens      \\ \hline
 	\end{tabular}
+	\end{center}
 
-	Fonte: O Autor.
-
+	\hspace{2.5cm} {\fontsize{10pt}{\baselineskip}\selectfont Fonte: O autor.}
 \end{quadro}
 
 Analisando o quadro \ref{resource_example}, nota-se que um mesmo \textit{endpoint} pode apontar para diferentes funções, uma vez que o método HTTP que encabeça a requisição também é levado em consideração. Além disso, é importante ressaltar que cada par de \textbf{método HTTP} e \textbf{\textit{endpoint}} correspondem diretamente a um \textbf{controlador} da API, que recebe os parâmetros variáveis da requisição (no quadro \ref{resource_example} representando por \textit{item\_id}) e os repassa aos serviços. Sendo assim, os controladores poderiam ser definidos como as "portas de entrada" da API, direcionando a execução de cada funcionalidade.
@@ -439,7 +439,8 @@ Para tornar possível a implementação desta aplicação em tempo hábil, foram
 \begin{quadro}[htp]
 
 	\caption{\label{technologies}Tecnologias utilizadas durante a implementação.}
-	\centering
+
+	\begin{center}
 	\begin{tabular}{|l|l|}
 	\hline
 	\textbf{Categoria} 			& \textbf{Tecnologia}   \\ \hline
@@ -453,8 +454,9 @@ Para tornar possível a implementação desta aplicação em tempo hábil, foram
 	Ferramenta de testes		& Postman				\\ \hline
 	Documentação automática		& Sphinx				\\ \hline
 	\end{tabular}
+	\end{center}
 
-	Fonte: O Autor.
+	\hspace{3.2cm} {\fontsize{10pt}{\baselineskip}\selectfont Fonte: O autor.}
 
 \end{quadro}
 
