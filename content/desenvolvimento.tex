@@ -266,7 +266,7 @@ A fim de abstrair este processo para os outras partes da aplicação, foram cria
 
 Como apresentado na figura \ref{persistence}, o serviço de persistência recebe um modelo, previamente criado e validado pelo \textbf{analisador de dados}. Este modelo será contrastado com os metadados vigentes para geração dinâmica de um documento no formato necessário para sua inserção no banco de dados. Assim como nos \textit{endpoints} da interface de comunicação, os serviços de persitência usam como parâmetros para administração de documentos específicos o identificador único (\textbf{\textit{key:true}}) declarado nos metadados, gerando documentos com base neste identificador.
 
-Além da persistência do modeo recebido, o serviço de persistência também é encarregado de notificar o motor de recomendações de quaisquer modificações ou adições aos documentos existentes. Esta notificação é necessária para que o motor de recomendações saiba quando é necessário treinar novos documentos recém adicionados, ou quando treinar novamente documentos que mudaram seu estado. O processo de recebimento das notificações e treinamento da base pode ser visto na seção \nameref{motor}.
+Além da persistência do modelo recebido, o serviço de persistência também é encarregado de notificar o motor de recomendações de quaisquer modificações ou adições aos documentos existentes. Esta notificação é necessária para que o motor de recomendações saiba quando é necessário treinar novos documentos recém adicionados, ou quando treinar novamente documentos que mudaram seu estado. O processo de recebimento das notificações e treinamento da base pode ser visto na seção \nameref{motor}.
 
 \section{O Motor de Recomendações} \label{motor}
 
