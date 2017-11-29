@@ -58,7 +58,7 @@ A figura \ref{interconnection} mostra um exemplo de requisição à API de recom
 	\item \textbf{Retorno personalizado}: Com a estrutura JSON processada em mãos, a API verifica os metadados atuais e retorna, com base nos atributos especificados como visíveis, uma estrutura JSON personalizada pelos desejo do usuário da API.
 \end{enumerate}
 
-Partindo da premissa que a solução deve atender modelos genéricos, serão fornecidos na inicialização da API os \textbf{metadados} de usuários, itens e avaliações, correspondendo a estrutura necessária pelo usuário da aplicação. Uma vez que os metadados sejam fornecidos, os dados relacionados devem respeitar as estruturas definidas. Tanto os usuários, itens e avaliações, quanto as futuras recomendações, serão persistidas em um banco de dados, a fim de centralizar as informações e diminuir o tempo de resposta das recomendações requisitadas.
+Partindo da premissa que a solução deve atender modelos genéricos, são fornecidos na inicialização da API os \textbf{metadados} de usuários, itens e avaliações, correspondendo a estrutura necessária pelo usuário da aplicação. Uma vez que os metadados são fornecidos, os dados relacionados devem respeitar as estruturas definidas. Tanto os usuários, itens e avaliações, quanto as futuras recomendações, são persistidas em um banco de dados, a fim de centralizar as informações e diminuir o tempo de resposta das recomendações requisitadas.
 
 De posse das estruturas de metadados fornecidas na inicialização, o usuário da solução poderá alimentar o sistema através das seguintes interfaces gerais:
 
@@ -72,7 +72,7 @@ De posse das estruturas de metadados fornecidas na inicialização, o usuário d
 	\item \textbf{Avaliações}: O usuário da API fornece as avaliações que ligam usuários a itens. Essas informações servem como união, apontando quais usuários estão relacionados a quais itens, sempre atrelando esta relação a uma avaliação numérica.
 \end{itemize}
 
-Tais ações de alimentação serão responsáveis por preencher os respectivos conjuntos anteriormente descritos e, a partir deles, construir os modelos de cada usuário e a matriz de avaliações, fundamentais para a geração das recomendações. Durante a requisição de uma recomendação, a solução definirá o método a ser utilizado e o mesmo fará as recomendações com base nos dados conhecidos, respeitando as propriedades descritas nos metadados. Um esquema do funcionamento geral da aplicação pode ser visto na \autoref{overview}.
+Tais ações de alimentação são responsáveis por preencher os respectivos conjuntos anteriormente descritos e, a partir deles, construir os modelos de cada usuário e a matriz de avaliações, fundamentais para a geração das recomendações. Durante a requisição de uma recomendação, a solução define o método a ser utilizado e o mesmo fará as recomendações com base nos dados conhecidos, respeitando as propriedades descritas nos metadados. Um esquema do funcionamento geral da aplicação pode ser visto na \autoref{overview}.
 
 \begin{figure}[h!tp]
 	\caption{\label{overview}Visão geral da API.}
@@ -140,7 +140,7 @@ Para aumentar o nível de abstração do funcionamento da API, o padrão de \tex
 
 Como forma de aumentar a segurança durante as requisições e, principalmente, garantir que apenas os usuários com acesso ao serviço façam requisições, a API conta com um sistema de autenticação via \textit{token}.
 
-Antes da primeira inicialização, o \textit{script} gera um \textit{token} único para o usuário da API, que será posteriormente concatenado com uma palavra secreta nos arquivos de configuração, além da data e hora atuais da requisição de autenticação. O resultado final é um \textit{token} temporário, com validade de até quinze dias, que será utilizado, obrigatoriamente, no cabeçalho de quaisquer requisições aos recursos da API.
+Antes da primeira inicialização, o \textit{script} gera um \textit{token} único para o usuário da API, posteriormente concatenado com uma palavra secreta nos arquivos de configuração, além da data e hora atuais da requisição de autenticação. O resultado final é um \textit{token} temporário, com validade de até quinze dias, utilizado, obrigatoriamente, no cabeçalho de quaisquer requisições aos recursos da API.
 
 Do mesmo modo que o agente das requisições precisa incluir o \textit{token} temporário no cabeçalho das requisições, a API precisa verificar a validade deste \textit{token}. Para que isso seja possível, foi criada uma classe intermediária (\textit{middleware}) que intercepta todas as requisições, exceto a requisição de autenticação. Essa classe, por sua vez, verifica a existência do \textit{token} no cabeçalho da requisição bem como sua validade. Caso o \textit{token} não exista ou não remeta a um usuário de API válido, o \textit{middleware} bloqueia a execução da requisição, retornando uma mensagem de erro e um \textit{status code} igual a \textbf{403} - "\textit{Forbidden}". Um exemplo requisição de autenticação pode ser visto na figura \ref{auth_example}.
 
@@ -182,7 +182,7 @@ Para ilustrar o processo de definição dos metadados, a figura \ref{metadata} m
 	\hspace{5.5cm}{Fonte: O Autor.}
 \end{figure}
 
-Analisando a figura \ref{metadata} nota-se um conjunto de chaves pré-definidas para a estrutura declarada. A razão dessas chaves possuírem suas definições \textbf{obrigatórias e pré-definidas} é o fato de que as mesmas moldam todas as outros atributos dinamicamente atribuídos aos modelos de itens, usuários e avaliações, consequentemente moldando o banco de dados. Sendo assim, cada chave da estrutura definida na figura é utilizada como atributo chave para alguma decisão estrutural dentro da API. As chaves definidas na figura possuem as seguintes funcionalidades:
+Analisando a figura \ref{metadata} nota-se um conjunto de chaves pré-definidas para a estrutura declarada. A razão dessas chaves possuírem suas definições \textbf{obrigatórias e pré-definidas} é o fato de que as mesmas moldam todos os outros atributos dinamicamente atribuídos aos modelos de itens, usuários e avaliações, consequentemente moldando o banco de dados. Sendo assim, cada chave da estrutura definida na figura é utilizada como atributo chave para alguma decisão estrutural dentro da API. As chaves definidas na figura possuem as seguintes funcionalidades:
 
 \begin{itemize}
 	\item \textbf{\textit{type}}: Fora da chave \textbf{\textit{"attributes"}}, define o tipo do grupo de metadados que correspondem os atributos declarados. Dentro de um atributo, define o tipo do dado ao qual o atributo espera um valor, podendo ser qualquer tipo natural: \textbf{\textit{string}}, \textbf{\textit{integer}}, \textbf{\textit{float}}, etc. Espera um valor do tipo \textbf{\textit{string}}.
@@ -254,7 +254,7 @@ Visando utilizar uma estratégia de persistência que se destacasse no processam
 
 Devido ao JSON ser o padrão escolhido para a estrutura de dados da aplicação, a similaridade entre o documento armazenado no banco de dados e o JSON de retorno ao usuário da API é muito pequena, reduzindo o nível de complexidade como um todo. Além disso, é permitida a inserção de documentos dinâmicos, sem um padrão previamente definidos em tabelas e campos, sendo possível inserir novos atributos em itens, usuários e avaliações apenas declarando-os nos metadados, sem a necessidade de modificar a estrutura da base de dados.
 
-A fim de abstrair este processo para os outras partes da aplicação, foram criadas serviços de persitência para cada módulo existente, responsáveis por administrar toda a comunicação com o banco de dados. Tais serviços são utilizados tanto pelo \textbf{analisador de dados} quando pelo \textbf{motor de recomendações}, seja para a persistência de novas recomendações recém geradas ou para novos itens enviados pelo usuário da API através da interface de comunicação. A figura \ref{persistence} demonstra o processo de construção dinâmica do item através do modelo e sua persistência no banco de dados.
+A fim de abstrair este processo para os outras partes da aplicação, foram criados serviços de persitência para cada módulo existente, responsáveis por administrar toda a comunicação com o banco de dados. Tais serviços são utilizados tanto pelo \textbf{analisador de dados} quando pelo \textbf{motor de recomendações}, seja para a persistência de novas recomendações recém geradas ou para novos itens enviados pelo usuário da API através da interface de comunicação. A figura \ref{persistence} demonstra o processo de construção dinâmica do item através do modelo e sua persistência no banco de dados.
 
 \begin{figure}[h!tp]
 	\caption{\label{persistence}Esquema do serviço de persistência.}
@@ -286,7 +286,7 @@ Do mesmo modo que o analisador de dados, o motor de recomendações faz uso dos 
 
 De posse destes dados persistidos na base, o motor de recomendações consegue cruzá-los a fim de obter duas matrizes: a matriz de nível de similaridade entre itens e, posteriormente, a matriz de itens de maior similaridades não avaliados para cada usuário. Essas matrizes são posteriormente desmembradas em rankings de itens e persistidos em cada usuário e item, com seus itens de maior similaridade, em outras palavras, suas recomendações.
 
-Como forma de recomendação será utilizado o método híbrido, composto dos métodos \textbf{baseado em conteúdo} e \textbf{filtragem colaborativa}, escalonando através do método com melhor precisão momentânea. Dessa forma é possível atender qualquer tipo de metadado, fornecendo recomendações independente do número de usuários, itens e avaliações na base de dados.
+Como forma de recomendação é utilizado o método híbrido, composto dos métodos \textbf{baseado em conteúdo} e \textbf{filtragem colaborativa}, escalonando através do método com melhor precisão momentânea. Dessa forma é possível atender qualquer tipo de metadado, fornecendo recomendações independente do número de usuários, itens e avaliações na base de dados.
 
 Em um primeiro momento, a API utilizará o método baseado em conteúdo para fornecer as recomendações e predições, uma vez que poucos itens estarão avaliados e o método colaborativo não terá modelos de usuários suficientes. Ao passo que as métricas de relações entre usuários e quantidade de modelos processados sejam supridas, a API passará a utilizar o método de filtragem colaborativa, unindo os resultados com os maiores níveis de similaridades, levando em conta as duas diferentes abordagens.
 
@@ -382,7 +382,7 @@ Analisando a figura \ref{collaborative_engine}, nota-se que o fluxo de funcionam
 
 \section{Testes e Implementação} \label{testes}
 
-Durante o processo de desenvolvimento do protótipo desta aplicação, foi necessária a utilização de um grupo de dados de teste não só nos padrões especificados pela API, mas também coerente com sua semântica de relações. Dessa forma, os testes do funcionamento das recomendações foram executados com a utilização de uma base real de usuários, itens e avaliações, contendo um volume de dados suficiente para que os objetivos deste trabalho fossem assegurados.
+Durante o processo de desenvolvimento desta aplicação, foi necessária a utilização de um grupo de dados de teste não só nos padrões especificados pela API, mas também coerente com sua semântica de relações. Dessa forma, os testes do funcionamento das recomendações foram executados com a utilização de uma base real de usuários, itens e avaliações, contendo um volume de dados suficiente para que os objetivos deste trabalho fossem assegurados.
 
 A base de dados em questão é a do projeto \textbf{MovieLens}, proposto por \citeonline{harper2016movielens}, comumente utilizada para aplicações com este fim devido ao fato de possuir inúmeras opções de tamanhos diferentes, preenchidas com dados retirados de ambientes de produção. Além disso, a base de testes acima descrita, foi amplamente utilizada para testar a assertividade de algoritmos durante o \textbf{NetflixPrize}, evento promovido pela empresa \textbf{Netflix} para eleger os algoritmos de recomendações mais assertivos \cite{bennett2007netflix}.
 

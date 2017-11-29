@@ -11,14 +11,14 @@ Dessa forma, considera-se que um agente está aprendendo se melhorar o seu desem
 Conforme apresentado por \citeonline{carbonell1983overview}, devido a capacidade de, além de solucionar problemas, melhorar automaticamente o desempenho da solução, os sistemas de aprendizagem tem suas aplicações nas mais diversas áreas, tais como agricultura, educação, sistemas especialistas de alta performance, reconhecimento de imagem, programação, etc. Através de um apanhado das aplicações nas áreas de utilização, \citeonline{carbonell1983overview} dividem o campo de aprendizado do \textit{machine learning} em três partes:
 
 \begin{itemize}
-	\item \textbf{Estudos orientados à tarefa (\textit{Task-oriented studies}):} composto pelo desenvolvimento e análise de sistemas de aprendizagem visando melhorar a performance na solução de determinadas tarefas.
+	\item \textbf{Estudos orientados a tarefa (\textit{Task-oriented studies}):} composto pelo desenvolvimento e análise de sistemas de aprendizagem visando melhorar a performance na solução de determinadas tarefas.
 
 	\item \textbf{Simulação cognitiva (\textit{Cognitive simulation}):} formado pela investigação e simulação do processo de aprendizagem humano.
 
 	\item \textbf{Análise teórica (\textit{Theoretical analysis}):} exploração teórica do espaço de possíveis processos de aprendizado.
 \end{itemize}
 
-Analisando a taxonomia proposta por \citeonline{carbonell1983overview}, pode-se identificar que o escopo deste trabalho encontra-se nos estudos orientados à tarefa, onde o propósito é a melhoria da performance, neste caso através de recomendações orientadas à metadados.
+Analisando a taxonomia proposta por \citeonline{carbonell1983overview}, pode-se identificar que o escopo deste trabalho encontra-se nos estudos orientados a tarefa, onde o propósito é a melhoria da performance, neste caso através de recomendações orientadas à metadados.
 
 Como exemplo do uso das técnicas de \textit{machine learning}, \citeonline{sebastiani2002machine}  apresenta um algoritmo de categorização de texto que, a partir de um conjunto de documentos pré-classificados (entradas), constrói um classificador para novos documentos (novas entradas). Outro exemplo, apresentado por \citeonline{pang2002thumbs}, reforça a ideia de melhora de desempenho para novas entradas através de um padrão aprendido a partir de entradas já existentes. Através de dados sobre avaliações de filmes, pode-se perceber que, mesmo as técnicas padrão de \textit{machine learning}, acabam superando os patamares humanos na classificação de sentimentos.
 
@@ -68,7 +68,7 @@ Atualmente \citeonline{pazzani2007content} apresentam que, devido ao grande cres
 
 \subsection{Método Baseado em Colaboração} \label{recs:collaborative_based}
 
-O método de filtragem colaborativa (\textit{collaborative-based} - CF) baseia-se no processo de avaliar itens através da opinião de outras pessoas. Tal processo, que começou com a filtragem da natureza de repositórios de texto, passou a ser mais informal, abrangendo até listas de discussão e arquivos de \textit{e-mail}. No começo, usuários tinham que acessar sites específicos, tais como o MovieLens, para receberem recomendações de filmes. Conforme os sistemas baseados em CF foram se popularizando, os sites começaram a utilizar estes sistemas para adequar seu conteúdo para cada usuário \cite{schafer2007collaborative}.
+O método de filtragem colaborativa (\textit{collaborative-based} - CF) baseia-se no processo de avaliar itens a um usuário através da opinião de outros usuários. Tal processo, que começou com a filtragem da natureza de repositórios de texto, passou a ser mais informal, abrangendo até listas de discussão e arquivos de \textit{e-mail}. No começo, usuários tinham que acessar sites específicos, tais como o MovieLens, para receberem recomendações de filmes. Conforme os sistemas baseados em CF foram se popularizando, os sites começaram a utilizar estes sistemas para adequar seu conteúdo para cada usuário \cite{schafer2007collaborative}.
 
 Assim como os sistemas baseados em conteúdo, sistemas de filtragem colaborativa também levam em consideração as avaliações de itens (mesmo que de outros usuários similares), através dos métodos de avaliação já descritos. Segundo \citeonline{adomavicius2005toward}, a diferença entre estes dois processos existe pelo fato de que a utilidade $u(c,s)$ de um item $s$ a um usuário $c$ é medida não pela utilidade $u(c,s_{i})$ dos itens $s_{i}$ similares ao item $s$, mas sim pela utilidade $u(c_{j}, s)$ do item $s$ baseado nos usuários $c_{j}$ \textbf{similares} ao usuário $c$. Em outras palavras, na filtragem colaborativa, os itens considerados úteis a um usuário são os itens úteis a usuários similares a ele.
 
@@ -142,7 +142,7 @@ Como ilustrado na \autoref{hybrid_scheme}, a arquitetura descrita exemplifica um
 
 Através dessas limiares, toda vez que o usuário requisita uma recomendação, o agente de interface interativa (\textit{interactive interface agent}) verifica se as mesmas já foram atendidas. Se sim, o agente utiliza a recomendação do método de filtragem colaborativa, se não, o método baseado em conhecimento é utilizado.
 
-Tanto \citeonline{balabanovic1997fab} quanto \citeonline{claypool1999combining} utilizam sistemas híbridos compostos de duas técnicas combinadas: \textbf{baseado em conteúdo} e \textbf{baseado em colaboração}. Dessa forma, é possível utilizar o método colaborativo para gerar o conjunto de $\textbf{N}$ usuários vizinhos (\textit{neighbor-users}) já descrita neste trabalho. A partir do conjunto gerado é aplicado o método baseado no conteúdo destes usuários próximos, aumentando a precisão da recomendação gerada.
+Tanto \citeonline{balabanovic1997fab} quanto \citeonline{claypool1999combining} utilizam sistemas híbridos compostos de duas técnicas combinadas: \textbf{baseado em conteúdo} e \textbf{baseado em colaboração}. Dessa forma, é possível utilizar o método colaborativo para gerar o conjunto de $\textbf{N}$ usuários vizinhos (\textit{neighbor-users}), descrito na seção \nameref{recs:collaborative_based}. A partir do conjunto gerado é aplicado o método baseado no conteúdo destes usuários próximos, aumentando a precisão da recomendação gerada.
 
 Ao invés de se utilizar apenas um método, a utilização de sistemas híbridos pode trazer uma série de benefícios: ao executar recomendações baseadas em conteúdo, o sistema colaborativo pode lidar com novos usuários que ainda não tem seu modelo definido; torna-se possível fazer recomendações precisas a um usuário, mesmo que não existam usuários similares ao mesmo; pode-se recomendar itens não avaliados por nenhum dos usuários, cruzando o modelo dos mesmos com o conteúdo do item \cite{balabanovic1997fab}.
 
